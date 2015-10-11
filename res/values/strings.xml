@@ -1,0 +1,19 @@
+<resources>
+
+    <string name="app_name">Dengue Site Capture</string>
+
+    <string name="snap_photo">Snap Photo</string>
+
+    <string name="upload_photo">Upload Photo</string>
+
+    <string name="captureLaunchPhoto">Capture a Dengue Location</string>
+
+    <string name="upload_server">Upload</string>
+    
+    <string name="uploaded">Successfully uploaded</string>
+    
+    <string name="action_settings">Settings</string>
+    
+    <string name="take_photo">Take a Photo</string>
+    
+</resources>
