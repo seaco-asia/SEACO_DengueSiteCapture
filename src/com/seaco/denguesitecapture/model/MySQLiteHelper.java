@@ -25,7 +25,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		String CREATE_DENGUE_SITE_TABLE = "CREATE TABLE denguesites (" +
 				"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
 				"filename TEXT, " +
-				"gps TEXT )";
+				"gps TEXT, " +
+				"photoDesc TEXT)";
 		db.execSQL(CREATE_DENGUE_SITE_TABLE);
 	}
 	
@@ -40,18 +41,19 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	private static final String KEY_ID = "id";
 	private static final String KEY_FILENAME = "filename";
 	private static final String KEY_GPS = "gps";
+	private static final String KEY_PHOTO_DESC = "photoDesc";
 	
-	private static final String[] COLUMNS = {KEY_ID, KEY_FILENAME, KEY_GPS};
+	private static final String[] COLUMNS = {KEY_ID, KEY_FILENAME, KEY_GPS, KEY_PHOTO_DESC};
 	
-	public void addPicture(SitePhotos photo){
+	//Fix cannot insert gps value into db
+	public void addPicture(SitePhotos photo){ 
 		
 		SQLiteDatabase db = this.getWritableDatabase();
 		
 		ContentValues values = new ContentValues();
-		
 		values.put(KEY_FILENAME, photo.getFilename());
 		values.put(KEY_GPS, photo.getGps());
-		
+		values.put(KEY_PHOTO_DESC, photo.getPhotoDesc());
 		db.insert(TABLE_DENGUESITES, null, values);
 		
 		db.close();
@@ -71,7 +73,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		photo.setId(Integer.parseInt(cursor.getString(0)));
 		photo.setFilename(cursor.getString(1));
 		photo.setGps(cursor.getString(2));
-		
+		photo.setPhotoDesc(cursor.getString(3));
 		return photo;
 		
 	}
@@ -93,6 +95,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				photo.setId(Integer.parseInt(cursor.getString(0)));
 				photo.setFilename(cursor.getString(1));
 				photo.setGps(cursor.getString(2));
+				photo.setPhotoDesc(cursor.getString(3));
 				
 				photos.add(photo);
 			}while (cursor.moveToNext());
@@ -112,7 +115,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		
 		Log.i("getPhotosResult", "After rawquery");
 		
-		String[][] photos = new String[cursor.getCount()][3];
+		String[][] photos = new String[cursor.getCount()][4];
 		
 		Log.i("getPhotosResult", "After photos[][] instatiation");
 		
@@ -122,6 +125,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				photos[i][0] = cursor.getString(0);
 				photos[i][1] = cursor.getString(1);
 				photos[i][2] = cursor.getString(2);
+				photos[i][3] = cursor.getString(3);
 				
 				Log.i("insideCursor", cursor.getString(0));
 				Log.i("insideCursor", cursor.getString(1));

@@ -35,6 +35,4 @@
         	  android:layout_height="wrap_content"
         	  android:layout_alignLeft="@+id/spinner1"
         	  android:layout_alignTop="@+id/msg" />
-        
-
 </RelativeLayout>

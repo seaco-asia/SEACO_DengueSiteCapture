@@ -5,13 +5,15 @@ public class SitePhotos {
 	private int id;
 	private String filename;
 	private String gps;
+	private String photoDesc;
 	
 	public SitePhotos(){}
 	
-	public SitePhotos(String filename, String gps){
+	public SitePhotos(String filename, String gps, String photoDesc){
 		super();
 		this.filename = filename;
 		this.gps = gps;
+		this.photoDesc = photoDesc;
 	}
 	
 	public int getId(){
@@ -36,6 +38,14 @@ public class SitePhotos {
 	
 	public void setGps(String gps){
 		this.gps = gps;
+	}
+
+	public String getPhotoDesc() {
+		return photoDesc;
+	}
+
+	public void setPhotoDesc(String photoDesc) {
+		this.photoDesc = photoDesc;
 	}
 	
 }
