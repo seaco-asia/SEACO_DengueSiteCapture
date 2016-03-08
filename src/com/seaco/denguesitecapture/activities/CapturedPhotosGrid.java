@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -19,6 +21,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class CapturedPhotosGrid extends Activity {
+	
+	private static final String TAG = "CapturedPhotosGrid";
+	Intent intentObject = getIntent();	
+    String userID;
 
     public class ImageAdapter extends BaseAdapter {
      
@@ -95,13 +101,16 @@ public class CapturedPhotosGrid extends Activity {
    int inSampleSize = 1;
    
    if (height > reqHeight || width > reqWidth) {
+	   Log.d(TAG,"inSampleSize 1"+inSampleSize);
     if (width > height) {
-     inSampleSize = Math.round((float)height / (float)reqHeight);    
+     inSampleSize = Math.round((float)height / (float)reqHeight);  
+     Log.d(TAG,"inSampleSize 2"+inSampleSize);
     } else {
+    	Log.d(TAG,"inSampleSize 3"+inSampleSize);
      inSampleSize = Math.round((float)width / (float)reqWidth);    
     }   
    }
-   
+   Log.d(TAG,"inSampleSize 4"+inSampleSize);
    return inSampleSize;    
   }
 
@@ -110,27 +119,37 @@ public class CapturedPhotosGrid extends Activity {
     ImageAdapter myImageAdapter;
 
  @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.gridview);
-        
-        GridView gridview = (GridView) findViewById(R.id.gridview);
-        myImageAdapter = new ImageAdapter(this);
-        gridview.setAdapter(myImageAdapter);
-        
-        String ExternalStorageDirectoryPath = Environment
-          .getExternalStorageDirectory()
-          .getAbsolutePath();
-        
-        String targetPath = ExternalStorageDirectoryPath + "/picupload/";
-        
-        Toast.makeText(getApplicationContext(), targetPath, Toast.LENGTH_LONG).show();
-        File targetDirector = new File(targetPath);
-        
-        File[] files = targetDirector.listFiles();
-        for (File file : files){
-         myImageAdapter.add(file.getAbsolutePath());
-        } 
-    }
+ public void onCreate(Bundle savedInstanceState) {
+	 super.onCreate(savedInstanceState);
+	 setContentView(R.layout.gridview);
+
+
+	 userID = getIntent().getExtras().getString("userID");
+
+	 GridView gridview = (GridView) findViewById(R.id.gridview);
+	 myImageAdapter = new ImageAdapter(this);
+	 gridview.setAdapter(myImageAdapter);
+
+	 String ExternalStorageDirectoryPath = Environment
+			 .getExternalStorageDirectory()
+			 .getAbsolutePath();
+
+	 String targetPath = ExternalStorageDirectoryPath + "/picupload/"+userID+"/";
+
+	 Toast.makeText(getApplicationContext(), targetPath, Toast.LENGTH_LONG).show();
+	 File targetDirector = new File(targetPath);
+
+	 File[] files = targetDirector.listFiles();
+
+	 File folder = new File(targetPath); //fix if the user enter first time at this page without upload
+	 
+	 if(folder.exists()){ //fix if the user enter first time at this page without upload
+		 for (File file : files){
+			 Log.d(TAG,"targetPath: "+files);
+			 myImageAdapter.add(file.getAbsolutePath());
+		 }
+
+	 } 
+ }
 
 }

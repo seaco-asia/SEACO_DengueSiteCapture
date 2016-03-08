@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/seaco_custom_background"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="20dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:paddingTop="56dp"
+    android:id="@+id/historytask_dialog" >
+
+    <TextView
+        android:id="@+id/officer_task_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ff888888"
+        android:text="Officer&apos;s Task"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ff888888"
+        android:orientation="vertical" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_marginTop="30dp" >
+
+            <TextView
+                android:id="@+id/officer_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="#ffffffff"
+                android:text="Officer"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="#ffffffff"
+                android:text=":"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/txtOfficer"
+                android:layout_width="450dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="#ffffffff"
+                android:ems="10" >
+
+                <requestFocus />
+            </EditText>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_marginTop="30dp" >
+
+            <TextView
+                android:id="@+id/historyID_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="#ffffffff"
+                android:text="History ID "
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/TextView02"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="#ffffffff"
+                android:text=":"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/txtHistoryID"
+                android:layout_width="450dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="#ffffffff"
+                android:ems="10" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_marginTop="30dp" >
+
+            <TextView
+                android:id="@+id/filename_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="#ffffffff"
+                android:text="Filename "
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/TextView03"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="#ffffffff"
+                android:text=":"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/txtFilename"
+                android:layout_width="450dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="#ffffffff"
+                android:ems="10" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_marginTop="30dp"
+            android:background="#ffffffff" >
+
+            <TextView
+                android:id="@+id/decision_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="#ffffffff"
+                android:text="Decision "
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/TextView04"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="#ffffffff"
+                android:text=":"
+                android:textSize="20dp" />
+
+            <RadioGroup
+                android:id="@+id/radDecision"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="#ffffffff" >
+                
+               <RadioButton
+                    android:id="@+id/radBtnViewed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Viewed" />
+                
+               <RadioButton
+                    android:id="@+id/radBtnInProcess"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="In Process" />
+
+                <RadioButton
+                    android:id="@+id/radBtnResolved"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Resolved" />
+
+                <RadioButton
+                    android:id="@+id/radBtnRejected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rejected" />
+            </RadioGroup>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:background="#ffffffff"
+            android:layout_marginTop="30dp" >
+
+            <TextView
+                android:id="@+id/comment_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="#ffffffff"
+                android:text="Comment "
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/TextView05"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="#ffffffff"
+                android:text=":"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/txtComment"
+                android:layout_width="450dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="#ffffffff"
+                android:ems="10" />
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="213dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="216dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Cancel" />
+
+</LinearLayout>

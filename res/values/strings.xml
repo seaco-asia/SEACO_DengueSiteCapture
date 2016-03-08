@@ -16,4 +16,7 @@
     
     <string name="take_photo">Take a Photo</string>
     
+    <string name="btn_label1"> Fragment One </string>
+    <string name="btn_label2"> Fragment Two </string>
+    
 </resources>

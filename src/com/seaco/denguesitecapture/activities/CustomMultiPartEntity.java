@@ -14,11 +14,12 @@ public class CustomMultiPartEntity extends MultipartEntity
 {
 
 	private ProgressListener listener;
-
+	private static final String TAG_PROGRESS = "progress upload";
+	
 	public CustomMultiPartEntity()
 	{
 		super();
-		Log.d("test purpose customMultiPartEntity 1:","test purpose");
+		Log.d(TAG_PROGRESS,"customMultiPartEntity 1: test purpose");
 
 	}
 
@@ -65,7 +66,7 @@ public class CustomMultiPartEntity extends MultipartEntity
 			super(out);
 			this.listener = listener;
 			this.transferred = 0;
-			Log.d("test purpose customMultiPartEntity 2:","test purpose");
+			Log.d(TAG_PROGRESS," customMultiPartEntity 2: test purpose");
 		}
 
 		@Override
@@ -77,7 +78,7 @@ public class CustomMultiPartEntity extends MultipartEntity
 			if(this.listener !=null){
 
 				this.listener.transferred(this.transferred);
-				Log.d("test purpose customMultiPartEntity 3:","test purpose");
+				Log.d(TAG_PROGRESS,"customMultiPartEntity 3: test purpose");
 
 			}
 
@@ -91,7 +92,7 @@ public class CustomMultiPartEntity extends MultipartEntity
 			if(this.listener !=null){
 
 				this.listener.transferred(this.transferred);
-				Log.d("test purpose customMultiPartEntity 4:","test purpose");
+				Log.d(TAG_PROGRESS,"customMultiPartEntity 4: test purpose");
 
 			}
 

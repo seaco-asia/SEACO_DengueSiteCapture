@@ -7,14 +7,21 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.seaco.denguesitecapture.R;
 
@@ -50,6 +57,7 @@ public class CapturePhoto extends Activity implements OnClickListener {
 	private Button mTakePhoto, mSavePhoto;
 	private ImageView mImageView;
 	private static final String TAG = "upload";
+	private static final String TAG_PROGRESS = "progress upload";
 	private MySQLiteHelper db;
 	private String siteChoice;
 	private EditText mEditText;
@@ -59,6 +67,8 @@ public class CapturePhoto extends Activity implements OnClickListener {
 	long imageSize = 0; // kb
 	public ProgressListener listener;
 	Boolean captureExist = false;
+	Intent intentObject = getIntent();
+	String userID;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +77,9 @@ public class CapturePhoto extends Activity implements OnClickListener {
 
 		Intent inte = getIntent();
 		siteChoice = inte.getStringExtra("siteChoice"); //We now know the type of site selected by the user
+		userID = inte.getStringExtra("userID"); //We now know the type of site selected by the user
+		
+		Log.d(TAG, "idCommunity["+userID+"]");
 
 		mTakePhoto = (Button) findViewById(R.id.take_photo);
 
@@ -82,7 +95,11 @@ public class CapturePhoto extends Activity implements OnClickListener {
 		mTakePhoto.setOnClickListener(this);
 		mSavePhoto.setOnClickListener(this);
 
-		db = new MySQLiteHelper(this);
+		/* temporary using before implement server database
+		 * 
+			db = new MySQLiteHelper(this);
+		 *	
+		 */
 
 		gps = new GPSTracker(this);
 	}
@@ -171,9 +188,9 @@ public class CapturePhoto extends Activity implements OnClickListener {
 			if(gps.canGetLocation()){
 				latitude = gps.getLatitude();
 				longitude = gps.getLongitude();
-				Log.d("latitude: "+latitude, "longitude: "+longitude);
+				Log.d(TAG,"latitude ["+latitude+"] and longitude ["+longitude+"]");
 			}else{
-				Log.d("latitude else: "+latitude, "longitude else: "+longitude);
+				Log.d(TAG,"latitude else ["+latitude+"] and longitude ["+longitude+"]");
 				gps.showSettingsAlert();
 			}			
 
@@ -196,22 +213,24 @@ public class CapturePhoto extends Activity implements OnClickListener {
 				TelephonyManager mngr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE); 
 
 
-				StringBody lat = null, lon = null, site = null, im = null;
+				StringBody lat = null, lon = null, site = null, im = null, insertBy = null;
+				StringBody photoDesc = null;
 
 				try{
 					lat = new StringBody(String.valueOf(latitude));
 					lon = new StringBody(String.valueOf(longitude));
 					site = new StringBody(siteChoice);
 					im = new StringBody(mngr.getDeviceId());
+					photoDesc = new StringBody(mEditText.getText().toString());
+					insertBy = new StringBody(userID);
 				}catch(Exception el){
-					Log.i("error_stringbody",lat.toString() + lon.toString() + site.toString() + im.toString());
+					Log.i("error_stringbody",lat.toString() + lon.toString() + site.toString() + im.toString() + photoDesc.toString() + insertBy);
 				}
 
 				customEntity.setListener(this);
 
 				/* Set a server side php script location */
-				HttpPost httppost = new HttpPost("http://octopus.seaco.asia/dengueSites/upload.php"); //replace
-
+				HttpPost httppost = new HttpPost(Config.URL_UPLOAD);
 
 				byte[] data = null;
 				try {
@@ -228,19 +247,24 @@ public class CapturePhoto extends Activity implements OnClickListener {
 				customEntity.addPart("lon", lon);
 				customEntity.addPart("siteChoice", site);
 				customEntity.addPart("imei", im);	
-
+				customEntity.addPart("photoDesc",photoDesc);
+				customEntity.addPart("insertBy",insertBy);
+				
+				/* temporary using before implement server database
+				 * 
 				String photoDesc = mEditText.getText().toString();
 
 				//combine the value of latitude and longitude
 				String latitudeLongitude = String.valueOf(latitude)+","+String.valueOf(longitude);
 				Log.i("customEntity","Lat: "+String.valueOf(latitude) + "Lon: "+ String.valueOf(longitude) + "siteChoice: "+ siteChoice + "imei: " + mngr.getDeviceId());
 
+				//Insert into db
+				//db.addPicture(new SitePhotos(fileMillis,latitudeLongitude,photoDesc));
+				 * 
+				 */
+
 				/* New */
 				httppost.setEntity(customEntity);
-
-				//Insert into db
-				db.addPicture(new SitePhotos(fileMillis,latitudeLongitude,photoDesc));
-
 				Log.i(TAG, "request " + httppost.getRequestLine());
 				HttpResponse response = null;
 				try {
@@ -389,8 +413,8 @@ public class CapturePhoto extends Activity implements OnClickListener {
 		double latitude = 0.0;
 		double longitude = 0.0;
 		mEditText.setText("");
-		
-		Log.d("test take photo:", "take photo 3: ");
+
+		Log.d(TAG_PROGRESS, "take photo 3: ");
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		// Ensure that there's a camera activity to handle the intent
 		if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -422,7 +446,7 @@ public class CapturePhoto extends Activity implements OnClickListener {
 		// Create an image file name
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 		String imageFileName = "JPEG_" + timeStamp + "_";
-		String storageDir = Environment.getExternalStorageDirectory() + "/picupload";
+		String storageDir = Environment.getExternalStorageDirectory() + "/picupload/" +userID;
 		File dir = new File(storageDir);
 		if (!dir.exists())
 			dir.mkdir();

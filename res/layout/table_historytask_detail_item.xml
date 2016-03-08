@@ -18,15 +18,15 @@
             android:paddingTop="3dp" >
 
             <TextView
-                android:id="@+id/history_id_title"
-                android:layout_width="150dp"
+                android:id="@+id/taskID_title"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
                 android:gravity="left"
-                android:text="ID	:" />
+                android:text="Task ID	:" />
 
             <TextView
-                android:id="@+id/history_id"
+                android:id="@+id/taskID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.25"
@@ -40,15 +40,15 @@
             android:paddingTop="3dp" >
 
             <TextView
-                android:id="@+id/history_filename_title"
+                android:id="@+id/officerName_title"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
                 android:gravity="left"
-                android:text="Filename:" />
+                android:text="Officer	:" />
 
             <TextView
-                android:id="@+id/history_filename"
+                android:id="@+id/officerName"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
@@ -62,15 +62,15 @@
             android:paddingTop="3dp" >
 
             <TextView
-                android:id="@+id/history_gps_title"
+                android:id="@+id/claimDate_title"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
                 android:gravity="left"
-                android:text="GPS	:" />
+                android:text="Claim Date	:" />
 
             <TextView
-                android:id="@+id/history_gps"
+                android:id="@+id/claimDate"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
@@ -84,20 +84,19 @@
             android:paddingTop="3dp" >
 
             <TextView
-                android:id="@+id/history_uploaded_title"
+                android:id="@+id/decision_title"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
                 android:gravity="left"
-                android:text="Description	:" />
+                android:text="Decision	:" />
 
             <TextView
-                android:id="@+id/history_uploaded"
+                android:id="@+id/decision"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
                 android:gravity="left" />
-
         </TableRow>
 
         <TableRow
@@ -107,41 +106,45 @@
             android:paddingTop="3dp" >
 
             <TextView
-                android:id="@+id/history_status_title"
+                android:id="@+id/comment_title"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
                 android:gravity="left"
-                android:text="Status	:" />
+                android:text="Comment	:" />
 
             <TextView
-                android:id="@+id/history_status"
+                android:id="@+id/comment"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:gravity="left" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ff888888"
+            android:paddingTop="3dp" >
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:gravity="left"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/TextView02"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
                 android:gravity="left" />
         </TableRow>
 
-        <TableRow
-            android:gravity="right"
-            android:paddingTop="10dp"
-            android:background="#ff888888" >
-
-              <Button
-                android:id="@+id/btnDetail"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Detail" />
-
-              <Button
-                  android:id="@+id/btnClaim"
-                  style="?android:attr/buttonStyleSmall"
-                  android:layout_width="100dp"
-                  android:layout_height="wrap_content"
-                  android:text="Claim" />
-
-        </TableRow>
     </TableLayout>
 
 </LinearLayout>
