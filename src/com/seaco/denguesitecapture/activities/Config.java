@@ -36,6 +36,7 @@ public class Config {
     public static final String KEY_USER_EMAIL = "userEmail";
     public static final String KEY_USER_PASSWORD = "userPassword";
     public static final String KEY_USER_Regtype = "userRegtype";
+    public static final String KEY_USER_PHONENO = "userPhoneNo";
     
     public static final String KEY_TASK_HISTORYID = "historyId";
     public static final String KEY_TASK_FILENAME = "filename";
@@ -63,6 +64,10 @@ public class Config {
     public static final String TAG_PHOTO_DESC = "photoDesc";
     public static final String TAG_INSERTBY = "insertBy";
     public static final String TAG_PATH = "path";
+    public static final String TAG_STATUS = "status";
+    public static final String TAG_OFFICER_COMMENT = "offDesc";
+    public static final String TAG_REPORT_BY = "userName";
+    public static final String TAG_PHONE_NO = "userPhoneNo";
     
     public static final String TAG_JSON_ARRAY_TASK="result";
     public static final String TAG_TASK_TASKID = "taskId";
@@ -84,9 +89,9 @@ public class Config {
     public static final String TAG_IMAGE_FILENAME = "filename";
    // public static final String TAG_PUBLISHER = "publisher";
     
-    public static final String URL_GET_JASON		= URL_MAIN+"getSingle_TaskJson.php?id=";
+    /*public static final String URL_GET_JASON		= URL_MAIN+"getSingle_TaskJson.php?id=";
 
     public static final String id= "features_list_properties_OBJECTID";
     public static final String name = "features_list_properties_NAME";
-    public static final String address = "features_list_properties_ADDRESS";
+    public static final String address = "features_list_properties_ADDRESS";*/
 }

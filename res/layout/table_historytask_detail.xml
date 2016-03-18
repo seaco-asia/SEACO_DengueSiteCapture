@@ -1,44 +1,334 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_relativeTaskDetail"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal" >
+    android:layout_height="match_parent" >
 
     <LinearLayout
-        android:id="@+id/linearLayoutTop"
+        android:id="@+id/linearLayoutTaskDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:background="@android:color/black" >
 
-        <Button
-            android:id="@+id/buttonBack"
-            android:layout_width="124dp"
+        <ImageButton
+            android:id="@+id/imageButtonBack"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/darker_gray"
-            android:text="back" />
+            android:src="@drawable/image_back" />
 
-    </LinearLayout> 
-    
- <ScrollView
-     android:id="@+id/ScrollView"
-     android:layout_width="fill_parent"
-     android:layout_height="fill_parent"
-     android:layout_above="@+id/linearLayout"
-     android:layout_below="@+id/linearLayoutTop"
-     android:fillViewport="true" >
+        <ImageButton
+            android:id="@+id/imageButtonImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_view_image" />
+
+        <TextView
+            android:id="@+id/officer_TaskDetail_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ff888888"
+            android:text="Detail Task History"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/ScrollViewLayoutTaskDetailInfo"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/linearLayoutTaskDetail"
+        android:fillViewport="true" >
+
+        <TableLayout
+            android:id="@+id/tableLayoutTaskDetailInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#800000"
+            android:orientation="vertical" >
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dip"
+                android:background="#ffffff" >
+
+                <TextView
+                    android:id="@+id/history_id_title_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text="ID	"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/history_id_title2_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text=":"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/history_id_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:textSize="15sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dip"
+                android:background="#ffffff" >
+
+                <TextView
+                    android:id="@+id/history_filename_title_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text="Filename"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/history_filename_title2_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text=":"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/history_filename_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:textSize="15sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dip"
+                android:background="#ffffff" >
+
+                <TextView
+                    android:id="@+id/history_gps_title_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text="GPS	"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/history_gps_title2_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text=":"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/history_gps_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:textSize="15sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dip"
+                android:background="#ffffff" >
+
+                <TextView
+                    android:id="@+id/history_datereport_title_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text="Report Date"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/history_datereport_title2_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text=":"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/history_datereport_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:textSize="15sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dip"
+                android:background="#ffffff" >
+
+                <TextView
+                    android:id="@+id/history_username_title_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text="Report by"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/history_username_title2_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text=":"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/history_username_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:padding="5dip"
+                    android:textSize="15sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dip"
+                android:background="#ffffff" >
+
+                <TextView
+                    android:id="@+id/history_uploaded_title_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text="Community Comment"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/history_uploaded_title2_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text=":"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/history_uploaded_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:padding="5dip"
+                    android:textSize="15sp" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+    <TableLayout
+        android:id="@+id/tableLayoutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/ScrollViewLayoutTaskDetailInfo"
+        android:background="#800000"
+        android:scrollbars="vertical"
+        android:stretchColumns="*" >
+
+        <TableRow
+            android:id="@+id/tableRowTitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="1dip" >
+
+            <TextView
+                android:id="@+id/task_id"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dip"
+                android:background="#808080"
+                android:gravity="left"
+                android:padding="15dip"
+                android:text="Task ID"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/task_updatedate_title"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dip"
+                android:background="#808080"
+                android:padding="15dip"
+                android:text="Update: Date/By"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/task_comment_title"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dip"
+                android:background="#808080"
+                android:padding="15dip"
+                android:text="Comment"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/task_status_title"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dip"
+                android:background="#808080"
+                android:padding="15dip"
+                android:text="Status"
+                android:textStyle="bold" />
+        </TableRow>
+    </TableLayout>
+
+    <ScrollView
+        android:id="@+id/ScrollViewTableLayoutTaskDetail"
+        android:layout_width="fill_parent"
+        android:layout_height="1000dp"
+        android:layout_below="@+id/tableLayoutTitle"
+        android:layout_above="@+id/linearLayoutHistory"
+        android:fillViewport="true" >
 
         <TableLayout
             android:id="@+id/tableLayout"
             android:layout_width="match_parent"
-            android:layout_height="576dp"
-            android:orientation="vertical"
-            android:padding="5dp"
-            android:tag="test" >
-        </TableLayout>
-  </ScrollView>
+            android:layout_height="wrap_content"
+            android:background="#800000"
+            android:scrollbars="vertical"
+            android:stretchColumns="*" >
 
-<LinearLayout
-        android:id="@+id/linearLayout"
+        </TableLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutHistory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -69,6 +359,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:text="next" />
-    </LinearLayout> 
+    </LinearLayout>
 
 </RelativeLayout>

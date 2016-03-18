@@ -24,25 +24,26 @@ public class MainActivity extends Activity implements TabListener {
 	List<Fragment> fragList = new ArrayList<Fragment>();
 	Intent intentObject = getIntent();
 	private MySQLiteHelper db;
-	String userRegtype, userEmail, userName, userID, section;
+	String userRegtype, userEmail, userName, userID, userPhoneNo, section;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 
+		userPhoneNo = getIntent().getExtras().getString("userPhoneNo");
 		userEmail = getIntent().getExtras().getString("userEmail");
 		userRegtype = getIntent().getExtras().getString("userRegtype");
 		userName = getIntent().getExtras().getString("userName");
 		userID = getIntent().getExtras().getString("userID");
-		
+
 		Log.d(TAG,"userEmail ["+userEmail+"] and userRegtype["+userRegtype+"] and userName["+userName+"] and userID["+userID+"]");
-		
+
 		/* temporary using before implement server database
 		 * 
 			db = new MySQLiteHelper(this);
 			userRegtype = db.getRegType(userEmail);
-		*
-		*/
+		 *
+		 */
 
 		ActionBar bar = getActionBar();
 		bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -68,7 +69,7 @@ public class MainActivity extends Activity implements TabListener {
 	}
 
 	public void onTabSelected(Tab tab, FragmentTransaction ft){
-		
+
 		if(userRegtype.equalsIgnoreCase("COM")){ //COMMUNITY
 			Log.d("test........","COM");
 			commTabSelected(tab, ft);
@@ -141,6 +142,12 @@ public class MainActivity extends Activity implements TabListener {
 		DengueHistoryFragment dhf = null;
 		CapturedPhotosFragment cpsf = null;
 
+		//passing value from activity to fragment
+		Bundle bundle=new Bundle();
+		bundle.putString("userName", userName);
+		bundle.putString("userID", userID);
+		bundle.putString("userRegtype", userRegtype);
+
 		if(fragList.size() > tab.getPosition()){
 			fragList.get(tab.getPosition());
 		}
@@ -148,16 +155,21 @@ public class MainActivity extends Activity implements TabListener {
 		if(f == null){
 			/* Capture Photo Fragment */
 			if(tab.getPosition() == 0){
-				cpf = new CapturePhotoFragment(userEmail, userName, userID);
+				//cpf = new CapturePhotoFragment(userEmail, userName, userID);
+				//cpf = new CapturePhotoFragment(userName, userID);
 				//cpf = new CapturePhoto();
+				cpf = new CapturePhotoFragment();
+				cpf.setArguments(bundle);
 				fragList.add(cpf);
 				ft.replace(android.R.id.content, cpf);
 			}else if(tab.getPosition() == 1){
-				dhf = new DengueHistoryFragment(userEmail, userName, userID);
+				dhf = new DengueHistoryFragment();
+				dhf.setArguments(bundle);
 				fragList.add(dhf);
 				ft.replace(android.R.id.content, dhf);
 			}else if(tab.getPosition() == 2){
-				cpsf = new CapturedPhotosFragment(userEmail, userName, userID, userRegtype);
+				cpsf = new CapturedPhotosFragment();
+				cpsf.setArguments(bundle);
 				fragList.add(cpsf);
 				ft.replace(android.R.id.content, cpsf);				
 			}else{
@@ -174,7 +186,7 @@ public class MainActivity extends Activity implements TabListener {
 			ft.replace(android.R.id.content, tf);
 		}
 	}
-	
+
 	public void officerTabSelected(Tab tab, FragmentTransaction ft){
 		Fragment f = null;
 		TabFragment tf = null;
@@ -184,6 +196,12 @@ public class MainActivity extends Activity implements TabListener {
 		CapturedPhotosFragment cpsf = null;
 		DengueNewTaskFragment dhtnf = null;
 
+		//passing value from activity to fragment
+		Bundle bundle=new Bundle();
+		bundle.putString("userName", userName);
+		bundle.putString("userID", userID);
+		bundle.putString("userRegtype", userRegtype);
+
 		if(fragList.size() > tab.getPosition()){
 			fragList.get(tab.getPosition());
 		}
@@ -191,24 +209,34 @@ public class MainActivity extends Activity implements TabListener {
 		if(f == null){
 			/* Capture Photo Fragment */
 			if(tab.getPosition() == 0){
-				cpf = new CapturePhotoFragment(userEmail, userName, userID);
+				//cpf = new CapturePhotoFragment(userName, userID);
 				//cpf = new CapturePhoto();
+				cpf = new CapturePhotoFragment();
+				cpf.setArguments(bundle);
 				fragList.add(cpf);
 				ft.replace(android.R.id.content, cpf);
 			}else if(tab.getPosition() == 1){
-				dhf = new DengueHistoryFragment(userEmail, userName, userID);
+				//dhf = new DengueHistoryFragment(userName, userID);
+				dhf = new DengueHistoryFragment();
+				dhf.setArguments(bundle);
 				fragList.add(dhf);
 				ft.replace(android.R.id.content, dhf);
 			}else if(tab.getPosition() == 2){
-				dhtnf = new DengueNewTaskFragment(userEmail, userName, userID);
+				//dhtnf = new DengueNewTaskFragmentTest(userName, userID);
+				dhtnf = new DengueNewTaskFragment();
+				dhtnf.setArguments(bundle);
 				fragList.add(dhtnf);
 				ft.replace(android.R.id.content, dhtnf);				
 			}else if(tab.getPosition() == 3){
-				dhtf = new DengueHistoryTaskFragment(userEmail, userName, userID);
+				//dhtf = new DengueHistoryTaskFragment(userName, userID);
+				dhtf = new DengueHistoryTaskFragment();
+				dhtf.setArguments(bundle);
 				fragList.add(dhtf);
 				ft.replace(android.R.id.content, dhtf);				
 			}else if(tab.getPosition() == 4){
-				cpsf = new CapturedPhotosFragment(userEmail, userName, userID, userRegtype);
+				//cpsf = new CapturedPhotosFragment(userID, userRegtype);
+				cpsf = new CapturedPhotosFragment();
+				cpsf.setArguments(bundle);
 				fragList.add(cpsf);
 				ft.replace(android.R.id.content, cpsf);				
 			}else{

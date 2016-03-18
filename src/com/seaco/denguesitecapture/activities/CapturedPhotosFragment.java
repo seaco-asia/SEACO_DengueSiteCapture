@@ -17,17 +17,23 @@ public class CapturedPhotosFragment extends Fragment {
 	Context context;
 	String email, name, id, regType;
 
-	public CapturedPhotosFragment(String userEmail, String userName, String userID, String userRegtype) {
-		email = userEmail;
-		name = userName;
+//	public CapturedPhotosFragment(String userEmail, String userName, String userID, String userRegtype) {
+	/*public CapturedPhotosFragment(String userID, String userRegtype) {
+		//email = userEmail;
+		//name = userName;
 		id = userID;
 		regType = userRegtype;
 		// TODO Auto-generated constructor stub
 		Log.d(TAG, "com/officer's email ["+email+"] and com/officer's name ["+name+"] AND idComm_Officer["+id+"]");
-	}
+	}*/
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View rootView = inflater.inflate(R.layout.fragment, container, false);
+		
+		//receive parameter from activity
+		id=getArguments().getString("userID");
+		regType=getArguments().getString("userRegtype");
+		Log.d(TAG, "com/officer's email ["+email+"] and com/officer's name ["+name+"] AND idComm_Officer["+id+"]");
 
 
 		//		Intent intent = new Intent(getActivity().getApplicationContext(), CapturedPhotosGrid.class);

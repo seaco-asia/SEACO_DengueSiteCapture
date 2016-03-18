@@ -1,5 +1,7 @@
 package com.seaco.denguesitecapture.activities;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -7,10 +9,14 @@ import java.util.Locale;
 
 import com.seaco.denguesitecapture.R;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,37 +25,55 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class DengueHistoryTaskClaimFragment extends Fragment {
 
 	private static final String TAG = "DengueHistoryTaskClaimFragment";
-	String historyId;
-	String decisionOfficer;
-	private String valDecision;
-	RadioButton radBtnViewed, radBtnInProcess, radBtnResolved, radBtnRejected;
-	EditText txtOfficer, txtHistoryID, txtFilename, txtComment;
-	RadioGroup radDecision;
-	String  emailTaskOfficer, nameOfficer, email2, historyFilename, idOfficer, filename, comment, descriptionOfficer, name2, section2;
-	ProgressDialog progress;
-	private TableLayout tableLayout;
 
-	public DengueHistoryTaskClaimFragment(String email2, String historyID2, String filename2, String name2, String id2, String sections) {
-		emailTaskOfficer = email2;
-		historyId = historyID2;
-		filename = filename2;
+	String historyId, decisionOfficer, valDecision, reportBy;
+	RadioButton radBtnViewed, radBtnInProcess, radBtnResolved, radBtnRejected;
+	EditText txtOfficer, txtComment, txtOffComment;
+	TextView txtFilename, txtHistoryID, txtGPS, txtReportDate, txtCommComment, txtReportBy, txtOffName;
+	RadioGroup radDecision;
+	String  emailTaskOfficer, nameOfficer, email2, historyFilename, idOfficer, filename, comment, 
+	descriptionOfficer, name2, section, gps, reportDate, photoDesc;
+	ProgressDialog progress;
+	TableLayout tableLayout;
+	LinearLayout linearLayoutTaskDialog;
+	RelativeLayout layout_relativeDialog;
+	Bitmap bitmap;
+	ImageView img;
+	Context context;
+
+	public DengueHistoryTaskClaimFragment(String id2, String name2,  String historyID2, String filename2, String gps2, String reportDate2, String reportBy2, String photoDesc2, String sections2) {
+		//emailTaskOfficer = email2;
 		nameOfficer = name2;
 		idOfficer = id2;
-		section2 = sections;
+		historyId = historyID2;
+		filename = filename2;
+		gps = gps2;
+		reportDate = reportDate2;
+		reportBy = reportBy2;
+		photoDesc = photoDesc2;
+		section = sections2;
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View rootView = inflater.inflate(R.layout.historytask_dialog, container, false);
 		tableLayout=(TableLayout)rootView.findViewById(R.id.tableLayout);
+		layout_relativeDialog = (RelativeLayout)rootView.findViewById(R.id.layout_relativeDialog);
+
+		context = container.getContext();
 
 		Log.d(TAG, "officer's email["+emailTaskOfficer+"] AND idOfficer["+idOfficer+"]");
 
@@ -65,30 +89,39 @@ public class DengueHistoryTaskClaimFragment extends Fragment {
 		 *
 		 */
 
+		//txtOfficer = (EditText) rootView.findViewById(R.id.txtOfficer);
+		txtHistoryID = (TextView) rootView.findViewById(R.id.history_id_dialog);
+		txtFilename = (TextView) rootView.findViewById(R.id.history_filename_dialog);
+		txtGPS = (TextView) rootView.findViewById(R.id.history_gps_dialog);
+		txtReportDate = (TextView) rootView.findViewById(R.id.history_datereport_dialog);
+		txtReportBy = (TextView) rootView.findViewById(R.id.history_reportby_dialog);
+
+		radDecision = (RadioGroup) rootView.findViewById(R.id.radDecision);
 		radBtnViewed = (RadioButton) rootView.findViewById(R.id.radBtnViewed);
 		radBtnInProcess = (RadioButton) rootView.findViewById(R.id.radBtnInProcess);
 		radBtnResolved = (RadioButton) rootView.findViewById(R.id.radBtnResolved);
 		radBtnRejected = (RadioButton) rootView.findViewById(R.id.radBtnRejected);
-		
-		txtOfficer = (EditText) rootView.findViewById(R.id.txtOfficer);
-		txtHistoryID = (EditText) rootView.findViewById(R.id.txtHistoryID);
-		txtFilename = (EditText) rootView.findViewById(R.id.txtFilename);
-		txtComment = (EditText) rootView.findViewById(R.id.txtComment);
-		radDecision = (RadioGroup) rootView.findViewById(R.id.radDecision);
 
-		txtOfficer.setEnabled(false);
-		txtHistoryID.setEnabled(false);
-		txtFilename.setEnabled(false);
+		txtCommComment = (TextView) rootView.findViewById(R.id.history_uploaded_dialog);
+		txtOffComment = (EditText) rootView.findViewById(R.id.history_commentOfficer_dialog);
+		txtOffName = (TextView) rootView.findViewById(R.id.history_nameofficer_dialog);
 
-		txtOfficer.setText(nameOfficer);//extract name of officer
-		txtHistoryID.setText(historyId);//extract ID of picture
-		txtFilename.setText(filename); //extract filename of picture
-		//txtComment.setText(descriptionOfficer); //extract description from officer
+		txtHistoryID.setText(historyId);	//extract ID of picture
+		txtFilename.setText(filename); 		//extract filename of picture
+		txtGPS.setText(gps); 				//extract gps of picture
+		txtReportDate.setText(reportDate);  //extract reportdate of picture
+		txtReportBy.setText(reportBy);		//extract reportBy of picture
+		txtCommComment.setText(photoDesc);  //extract description of picture
+		txtOffName.setText(nameOfficer);	//extract name of officer
+
+		//set image
+		//new LoadImage().execute("https://storage.googleapis.com/dengue-seaco/"+filename);
 
 		//checkDecision(rootView, decisionOfficer);
 
-		Button save = (Button) rootView.findViewById(R.id.btnSave);
-		Button cancel = (Button) rootView.findViewById(R.id.btnCancel);
+		ImageButton imageButtonSave = (ImageButton) rootView.findViewById(R.id.imageButtonSave);
+		ImageButton imageButtonBack = (ImageButton) rootView.findViewById(R.id.imageButtonBack);
+		ImageButton imageButtonImage = (ImageButton) rootView.findViewById(R.id.imageButtonImage);
 
 		//approve and rejected function
 		radDecision.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() 
@@ -116,18 +149,35 @@ public class DengueHistoryTaskClaimFragment extends Fragment {
 			}
 		});
 
+		//view large image when click on picture
+		imageButtonImage.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Log.d(TAG,"Enter enlarge picture");
+				// custom dialog
+				final Dialog dialog = new Dialog(context);
+				dialog.setContentView(R.layout.dialog_custom_image);
+				dialog.setTitle("View Image");
+
+				// set the custom dialog components - text, image and button
+				img = (ImageView) dialog.findViewById(R.id.image);
+
+				new LoadImage().execute("https://storage.googleapis.com/dengue-seaco/"+filename);
+
+				dialog.show();
+			}
+		});
+
 
 		//save and cancel function
-		save.setOnClickListener(new View.OnClickListener() {
+		imageButtonSave.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
 				if (validateSaveTask(getView())) {
 
-					nameOfficer = txtOfficer.getText().toString();//get name of officer
-					historyId = txtHistoryID.getText().toString();//get ID of picture
-					filename = txtFilename.getText().toString(); //get filename of picture
-					comment = txtComment.getText().toString();//get comment of picture
+					comment = txtOffComment.getText().toString();//get comment of picture
 
 					final ProgressDialog progressDialog = new ProgressDialog(getActivity());
 					progressDialog.setIndeterminate(true);
@@ -147,17 +197,50 @@ public class DengueHistoryTaskClaimFragment extends Fragment {
 									addTask(historyId, filename, idOfficer, valDecision, comment, progressDialog);
 
 									//fix back to task history after save
-									if(section2.equals("new")){
-										DengueNewTaskFragment dengueNewTaskFragment = new DengueNewTaskFragment(emailTaskOfficer, nameOfficer, idOfficer);
+									if(section.equals("new")){
+
+										DengueNewTaskFragment dengueNewTaskFragment = new DengueNewTaskFragment();
 										FragmentManager fm = getFragmentManager();
 										FragmentTransaction fragmentTransaction = fm.beginTransaction();
-										fragmentTransaction.replace(R.id.tableLayout, dengueNewTaskFragment);
+
+										//passing value from activity to fragment
+										Bundle bundle=new Bundle();
+										bundle.putString("userName", nameOfficer);
+										bundle.putString("userID", idOfficer);
+										dengueNewTaskFragment.setArguments(bundle);
+
+										//remove layout
+										layout_relativeDialog.removeAllViews();
+										layout_relativeDialog.refreshDrawableState();
+
+										//replace layout
+										fragmentTransaction.replace(R.id.layout_relativeDialog, dengueNewTaskFragment);
 										fragmentTransaction.commit();
+
 									}else{
-										DengueHistoryTaskFragment dengueHistoryTaskFragment = new DengueHistoryTaskFragment(emailTaskOfficer, nameOfficer, idOfficer);
+
+										/*DengueHistoryTaskFragment dengueHistoryTaskFragment = new DengueHistoryTaskFragment(nameOfficer, idOfficer);
 										FragmentManager fm = getFragmentManager();
 										FragmentTransaction fragmentTransaction = fm.beginTransaction();
 										fragmentTransaction.replace(R.id.tableLayout, dengueHistoryTaskFragment);
+										fragmentTransaction.commit();*/
+
+										DengueHistoryTaskFragment dengueHistoryTaskFragment= new DengueHistoryTaskFragment();
+										FragmentManager fm = getFragmentManager();
+										FragmentTransaction fragmentTransaction = fm.beginTransaction();
+
+										//passing value from activity to fragment
+										Bundle bundle=new Bundle();
+										bundle.putString("userName", nameOfficer);
+										bundle.putString("userID", idOfficer);
+										dengueHistoryTaskFragment.setArguments(bundle);
+
+										//remove layout
+										layout_relativeDialog.removeAllViews();
+										layout_relativeDialog.refreshDrawableState();
+
+										//replace layout
+										fragmentTransaction.replace(R.id.layout_relativeDialog, dengueHistoryTaskFragment);
 										fragmentTransaction.commit();
 									}
 
@@ -170,23 +253,56 @@ public class DengueHistoryTaskClaimFragment extends Fragment {
 
 		});
 
-		cancel.setOnClickListener(new View.OnClickListener() {
+		imageButtonBack.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				if(section2.equals("new")){
-					DengueNewTaskFragment dengueNewTaskFragment = new DengueNewTaskFragment(emailTaskOfficer, nameOfficer, idOfficer);
+				if(section.equals("new")){
+
+					DengueNewTaskFragment dengueNewTaskFragment = new DengueNewTaskFragment();
 					FragmentManager fm = getFragmentManager();
 					FragmentTransaction fragmentTransaction = fm.beginTransaction();
-					fragmentTransaction.replace(R.id.tableLayout, dengueNewTaskFragment);
+
+					//passing value from activity to fragment
+					Bundle bundle=new Bundle();
+					bundle.putString("userName", nameOfficer);
+					bundle.putString("userID", idOfficer);
+					dengueNewTaskFragment.setArguments(bundle);
+
+					//remove layout
+					layout_relativeDialog.removeAllViews();
+					layout_relativeDialog.refreshDrawableState();
+
+					//replace layout
+					fragmentTransaction.replace(R.id.layout_relativeDialog, dengueNewTaskFragment);
 					fragmentTransaction.commit();
+
 				}else{
-					DengueHistoryTaskFragment dengueHistoryTaskFragment = new DengueHistoryTaskFragment(emailTaskOfficer, nameOfficer, idOfficer);
+
+					/*DengueHistoryTaskFragment dengueHistoryTaskFragment = new DengueHistoryTaskFragment(nameOfficer, idOfficer);
 					FragmentManager fm = getFragmentManager();
 					FragmentTransaction fragmentTransaction = fm.beginTransaction();
 					//				fragmentTransaction.replace(R.id.tableLayout, dengueHistoryTaskFragment).addToBackStack(null);
 					fragmentTransaction.replace(R.id.tableLayout, dengueHistoryTaskFragment);
+					fragmentTransaction.commit();*/
+
+					DengueHistoryTaskFragment dengueHistoryTaskFragment= new DengueHistoryTaskFragment();
+					FragmentManager fm = getFragmentManager();
+					FragmentTransaction fragmentTransaction = fm.beginTransaction();
+
+					//passing value from activity to fragment
+					Bundle bundle=new Bundle();
+					bundle.putString("userName", nameOfficer);
+					bundle.putString("userID", idOfficer);
+					dengueHistoryTaskFragment.setArguments(bundle);
+
+					//remove layout
+					layout_relativeDialog.removeAllViews();
+					layout_relativeDialog.refreshDrawableState();
+
+					//replace layout
+					fragmentTransaction.replace(R.id.layout_relativeDialog, dengueHistoryTaskFragment);
 					fragmentTransaction.commit();
 				}
 			}
@@ -273,6 +389,42 @@ public class DengueHistoryTaskClaimFragment extends Fragment {
 
 		AddTask addTask = new AddTask();
 		addTask.execute();
+	}
+
+	//display image
+	private class LoadImage extends AsyncTask<String, String, Bitmap> {
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			//pDialog = new ProgressDialog(TestDisplaySinglePhoto.this);
+			//pDialog.setMessage("Loading Image ....");
+			//pDialog.show();
+
+		}
+		protected Bitmap doInBackground(String... args) {
+			try {
+				bitmap = BitmapFactory.decodeStream((InputStream)new URL(args[0]).getContent());
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return bitmap;
+		}
+
+		protected void onPostExecute(Bitmap image) {
+
+			if(image != null){
+				// set the custom dialog components - text, image and button
+				img.setImageBitmap(image);
+				//pDialog.dismiss();
+
+			}else{
+
+				//pDialog.dismiss();
+				//Toast.makeText(TestDisplaySinglePhoto.this, "Image Does Not exist or Network Error", Toast.LENGTH_SHORT).show();
+
+			}
+		}
 	}
 
 }

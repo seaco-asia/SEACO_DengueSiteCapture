@@ -1,5 +1,8 @@
 package com.seaco.denguesitecapture.activities;
 
+import java.io.InputStream;
+import java.net.URL;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -7,15 +10,18 @@ import org.json.JSONObject;
 import com.seaco.denguesitecapture.R;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -23,29 +29,29 @@ public class DengueHistoryFragment extends Fragment {
 
 	private static final String TAG = "DengueHistoryFragment";
 	Context context;
-	private TableLayout tableLayout;
+	Bitmap bitmap;
+	TableLayout tableLayout;
 	View tableRow;
+	ImageView img;
 	public int totalPhotos, pageCount, pageCountDisplay;
-	public int NUM_ITEMS_PAGE = 10, number = 0, increment = 0;
+	public int NUM_ITEMS_PAGE = 15, number = 0, increment = 0;
 	private String JSON_STRING;
 	public String action = "common";
-	String email, name, id;
-	//private LinearLayout linearLayouts;
-	
-	public DengueHistoryFragment(String userEmail, String userName, String userID) {
-		email = userEmail;
-		name = userName;
-		id = userID;
-		// TODO Auto-generated constructor stub
-		Log.d(TAG, "com/officer's email ["+email+"] and com/officer's name ["+name+"] AND idComm_Officer["+id+"]");
-	}
+	String email, name, id, statusDesc;
 
 	public View onCreateView(final LayoutInflater inflater,
 			final ViewGroup container, Bundle savedInstanceState) {
 
-		final View rootView = inflater.inflate(R.layout.table, container, false);
+		//display background
+		final View rootView = inflater.inflate(R.layout.table_history_title, container, false);
 		tableLayout = (TableLayout) rootView.findViewById(R.id.tableLayout);
-		//linearLayouts = (LinearLayout)rootView.findViewById(R.id.linearLayoutHistorys);
+
+		context = container.getContext();
+
+		//receive parameter from activity
+		id=getArguments().getString("userID");
+		name=getArguments().getString("userName");
+
 		/* temporary using before implement server database
 		 * 
 		 	//final TextView textPageNumber = (TextView) rootView.findViewById(R.id.pageNumber);
@@ -54,14 +60,11 @@ public class DengueHistoryFragment extends Fragment {
 			//totalPhotos =photos.length;
 		 * 
 		 */
-		
-		//this linear layout for claimed task only
-		//linearLayouts.setVisibility(View.INVISIBLE);
 
 		// button prev and next
 		final Button buttonPrev = (Button) rootView.findViewById(R.id.buttonPrevious);
 		final Button buttonNext = (Button) rootView.findViewById(R.id.buttonNext);
-		
+
 		buttonPrev.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
@@ -173,7 +176,7 @@ public class DengueHistoryFragment extends Fragment {
 
 			final TextView textPageNumber = (TextView) rootView.findViewById(R.id.pageNumber);
 			textPageNumber.setText("Page "+(number+1)+" of "+pageCount);
-			
+
 
 			//display history data
 			int start = number * NUM_ITEMS_PAGE;
@@ -183,33 +186,38 @@ public class DengueHistoryFragment extends Fragment {
 				if(i<result.length()){
 
 					JSONObject jo = result.getJSONObject(i);
-					String id = jo.getString(Config.TAG_ID);
-					String filename = jo.getString(Config.TAG_FILENAME);
+					final String id = jo.getString(Config.TAG_ID);
+					final String filename = jo.getString(Config.TAG_FILENAME);
 					String latitude = jo.getString(Config.TAG_LATITUDE);
 					String longitude = jo.getString(Config.TAG_LONGITUDE);
-					String gps = latitude +","+ longitude;
-					String photoDesc = jo.getString(Config.TAG_PHOTO_DESC);
+					final String gps = latitude +","+ longitude;
+					final String photoDesc = jo.getString(Config.TAG_PHOTO_DESC);
+					final String status = jo.getString(Config.TAG_STATUS);
+					final String commentOfficer = jo.getString(Config.TAG_OFFICER_COMMENT);
+					final String reportDate = jo.getString(Config.TAG_INSERT_DATE);
 
 					Log.d(TAG,"id ["+id+"] and filename ["+filename+"]");
 
-					tableRow = inflater.inflate(R.layout.table_item, null, false);
+					tableRow = inflater.inflate(R.layout.table_history_item, null, false);
 
 					TextView history_id  = (TextView) tableRow.findViewById(R.id.history_id);
 					TextView history_filename  = (TextView) tableRow.findViewById(R.id.history_filename);
-					TextView history_gps  = (TextView) tableRow.findViewById(R.id.history_gps);
-					TextView history_uploaded  = (TextView) tableRow.findViewById(R.id.history_uploaded);
-					TextView history_status  = (TextView) tableRow.findViewById(R.id.history_status_title);
-
-					Button buttonClaim = (Button) tableRow.findViewById(R.id.btnClaim);
-					Button buttonDetail = (Button) tableRow.findViewById(R.id.btnDetail);
-					buttonClaim.setVisibility(View.INVISIBLE);
-					buttonDetail.setVisibility(View.INVISIBLE);
-					history_status.setVisibility(View.INVISIBLE);
+					TextView history_status  = (TextView) tableRow.findViewById(R.id.history_status);
+					ImageView history_detail  = (ImageView) tableRow.findViewById(R.id.imageView_detail);
 
 					history_id.setText(id);
 					history_filename.setText(filename);
-					history_gps.setText(gps);
-					history_uploaded.setText(photoDesc);
+					history_status.setText(status);
+
+					//0 = Rejected;  1 = Viewed;  2 = In Process ; 3 = Resolved
+					history_status.setText(statusDesc(status));
+
+					//click on detail image
+					history_detail.setOnClickListener(new View.OnClickListener() {
+						public void onClick(View v) {
+							informationDetail(id, filename, gps, photoDesc, status, commentOfficer, reportDate);
+						}
+					});
 
 					i++;
 					tableLayout.addView(tableRow);
@@ -251,34 +259,38 @@ public class DengueHistoryFragment extends Fragment {
 				if(j<result.length()){
 
 					JSONObject jo = result.getJSONObject(j);
-					String id = jo.getString(Config.TAG_ID);
-					String filename = jo.getString(Config.TAG_FILENAME);
+					final String id = jo.getString(Config.TAG_ID);
+					final String filename = jo.getString(Config.TAG_FILENAME);
 					String latitude = jo.getString(Config.TAG_LATITUDE);
 					String longitude = jo.getString(Config.TAG_LONGITUDE);
-					String gps = latitude +","+ longitude;
-					String photoDesc = jo.getString(Config.TAG_PHOTO_DESC);
+					final String gps = latitude +","+ longitude;
+					final String photoDesc = jo.getString(Config.TAG_PHOTO_DESC);
+					final String status = jo.getString(Config.TAG_STATUS);
+					final String commentOfficer = jo.getString(Config.TAG_OFFICER_COMMENT);
+					final String reportDate = jo.getString(Config.TAG_INSERT_DATE);
 
 					Log.d(TAG,"id ["+id+"] and filename ["+filename+"]");
 
-					tableRow = inflater.inflate(R.layout.table_item, null, false);
+					tableRow = inflater.inflate(R.layout.table_history_item, null, false);
 
 					TextView history_id  = (TextView) tableRow.findViewById(R.id.history_id);
 					TextView history_filename  = (TextView) tableRow.findViewById(R.id.history_filename);
-					TextView history_gps  = (TextView) tableRow.findViewById(R.id.history_gps);
-					TextView history_uploaded  = (TextView) tableRow.findViewById(R.id.history_uploaded);
-					TextView history_status  = (TextView) tableRow.findViewById(R.id.history_status_title);
-
-					Button buttonClaim = (Button) tableRow.findViewById(R.id.btnClaim);
-					Button buttonDetail = (Button) tableRow.findViewById(R.id.btnDetail);
-					buttonClaim.setVisibility(View.INVISIBLE);
-					buttonDetail.setVisibility(View.INVISIBLE);
-					history_status.setVisibility(View.INVISIBLE);
+					TextView history_status  = (TextView) tableRow.findViewById(R.id.history_status);
+					ImageView history_detail  = (ImageView) tableRow.findViewById(R.id.imageView_detail);
 
 					history_id.setText(id);
 					history_filename.setText(filename);
-					history_gps.setText(gps);
-					history_uploaded.setText(photoDesc);
-					//history_uploaded.setText("");
+
+					//0 = Rejected;  1 = Viewed;  2 = In Process ; 3 = Resolved
+					history_status.setText(statusDesc(status));
+
+					//click on detail image
+					history_detail.setOnClickListener(new View.OnClickListener() {
+						public void onClick(View v) {
+							informationDetail(id, filename, gps, photoDesc, status, commentOfficer, reportDate);
+						}
+					});
+
 
 					j++;
 
@@ -296,7 +308,7 @@ public class DengueHistoryFragment extends Fragment {
 			e.printStackTrace();
 		}
 	}
-	
+
 	//show all data during click next button
 	private void showPhotosNext(View rootView, LayoutInflater inflater, int increment, final Button buttonPrev, final Button buttonNext) {
 		JSONObject jsonObject = null;
@@ -321,34 +333,38 @@ public class DengueHistoryFragment extends Fragment {
 				if(j<result.length()){
 
 					JSONObject jo = result.getJSONObject(j);
-					String id = jo.getString(Config.TAG_ID);
-					String filename = jo.getString(Config.TAG_FILENAME);
+					final String id = jo.getString(Config.TAG_ID);
+					final String filename = jo.getString(Config.TAG_FILENAME);
 					String latitude = jo.getString(Config.TAG_LATITUDE);
 					String longitude = jo.getString(Config.TAG_LONGITUDE);
-					String gps = latitude +","+ longitude;
-					String photoDesc = jo.getString(Config.TAG_PHOTO_DESC);
+					final String gps = latitude +","+ longitude;
+					final String photoDesc = jo.getString(Config.TAG_PHOTO_DESC);
+					final String status = jo.getString(Config.TAG_STATUS);
+					final String commentOfficer = jo.getString(Config.TAG_OFFICER_COMMENT);
+					final String reportDate = jo.getString(Config.TAG_INSERT_DATE);
 
 					Log.d(TAG,"id ["+id+"] and filename ["+filename+"]");
 
-					tableRow = inflater.inflate(R.layout.table_item, null, false);
+					tableRow = inflater.inflate(R.layout.table_history_item, null, false);
 
 					TextView history_id  = (TextView) tableRow.findViewById(R.id.history_id);
 					TextView history_filename  = (TextView) tableRow.findViewById(R.id.history_filename);
-					TextView history_gps  = (TextView) tableRow.findViewById(R.id.history_gps);
-					TextView history_uploaded  = (TextView) tableRow.findViewById(R.id.history_uploaded);
-					TextView history_status  = (TextView) tableRow.findViewById(R.id.history_status_title);
-
-					Button buttonClaim = (Button) tableRow.findViewById(R.id.btnClaim);
-					Button buttonDetail = (Button) tableRow.findViewById(R.id.btnDetail);
-					buttonClaim.setVisibility(View.INVISIBLE);
-					buttonDetail.setVisibility(View.INVISIBLE);
-					history_status.setVisibility(View.INVISIBLE);
+					TextView history_status  = (TextView) tableRow.findViewById(R.id.history_status);
+					ImageView history_detail  = (ImageView) tableRow.findViewById(R.id.imageView_detail);
 
 					history_id.setText(id);
 					history_filename.setText(filename);
-					history_gps.setText(gps);
-					history_uploaded.setText(photoDesc);
-					//history_uploaded.setText("");
+					history_status.setText(status);
+
+					//0 = Rejected;  1 = Viewed;  2 = In Process ; 3 = Resolved
+					history_status.setText(statusDesc(status));
+
+					//click on detail image
+					history_detail.setOnClickListener(new View.OnClickListener() {
+						public void onClick(View v) {
+							informationDetail(id, filename, gps, photoDesc, status, commentOfficer, reportDate);
+						}
+					});
 
 					j++;
 
@@ -366,5 +382,89 @@ public class DengueHistoryFragment extends Fragment {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void informationDetail(String id, String filename, String gps, String photoDesc, String status, String commentOfficer, String reportDate){
+
+		// custom dialog
+		final Dialog dialog = new Dialog(context);
+		dialog.setContentView(R.layout.dialog_custom);
+		dialog.setTitle("Detail Information");
+
+		// set the custom dialog components - text, image and button
+		img = (ImageView) dialog.findViewById(R.id.image);
+
+		TextView history_id_dialog  = (TextView) dialog.findViewById(R.id.history_id_dialog);
+		TextView history_filename_dialog  = (TextView) dialog.findViewById(R.id.history_filename_dialog);
+		TextView history_gps_dialog  = (TextView) dialog.findViewById(R.id.history_gps_dialog);
+		TextView history_datereport_dialog  = (TextView) dialog.findViewById(R.id.history_datereport_dialog);
+		TextView history_status_dialog  = (TextView) dialog.findViewById(R.id.history_status_dialog);
+		TextView history_uploaded_dialog  = (TextView) dialog.findViewById(R.id.history_uploaded_dialog);
+		TextView history_commentofficer_dialog  = (TextView) dialog.findViewById(R.id.history_commentofficer_dialog);
+
+		history_id_dialog.setText(id);
+		history_filename_dialog.setText(filename);
+		history_gps_dialog.setText(gps);
+		history_datereport_dialog.setText(reportDate);
+		history_status_dialog.setText(statusDesc(status));
+		history_uploaded_dialog.setText(photoDesc);
+		history_commentofficer_dialog.setText(!commentOfficer.equals("null")?commentOfficer:"");
+
+		new LoadImage().execute("https://storage.googleapis.com/dengue-seaco/"+filename);
+
+		dialog.show();
+
+	}
+
+	private class LoadImage extends AsyncTask<String, String, Bitmap> {
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			//pDialog = new ProgressDialog(TestDisplaySinglePhoto.this);
+			//pDialog.setMessage("Loading Image ....");
+			//pDialog.show();
+
+		}
+		protected Bitmap doInBackground(String... args) {
+			try {
+				bitmap = BitmapFactory.decodeStream((InputStream)new URL(args[0]).getContent());
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return bitmap;
+		}
+
+		protected void onPostExecute(Bitmap image) {
+
+			if(image != null){
+				// set the custom dialog components - text, image and button
+				img.setImageBitmap(image);
+				//pDialog.dismiss();
+
+			}else{
+
+				//pDialog.dismiss();
+				//Toast.makeText(TestDisplaySinglePhoto.this, "Image Does Not exist or Network Error", Toast.LENGTH_SHORT).show();
+
+			}
+		}
+	}
+
+	//status description
+	public String statusDesc(String status){
+		//0 = Rejected;  1 = Viewed;  2 = In Process ; 3 = Resolved
+		if(status.equals("1")){
+			statusDesc ="Viewed";
+		}else if(status.equals("2")){
+			statusDesc ="In Process";
+		}else if(status.equals("3")){
+			statusDesc ="Resolved";
+		}else if(status.equals("0")){
+			statusDesc ="Rejected";
+		}else{
+			statusDesc ="New";
+		}
+		return statusDesc;
 	}
 }

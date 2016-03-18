@@ -16,6 +16,7 @@ public class Users {
 	private String userEmail;
 	private String userPassword;
 	private String userRegtype;
+	private String userPhoneNo;
 
 	public String JSON_STRING;
 
@@ -50,7 +51,12 @@ public class Users {
 	public void setUserRegtype(String userRegtype) {
 		this.userRegtype = userRegtype;
 	}
-
+	public String getUserPhoneNo() {
+		return userPhoneNo;
+	}
+	public void setUserPhoneNo(String userPhoneNo) {
+		this.userPhoneNo = userPhoneNo;
+	}
 	public static Users myMethod(String json) throws JSONException {
 
 		JSONObject jsonObject = new JSONObject(json);
@@ -62,6 +68,7 @@ public class Users {
 		u.setUserName(c.getString(Config.KEY_USER_NAME));
 		u.setUserEmail(c.getString(Config.KEY_USER_EMAIL));
 		u.setUserRegtype(c.getString(Config.KEY_USER_Regtype));
+		u.setUserPhoneNo(c.getString(Config.KEY_USER_PHONENO));
 		return u;
 	}
 }

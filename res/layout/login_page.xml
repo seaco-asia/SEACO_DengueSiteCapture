@@ -17,7 +17,7 @@
         android:gravity="center_horizontal"
         android:src="@drawable/seaco_logo" />
 
-    <TextView
+    <!-- <TextView
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,7 +31,23 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:singleLine="true" />
+        android:singleLine="true" /> -->
+    
+    <TextView
+    android:id="@+id/phoneNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Phone No."
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <EditText
+        android:id="@+id/login_phoneNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="phone"
+        android:singleLine="true"/>
 
     <TextView
         android:id="@+id/password"

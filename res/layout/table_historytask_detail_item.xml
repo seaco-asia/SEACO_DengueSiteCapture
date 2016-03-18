@@ -2,149 +2,56 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
     android:orientation="vertical" >
 
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical" >
+        android:background="#800000"
+        android:scrollbars="vertical"
+        android:stretchColumns="*" >
 
         <TableRow
-            android:id="@+id/tableRow1"
+            android:id="@+id/tableRowContent"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingTop="3dp" >
+            android:layout_margin="1dip" >
 
             <TextView
-                android:id="@+id/taskID_title"
+                android:id="@+id/task_id"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dip"
+                android:background="#ffffff"
+                android:gravity="left"
+                android:padding="15dip" />
+
+            <TextView
+                android:id="@+id/task_updatedate"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.25"
-                android:gravity="left"
-                android:text="Task ID	:" />
+                android:layout_margin="1dip"
+                android:background="#ffffff"
+                android:padding="15dip" />
 
             <TextView
-                android:id="@+id/taskID"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:gravity="left" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="3dp" >
-
-            <TextView
-                android:id="@+id/officerName_title"
-                android:layout_width="0dp"
+                android:id="@+id/task_comment"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.25"
-                android:gravity="left"
-                android:text="Officer	:" />
+                android:layout_margin="1dip"
+                android:background="#ffffff"
+                android:padding="15dip" />
 
             <TextView
-                android:id="@+id/officerName"
-                android:layout_width="0dp"
+                android:id="@+id/task_status"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.25"
-                android:gravity="left" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="3dp" >
-
-            <TextView
-                android:id="@+id/claimDate_title"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.25"
-                android:gravity="left"
-                android:text="Claim Date	:" />
-
-            <TextView
-                android:id="@+id/claimDate"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.25"
-                android:gravity="left" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="3dp" >
-
-            <TextView
-                android:id="@+id/decision_title"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.25"
-                android:gravity="left"
-                android:text="Decision	:" />
-
-            <TextView
-                android:id="@+id/decision"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.25"
-                android:gravity="left" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="3dp" >
-
-            <TextView
-                android:id="@+id/comment_title"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.25"
-                android:gravity="left"
-                android:text="Comment	:" />
-
-            <TextView
-                android:id="@+id/comment"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.25"
-                android:gravity="left" />
+                android:layout_margin="1dip"
+                android:background="#ffffff"
+                android:padding="15dip" />
 
         </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#ff888888"
-            android:paddingTop="3dp" >
-
-            <TextView
-                android:id="@+id/TextView01"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.25"
-                android:gravity="left"
-                android:text="" />
-
-            <TextView
-                android:id="@+id/TextView02"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.25"
-                android:gravity="left" />
-        </TableRow>
-
     </TableLayout>
 
 </LinearLayout>

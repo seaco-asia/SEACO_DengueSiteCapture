@@ -20,6 +20,9 @@ public class SplashScreen extends Activity {
 			public void run(){
 				//Intent i = new Intent(SplashScreen.this, MainActivity.class);
 				Intent i = new Intent(SplashScreen.this, Login.class);
+				//Intent i = new Intent(SplashScreen.this, TestDisplaySinglePhoto.class);
+				//Intent i = new Intent(SplashScreen.this, LayoutAnimation.class);
+				//Intent i = new Intent(SplashScreen.this, DialogCustom.class);
 				//Intent i = new Intent(SplashScreen.this, TabTest.class);
 				//Test Jason
 				//Intent i = new Intent(SplashScreen.this, TestJason.class);

@@ -34,7 +34,7 @@
         android:layout_below="@+id/imageview"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:maxLength="250" >
+        android:maxLength="300" >
 
         <requestFocus />
     </EditText>

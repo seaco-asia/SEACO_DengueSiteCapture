@@ -164,10 +164,10 @@ public class Signup extends Activity implements OnClickListener {
 
 		if(actionType.equalsIgnoreCase("L")){
 			//textfield login
-			EditText emailLoginEditText = (EditText)findViewById(R.id.login_email);
+			//EditText emailLoginEditText = (EditText)findViewById(R.id.login_email);
 			EditText passLoginEditText = (EditText)findViewById(R.id.login_password);
 
-			emailLoginEditText.setText("");
+			//emailLoginEditText.setText("");
 			passLoginEditText.setText("");
 		}else{
 			//textfield signup

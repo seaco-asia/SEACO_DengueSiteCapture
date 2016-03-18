@@ -26,7 +26,7 @@ public class Login extends Activity implements OnClickListener {
 	private static final String TAG = "Login";
 	private Button btnLogin, btnSignup;
 	private MySQLiteHelper db;
-	String userName,userEmail,userPassword,userRegtype, actionType;
+	String userName,userEmail,userPassword,userRegtype, actionType, userPhoneNo;
 	View signupLayout;
 	public String JSON_STRING;
 
@@ -97,20 +97,23 @@ public class Login extends Activity implements OnClickListener {
 		progressDialog.show();
 
 		//textfield login
-		EditText emailEditText = (EditText)findViewById(R.id.login_email);
+		//EditText emailEditText = (EditText)findViewById(R.id.login_email);
+		EditText phoneNoEditText = (EditText)findViewById(R.id.login_phoneNo);
 		EditText passEditText = (EditText)findViewById(R.id.login_password);
 
-		userEmail = emailEditText.getText().toString();
+		//userEmail = emailEditText.getText().toString();
+		userPhoneNo = phoneNoEditText.getText().toString();
 		userPassword = passEditText.getText().toString();
 
-		Log.d(TAG, "userEmail ["+userEmail +"] and userPassword ["+userPassword+"]");
+		Log.d(TAG, "userEmail ["+userEmail +"] and userPassword ["+userPassword+"] and userPhoneNo ["+userPhoneNo+"]" );
 
 		// TODO: Implement your own authentication logic here.
 		new android.os.Handler().postDelayed(
 				new Runnable() {
 					public void run() {
 						//check user if their email already have at db
-						checkUser(userEmail, userPassword, progressDialog);
+						//checkUser(userEmail, userPassword, progressDialog);
+						checkUser(userEmail, userPassword, userPhoneNo, progressDialog);
 					}
 					//}
 				}, 3000);
@@ -124,19 +127,28 @@ public class Login extends Activity implements OnClickListener {
 		boolean valid = true;
 
 		//textfield login
-		EditText emailEditText = (EditText)findViewById(R.id.login_email);
+		//EditText emailEditText = (EditText)findViewById(R.id.login_email);
+		EditText phoneNoEditText = (EditText)findViewById(R.id.login_phoneNo);
 		EditText passEditText = (EditText)findViewById(R.id.login_password);
 
-		userEmail = emailEditText.getText().toString();
+		//userEmail = emailEditText.getText().toString();
+		userPhoneNo = phoneNoEditText.getText().toString();
 		userPassword = passEditText.getText().toString();
 
-		Log.d(TAG, "userEmail ["+userEmail +"] and userPassword ["+userPassword+"]");
-
-		if (userEmail.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
+		Log.d(TAG, "userEmail ["+userEmail +"] and userPassword ["+userPassword+"] and userPhoneNo ["+userPhoneNo+"]" );
+		
+		/*if (userEmail.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
 			emailEditText.setError("Please enter your email");
 			valid = false;
 		}else{
 			emailEditText.setError(null);
+		}*/
+		
+		if (userPhoneNo.isEmpty()) {
+			phoneNoEditText.setError("Please enter your telephone number");
+			valid = false;
+		}else{
+			phoneNoEditText.setError(null);
 		}
 
 		if(userPassword.isEmpty() || userPassword.length() < 4 || userPassword.length() > 10) {
@@ -153,10 +165,12 @@ public class Login extends Activity implements OnClickListener {
 
 		if(actionType.equalsIgnoreCase("L")){
 			//textfield login
-			EditText emailLoginEditText = (EditText)findViewById(R.id.login_email);
+			//EditText emailLoginEditText = (EditText)findViewById(R.id.login_email);
+			EditText phoneNoEditText = (EditText)findViewById(R.id.login_phoneNo);
 			EditText passLoginEditText = (EditText)findViewById(R.id.login_password);
 
-			emailLoginEditText.setText("");
+			//emailLoginEditText.setText("");
+			phoneNoEditText.setText("");
 			passLoginEditText.setText("");
 		}else{
 			//textfield signup
@@ -170,8 +184,8 @@ public class Login extends Activity implements OnClickListener {
 		}
 	}
 
-	private void checkUser(final String userEmail, final String userPassword, final ProgressDialog progressDialog){
-
+	//private void checkUser(final String userEmail, final String userPassword, final ProgressDialog progressDialog){
+	private void checkUser(final String userEmail, final String userPassword, final String userPhoneNo, final ProgressDialog progressDialog){
 		class CheckUser extends AsyncTask<Void,Void,String>{
 
 			@Override
@@ -202,6 +216,7 @@ public class Login extends Activity implements OnClickListener {
 						i.putExtra("userRegtype", users.getUserRegtype());
 						i.putExtra("userName", users.getUserName());
 						i.putExtra("userID", users.getUserId());
+						i.putExtra("userPhoneNo", users.getUserPhoneNo());
 						startActivity(i);
 						progressDialog.dismiss();
 					}
@@ -216,7 +231,8 @@ public class Login extends Activity implements OnClickListener {
 			protected String doInBackground(Void... params) {
 				RequestHandler rh = new RequestHandler();
 				HashMap<String,String> paramUser = new HashMap<String, String>();
-				paramUser.put(Config.KEY_USER_EMAIL,userEmail);
+				//paramUser.put(Config.KEY_USER_EMAIL,userEmail);
+				paramUser.put(Config.KEY_USER_PHONENO,userPhoneNo);
 				paramUser.put(Config.KEY_USER_PASSWORD,userPassword);
 				
 				String s = rh.sendPostRequest(Config.URL_CHECK_USER,paramUser);

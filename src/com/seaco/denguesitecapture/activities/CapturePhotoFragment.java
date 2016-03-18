@@ -33,20 +33,18 @@ public class CapturePhotoFragment extends Fragment {
 	//private OnItemSelectedListener listener;
 	Context contexts= getApplicationContext();
 	String email, name, id;
-	
-	public CapturePhotoFragment (String userEmail, String userName, String userID) {
-		email = userEmail;
-		name = userName;
-		id = userID;
-		// TODO Auto-generated constructor stub
-		Log.d(TAG, "community's email ["+email+"] and community's's name ["+name+"] AND idCommunity["+id+"]");
-	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View rootView = inflater.inflate(R.layout.capture_photo, container, false);
+		
+		//receive parameter from activity
+		id=getArguments().getString("userID");
+		name=getArguments().getString("userName");
+		
+		Log.d(TAG, "community's email ["+email+"] and community's's name ["+name+"] AND idCommunity["+id+"]");
 
 		spinner1 = (Spinner) rootView.findViewById(R.id.spinner1);
-		
+
 		createFolder();
 		loadDengueSiteList();
 
@@ -77,7 +75,6 @@ public class CapturePhotoFragment extends Fragment {
 				Intent intent = new Intent(getActivity().getApplicationContext(), CapturePhoto.class);
 				intent.putExtra("siteChoice", selected);
 				intent.putExtra("userID", id);
-				//container.setContent(intent);
 				startActivity(intent);
 			}
 		});
