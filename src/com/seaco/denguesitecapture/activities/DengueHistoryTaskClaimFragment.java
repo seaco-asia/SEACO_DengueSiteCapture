@@ -163,7 +163,7 @@ public class DengueHistoryTaskClaimFragment extends Fragment {
 				// set the custom dialog components - text, image and button
 				img = (ImageView) dialog.findViewById(R.id.image);
 
-				new LoadImage().execute("https://storage.googleapis.com/dengue-seaco/"+filename);
+				new LoadImage().execute("https://storage.googleapis.com/seaco-storage1/dengueapps/"+filename);
 
 				dialog.show();
 			}

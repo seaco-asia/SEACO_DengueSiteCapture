@@ -4,7 +4,7 @@ package com.seaco.denguesitecapture.activities;
 public class Config {
 
     //Address of our scripts was here
-	public static final String URL_MAIN 	  			= "https://dengueapp-1218.appspot.com/"; //will be replace into octopus.seaco.asia. if your are using LAN connection, please put your IP Address here
+	public static final String URL_MAIN 	  			= "https://seaco-dengueapps.appspot.com/"; //will be replace into octopus.seaco.asia. if your are using LAN connection, please put your IP Address here
     public static final String URL_ADD 		  			= URL_MAIN +"insert_user.php";
     public static final String URL_CHECK_USER 			= URL_MAIN +"check_user.php";
     public static final String URL_UPLOAD     			= URL_MAIN +"upload.php";

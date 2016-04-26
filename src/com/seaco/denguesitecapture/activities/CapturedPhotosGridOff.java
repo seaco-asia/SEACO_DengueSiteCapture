@@ -29,6 +29,7 @@ import org.json.JSONObject;
 import com.seaco.denguesitecapture.R;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -37,6 +38,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.BaseAdapter;
@@ -57,6 +59,9 @@ public class CapturedPhotosGridOff extends Activity  {
 
 	public Button btnNext;
 	public Button btnPre;
+	
+	Context context = this;
+	ImageView img;
 
 	ArrayList<HashMap<String, Object>> MyArrList = new ArrayList<HashMap<String, Object>>();
 
@@ -159,7 +164,7 @@ public class CapturedPhotosGridOff extends Activity  {
 
 					// Thumbnail Get ImageBitmap To Object
 					//String urlPath = Config.URL_MAIN+"dengueSites/uploads/"+c.getString("filename"); 
-					String urlPath = "https://storage.googleapis.com/dengue-seaco/"+c.getString("filename");
+					String urlPath = "https://storage.googleapis.com/seaco-storage1/dengueapps/"+c.getString("filename");
 					Log.d(TAG,""+urlPath);
 
 					Bitmap newBitmap = loadBitmap(urlPath);
@@ -234,7 +239,7 @@ public class CapturedPhotosGridOff extends Activity  {
 			return position; 
 		} 
 
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
 
 			LayoutInflater inflater = (LayoutInflater) mContext
@@ -273,6 +278,27 @@ public class CapturedPhotosGridOff extends Activity  {
 			TextView txtItemID = (TextView) convertView.findViewById(R.id.ColLocation);
 			txtItemID.setPadding(10, 10, 10, 10);
 			txtItemID.setText("Location : " + MyArrList.get(position).get("Location").toString());	
+			
+			// test onClick view
+			imageView.setOnClickListener(new OnClickListener() {
+
+			    @Override
+			    public void onClick(View v) {
+			    	String filename = MyArrList.get(position).get("Filename").toString();
+			        Log.d(TAG,"ONCLICK IMAGE: "+filename);
+			        
+			     // custom dialog
+					final Dialog dialog = new Dialog(context);
+					dialog.setContentView(R.layout.dialog_custom_image);
+					dialog.setTitle("View Image");
+
+					// set the custom dialog components - text, image and button
+					img = (ImageView) dialog.findViewById(R.id.image);
+					img.setImageBitmap((Bitmap)MyArrList.get(position).get("ImagePathBitmap"));
+
+					dialog.show();
+			    }
+			});
 
 			return convertView;
 

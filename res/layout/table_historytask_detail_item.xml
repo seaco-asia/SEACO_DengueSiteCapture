@@ -20,12 +20,12 @@
 
             <TextView
                 android:id="@+id/task_id"
-                android:layout_width="10dp"
+                android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:layout_margin="1dip"
                 android:background="#ffffff"
                 android:gravity="left"
-                android:padding="15dip" />
+                android:padding="3dip" />
 
             <TextView
                 android:id="@+id/task_updatedate"
@@ -33,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="1dip"
                 android:background="#ffffff"
-                android:padding="15dip" />
+                android:padding="3dip" />
 
             <TextView
                 android:id="@+id/task_comment"
@@ -41,15 +41,15 @@
                 android:layout_height="match_parent"
                 android:layout_margin="1dip"
                 android:background="#ffffff"
-                android:padding="15dip" />
+                android:padding="3dip" />
 
             <TextView
                 android:id="@+id/task_status"
-                android:layout_width="100dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_margin="1dip"
                 android:background="#ffffff"
-                android:padding="15dip" />
+                android:padding="3dip" />
 
         </TableRow>
     </TableLayout>

@@ -34,7 +34,7 @@ public class DengueHistoryFragment extends Fragment {
 	View tableRow;
 	ImageView img;
 	public int totalPhotos, pageCount, pageCountDisplay;
-	public int NUM_ITEMS_PAGE = 15, number = 0, increment = 0;
+	public int NUM_ITEMS_PAGE = 16, number = 0, increment = 0;
 	private String JSON_STRING;
 	public String action = "common";
 	String email, name, id, statusDesc;
@@ -410,7 +410,7 @@ public class DengueHistoryFragment extends Fragment {
 		history_uploaded_dialog.setText(photoDesc);
 		history_commentofficer_dialog.setText(!commentOfficer.equals("null")?commentOfficer:"");
 
-		new LoadImage().execute("https://storage.googleapis.com/dengue-seaco/"+filename);
+		new LoadImage().execute("https://storage.googleapis.com/seaco-storage1/dengueapps/"+filename);
 
 		dialog.show();
 

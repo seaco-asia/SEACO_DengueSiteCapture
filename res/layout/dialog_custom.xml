@@ -6,17 +6,19 @@
     <LinearLayout
         android:id="@+id/linearLayoutDialog"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="match_parent"
         android:layout_above="@+id/ScrollView"
         android:layout_alignParentTop="true"
-        android:background="@android:color/black" >
+        android:background="@android:color/black"
+        android:orientation="vertical" >
 
         <ImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"/>
+          	android:scaleType="fitXY" 
+         />   
     </LinearLayout>
 
     <ScrollView
@@ -43,11 +45,11 @@
 
                 <TextView
                     android:id="@+id/history_id_title_dialog"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dip"
+                    android:padding="5dip"
                     android:text="ID	"
-                    android:textSize="20sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -56,15 +58,15 @@
                     android:layout_height="wrap_content"
                     android:padding="10dip"
                     android:text=":"
-                    android:textSize="20sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/history_id_dialog"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dip"
-                    android:textSize="20sp" />
+                    android:padding="5dip"
+                    android:textSize="12sp" />
             </TableRow>
 
             <TableRow
@@ -76,11 +78,11 @@
 
                 <TextView
                     android:id="@+id/history_filename_title_dialog"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dip"
+                    android:padding="5dip"
                     android:text="Filename"
-                    android:textSize="20sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -89,15 +91,15 @@
                     android:layout_height="wrap_content"
                     android:padding="10dip"
                     android:text=":"
-                    android:textSize="20sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/history_filename_dialog"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:padding="10dip"
-                    android:textSize="20sp" />
+                    android:textSize="12sp" />
             </TableRow>
 
             <TableRow
@@ -109,11 +111,11 @@
 
                 <TextView
                     android:id="@+id/history_gps_title_dialog"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dip"
+                    android:padding="5dip"
                     android:text="GPS	"
-                    android:textSize="20sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -122,15 +124,15 @@
                     android:layout_height="wrap_content"
                     android:padding="10dip"
                     android:text=":"
-                    android:textSize="20sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/history_gps_dialog"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:padding="10dip"
-                    android:textSize="20sp" />
+                    android:textSize="12sp" />
             </TableRow>
 
             <TableRow
@@ -142,11 +144,11 @@
 
                 <TextView
                     android:id="@+id/history_datereport_title_dialog"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dip"
+                    android:padding="5dip"
                     android:text="Report Date"
-                    android:textSize="20sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -155,15 +157,15 @@
                     android:layout_height="wrap_content"
                     android:padding="10dip"
                     android:text=":"
-                    android:textSize="20sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/history_datereport_dialog"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:padding="10dip"
-                    android:textSize="20sp" />
+                    android:textSize="12sp" />
             </TableRow>
 
             <TableRow
@@ -175,11 +177,11 @@
 
                 <TextView
                     android:id="@+id/history_status_title_dialog"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dip"
+                    android:padding="5dip"
                     android:text="Status	"
-                    android:textSize="20sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -188,15 +190,15 @@
                     android:layout_height="wrap_content"
                     android:padding="10dip"
                     android:text=":"
-                    android:textSize="20sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/history_status_dialog"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:padding="10dip"
-                    android:textSize="20sp" />
+                    android:textSize="12sp" />
             </TableRow>
 
             <TableRow
@@ -208,11 +210,11 @@
 
                 <TextView
                     android:id="@+id/history_uploaded_title_dialog"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dip"
+                    android:padding="5dip"
                     android:text="Community Comment"
-                    android:textSize="20sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -221,16 +223,16 @@
                     android:layout_height="wrap_content"
                     android:padding="10dip"
                     android:text=":"
-                    android:textSize="20sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/history_uploaded_dialog"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:padding="10dip"
-                    android:textSize="20sp" />
+                    android:textSize="12sp" />
             </TableRow>
 
             <TableRow
@@ -242,11 +244,11 @@
 
                 <TextView
                     android:id="@+id/history_commentofficer_title_dialog"
-                    android:layout_width="wrap_content"
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dip"
+                    android:padding="5dip"
                     android:text="Officer Comment"
-                    android:textSize="20sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -255,16 +257,16 @@
                     android:layout_height="wrap_content"
                     android:padding="10dip"
                     android:text=":"
-                    android:textSize="20sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/history_commentofficer_dialog"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:padding="10dip"
-                    android:textSize="20sp" />
+                    android:textSize="12sp" />
             </TableRow>
         </TableLayout>
     </ScrollView>

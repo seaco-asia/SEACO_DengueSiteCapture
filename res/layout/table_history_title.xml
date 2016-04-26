@@ -7,7 +7,7 @@
     <TableLayout
         android:id="@+id/tableLayoutTitle"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#800000"
         android:scrollbars="vertical"
         android:stretchColumns="*" >
@@ -25,29 +25,29 @@
                 android:layout_margin="1dip"
                 android:background="#808080"
                 android:gravity="left"
-                android:padding="15dip"
+                android:padding="8dip"
                 android:text="ID"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/task_updatedate_title"
-                android:layout_width="100dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_margin="1dip"
                 android:background="#808080"
                 android:gravity="left"
-                android:padding="15dip"
+                android:padding="8dip"
                 android:text="Filename"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/task_comment_title"
-                android:layout_width="100dp"
+                android:layout_width="25dp"
                 android:layout_height="match_parent"
                 android:layout_margin="1dip"
                 android:background="#808080"
                 android:gravity="left"
-                android:padding="15dip"
+                android:padding="8dip"
                 android:text="Status"
                 android:textStyle="bold" />
 
@@ -58,7 +58,7 @@
                 android:layout_margin="1dip"
                 android:background="#808080"
                 android:gravity="right"
-                android:padding="15dip"
+                android:padding="8dip"
                 android:text="Detail"
                 android:textStyle="bold" />
         </TableRow>
@@ -75,7 +75,7 @@
         <TableLayout
             android:id="@+id/tableLayout"
             android:layout_width="match_parent"
-            android:layout_height="620dp"
+            android:layout_height="600dp"
             android:background="#800000"
             android:scrollbars="vertical"
             android:stretchColumns="*" >
@@ -91,7 +91,7 @@
 
         <Button
             android:id="@+id/buttonPrevious"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:text="prev" />
@@ -110,7 +110,7 @@
 
         <Button
             android:id="@+id/buttonNext"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:text="next" />

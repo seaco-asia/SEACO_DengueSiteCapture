@@ -25,31 +25,31 @@
                 android:layout_margin="1dip"
                 android:background="#ffffff"
                 android:gravity="left"
-                android:padding="15dip" />
+                android:padding="3dip" />
 
             <TextView
                 android:id="@+id/history_filename"
-                android:layout_width="100dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_margin="1dip"
                 android:background="#ffffff"
-                android:padding="15dip" />
+                android:padding="3dip" />
 
             <TextView
                 android:id="@+id/history_reportDate"
-                android:layout_width="100dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_margin="1dip"
                 android:background="#ffffff"
-                android:padding="15dip" />
+                android:padding="3dip" />
 
             <TextView
                 android:id="@+id/history_status"
-                android:layout_width="100dp"
+                android:layout_width="25dp"
                 android:layout_height="match_parent"
                 android:layout_margin="1dip"
                 android:background="#ffffff"
-                android:padding="15dip" />
+                android:padding="3dip" />
 
             <!--
              <TextView
@@ -69,7 +69,7 @@
                 android:layout_margin="1dip"
                 android:background="#ffffff"
                 android:gravity="right"
-                android:padding="15dip"
+                android:padding="3dip"
                 android:src="@drawable/arrow_down_small" />
 
             <ImageView
@@ -79,7 +79,7 @@
                 android:layout_margin="1dip"
                 android:background="#ffffff"
                 android:gravity="right"
-                android:padding="15dip"
+                android:padding="3dip"
                 android:src="@drawable/image_fillup" />
         </TableRow>
     </TableLayout>

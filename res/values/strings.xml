@@ -2,7 +2,7 @@
 
     <string name="app_name">Dengue Site Capture</string>
 
-    <string name="snap_photo">Snap Photo</string>
+    <string name="snap_photo">Snap\nPhoto</string>
 
     <string name="upload_photo">Upload Photo</string>
 
@@ -18,5 +18,7 @@
     
     <string name="btn_label1"> Fragment One </string>
     <string name="btn_label2"> Fragment Two </string>
+    
+    <string name="save">Save</string>
     
 </resources>

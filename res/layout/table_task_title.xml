@@ -26,30 +26,31 @@
                 android:layout_margin="1dip"
                 android:background="#808080"
                 android:gravity="left"
-                android:padding="15dip"
+                android:padding="5dip"
                 android:text="ID"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/task_updatedate_title"
-                android:layout_width="100dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_margin="1dip"
                 android:background="#808080"
                 android:gravity="left"
-                android:padding="15dip"
+                android:padding="5dip"
                 android:text="Filename"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/history_reportDate_title"
-                android:layout_width="100dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_margin="1dip"
                 android:background="#808080"
                 android:gravity="left"
-                android:padding="15dip"
-                android:text="Report Date"
+                android:padding="5dip"
+                android:lines="2"
+                android:text="Report\nDate"
                 android:textStyle="bold" />
 
             <TextView
@@ -58,8 +59,8 @@
                 android:layout_height="match_parent"
                 android:layout_margin="1dip"
                 android:background="#808080"
-                android:gravity="right"
-                android:padding="15dip"
+                android:gravity="left"
+                android:padding="5dip"
                 android:text="Claim"
                 android:textStyle="bold" />
         </TableRow>
@@ -92,7 +93,7 @@
 
         <Button
             android:id="@+id/buttonPrevious"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:text="prev" />
@@ -111,7 +112,7 @@
 
         <Button
             android:id="@+id/buttonNext"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:text="next" />

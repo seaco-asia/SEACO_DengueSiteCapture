@@ -57,11 +57,11 @@
 
                 <TextView
                     android:id="@+id/history_id_title_TaskDetail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
                     android:text="ID	"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -70,15 +70,15 @@
                     android:layout_height="wrap_content"
                     android:padding="5dip"
                     android:text=":"
-                    android:textSize="15sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/history_id_TaskDetail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </TableRow>
 
             <TableRow
@@ -90,11 +90,11 @@
 
                 <TextView
                     android:id="@+id/history_filename_title_TaskDetail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
                     android:text="Filename"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -103,15 +103,15 @@
                     android:layout_height="wrap_content"
                     android:padding="5dip"
                     android:text=":"
-                    android:textSize="15sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/history_filename_TaskDetail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </TableRow>
 
             <TableRow
@@ -123,11 +123,11 @@
 
                 <TextView
                     android:id="@+id/history_gps_title_TaskDetail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
                     android:text="GPS	"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -136,15 +136,15 @@
                     android:layout_height="wrap_content"
                     android:padding="5dip"
                     android:text=":"
-                    android:textSize="15sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/history_gps_TaskDetail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </TableRow>
 
             <TableRow
@@ -156,11 +156,11 @@
 
                 <TextView
                     android:id="@+id/history_datereport_title_TaskDetail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
                     android:text="Report Date"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -169,15 +169,15 @@
                     android:layout_height="wrap_content"
                     android:padding="5dip"
                     android:text=":"
-                    android:textSize="15sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/history_datereport_TaskDetail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </TableRow>
 
             <TableRow
@@ -189,11 +189,11 @@
 
                 <TextView
                     android:id="@+id/history_username_title_TaskDetail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
                     android:text="Report by"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -202,16 +202,16 @@
                     android:layout_height="wrap_content"
                     android:padding="5dip"
                     android:text=":"
-                    android:textSize="15sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/history_username_TaskDetail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:padding="5dip"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </TableRow>
 
             <TableRow
@@ -223,11 +223,11 @@
 
                 <TextView
                     android:id="@+id/history_uploaded_title_TaskDetail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
                     android:text="Community Comment"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -236,16 +236,16 @@
                     android:layout_height="wrap_content"
                     android:padding="5dip"
                     android:text=":"
-                    android:textSize="15sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/history_uploaded_TaskDetail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:padding="5dip"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </TableRow>
         </TableLayout>
     </ScrollView>
@@ -253,7 +253,7 @@
     <TableLayout
         android:id="@+id/tableLayoutTitle"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/ScrollViewLayoutTaskDetailInfo"
         android:background="#800000"
         android:scrollbars="vertical"
@@ -267,12 +267,12 @@
 
             <TextView
                 android:id="@+id/task_id"
-                android:layout_width="10dp"
+                android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:layout_margin="1dip"
                 android:background="#808080"
                 android:gravity="left"
-                android:padding="15dip"
+                android:padding="3dip"
                 android:text="Task ID"
                 android:textStyle="bold" />
 
@@ -282,8 +282,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="1dip"
                 android:background="#808080"
-                android:padding="15dip"
-                android:text="Update: Date/By"
+                android:padding="3dip"
+                android:lines="2"
+                android:text="Update:\nDate/By"
                 android:textStyle="bold" />
 
             <TextView
@@ -292,17 +293,17 @@
                 android:layout_height="match_parent"
                 android:layout_margin="1dip"
                 android:background="#808080"
-                android:padding="15dip"
+                android:padding="3dip"
                 android:text="Comment"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/task_status_title"
-                android:layout_width="100dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_margin="1dip"
                 android:background="#808080"
-                android:padding="15dip"
+                android:padding="3dip"
                 android:text="Status"
                 android:textStyle="bold" />
         </TableRow>
@@ -336,7 +337,7 @@
 
         <Button
             android:id="@+id/buttonPrevious"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:text="prev" />
@@ -355,7 +356,7 @@
 
         <Button
             android:id="@+id/buttonNext"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:text="next" />

@@ -25,23 +25,23 @@
             	android:gravity ="left"
                 android:background="#ffffff" 
 				android:layout_margin="1dip"  
-				android:padding="15dip"/>
+				android:padding="8dip"/>
 
          <TextView
                 android:id="@+id/history_filename"
-                android:layout_width="100dp"
+                android:layout_width="60dp"
             	android:layout_height="match_parent"
                 android:background="#ffffff" 
 				android:layout_margin="1dip"  
-				android:padding="15dip" />
+				android:padding="8dip" />
             
         <TextView
                 android:id="@+id/history_status"
-                android:layout_width="100dp"
+                android:layout_width="25dp"
             	android:layout_height="match_parent"
                 android:background="#ffffff" 
 				android:layout_margin="1dip"  
-				android:padding="15dip" />
+				android:padding="8dip" />
         
         <!-- <TextView
                 android:id="@+id/history_detail"
@@ -59,7 +59,7 @@
             android:gravity ="right"
             android:background="#ffffff" 
 			android:layout_margin="1dip"  
-			android:padding="15dip"
+			android:padding="8dip"
             android:src="@drawable/arrow_down_small" />
   
         </TableRow>
