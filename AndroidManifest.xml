@@ -61,6 +61,10 @@
         <activity android:name=".activities.Login" />
         <activity android:name=".activities.Signup" />
         <activity android:name=".activities.CapturedPhotosGridOff" />
+        <activity android:name=".activities.CapturedPhotosGridComm" />
+        <activity android:name=".activities.DengueUploadManual" />
+        <!--testing offline  -->
+         <activity android:name=".activities.UploadOffline" />
     </application>
 
 </manifest>

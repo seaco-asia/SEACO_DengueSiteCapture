@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="300dp" >
 
-    
     <LinearLayout
         android:id="@+id/linearLayoutDialog"
         android:layout_width="match_parent"
@@ -25,19 +24,30 @@
             android:layout_height="wrap_content"
             android:src="@drawable/image_view_image" /> -->
         
-        <ImageButton
+        <!-- <ImageButton
             android:id="@+id/save_ImageDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/image_save" />
+            android:src="@drawable/image_save" /> -->
+
+        <Button
+            android:id="@+id/save_ImageDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:background="#ff888888"
+            android:text="@string/save" />
 
         <TextView
             android:id="@+id/addImageDesc_title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="62dp"
+            android:layout_marginLeft="5dp"
             android:background="#ff888888"
-            android:text="Add Description of the Image"
+            android:text="@string/addImageDesc_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+
     </LinearLayout>
 
     <EditText

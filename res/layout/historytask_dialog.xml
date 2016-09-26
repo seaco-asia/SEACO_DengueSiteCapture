@@ -24,20 +24,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/image_view_image" />
-        
-        <ImageButton
+
+       <!--  <ImageButton
             android:id="@+id/imageButtonSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/image_save" />
+            android:src="@drawable/image_save" /> -->
+
+        <Button
+            android:id="@+id/imageButtonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="#ff888888"
+            android:text="@string/save" />
 
         <TextView
             android:id="@+id/officer_TaskDetail_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#ff888888"
-            android:text="Claim Task"
+            android:background="#FFFFFF"
+            android:text="@string/claim_officer_title"
+            android:layout_marginLeft="5dp"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+
     </LinearLayout>
 
     <ScrollView
@@ -45,8 +55,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/linearLayoutDialog"
-        android:fillViewport="true"
-        android:background="#800000" >
+        android:background="#800000"
+        android:fillViewport="true" >
 
         <TableLayout
             android:id="@+id/tableLayout"
@@ -66,7 +76,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text="ID	"
+                    android:text="@string/id_title_dialog"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -75,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text=":"
+                    android:text="@string/doubleDot"
                     android:textSize="10sp"
                     android:textStyle="bold" />
 
@@ -99,7 +109,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text="Filename"
+                    android:text="@string/filename_title_dialog"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -108,12 +118,45 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text=":"
+                    android:text="@string/doubleDot"
                     android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/history_filename_dialog"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:textSize="12sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dip"
+                android:background="#ffffff" >
+
+                <TextView
+                    android:id="@+id/history_address_title_dialog"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text="@string/address_title_dialog"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/history_address_title2_dialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text="@string/doubleDot"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/history_address_dialog"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
@@ -132,7 +175,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text="GPS	"
+                    android:text="@string/gps_title_dialog"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -141,7 +184,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text=":"
+                    android:text="@string/doubleDot"
                     android:textSize="10sp"
                     android:textStyle="bold" />
 
@@ -165,7 +208,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text="Report Date"
+                    android:text="@string/datereport_title_dialog"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -174,7 +217,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text=":"
+                    android:text="@string/doubleDot"
                     android:textSize="10sp"
                     android:textStyle="bold" />
 
@@ -198,7 +241,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text="Report By"
+                    android:text="@string/claim_reportby_title_dialog"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -207,7 +250,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text=":"
+                    android:text="@string/doubleDot"
                     android:textSize="10sp"
                     android:textStyle="bold" />
 
@@ -231,7 +274,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text="Decision"
+                    android:text="@string/claim_status_title_dialog"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -240,7 +283,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text=":"
+                    android:text="@string/doubleDot"
                     android:textSize="10sp"
                     android:textStyle="bold" />
 
@@ -255,25 +298,38 @@
                         android:id="@+id/radBtnViewed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Viewed" />
+                        android:text="@string/rad_viewed" />
 
                     <RadioButton
                         android:id="@+id/radBtnInProcess"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="In Process" />
+                        android:text="@string/rad_inProcess" />
 
                     <RadioButton
                         android:id="@+id/radBtnResolved"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Resolved" />
+                        android:text="@string/rad_resolved" />
+                    
+                    <RadioButton
+                        android:id="@+id/radBtnDuplicate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rad_duplicate" />
 
                     <RadioButton
                         android:id="@+id/radBtnRejected"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rejected" />
+                        android:text="@string/rad_rejected" />
+                    
+                    <RadioButton
+                        android:id="@+id/radBtnNone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rad_none"
+                        android:visibility="gone"/>
                 </RadioGroup>
             </TableRow>
 
@@ -289,7 +345,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text="Community Comment"
+                    android:text="@string/uploaded_title_dialog"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -298,7 +354,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text=":"
+                    android:text="@string/doubleDot"
                     android:textSize="10sp"
                     android:textStyle="bold" />
 
@@ -323,7 +379,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text="Officer Comment"
+                    android:text="@string/commentofficer_title_dialog"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -332,7 +388,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text=":"
+                    android:text="@string/doubleDot"
                     android:textSize="10sp"
                     android:textStyle="bold" />
 
@@ -360,7 +416,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text="Officer Name"
+                    android:text="@string/nameofficer_title_dialog"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -369,7 +425,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text=":"
+                    android:text="@string/doubleDot"
                     android:textSize="10sp"
                     android:textStyle="bold" />
 
@@ -382,4 +438,5 @@
             </TableRow>
         </TableLayout>
     </ScrollView>
+
 </RelativeLayout>

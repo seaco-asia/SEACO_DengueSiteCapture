@@ -1,61 +1,65 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tableLayout1"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
- 
-   	<TableRow
-      android:id="@+id/tableRow1"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-       android:background="@android:color/darker_gray" >
-     
-     <TextView
-        android:id="@+id/textView1"
+    android:layout_height="fill_parent" >
+
+    <TableRow
+        android:id="@+id/tableRow1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Press Prev or Next Button: "
-        android:layout_span="1" />
-     
-     <Button
-         android:id="@+id/btnPre"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text="&lt;&lt; Prev" />
-     
+        android:background="@android:color/darker_gray" >
 
-     <Button
-         android:id="@+id/btnNext"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text="Next >>" />
-            
- 	</TableRow>
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_span="1"
+            android:gravity="center"
+            android:text="Press Prev or Next Button: " />
 
-	<View
-		android:layout_height="1dip"
-		android:background="#CCCCCC" />
- 
-  <LinearLayout
-        android:orientation="horizontal"
+        <Button
+            android:id="@+id/btnPre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&lt;&lt; Prev" />
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next >>" />
+    </TableRow>
+
+    <View
+        android:layout_height="1dip"
+        android:background="#CCCCCC" />
+
+    <ScrollView
+        android:id="@+id/ScrollView"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.1">   
-     
-	    <GridView
-	        android:id="@+id/gridView1"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:numColumns="2" >
-	    </GridView>
-  	        
- 	</LinearLayout>
+        android:layout_height="600dp"
+        android:layout_weight="0.07"
+        android:fillViewport="true" >
 
-	<View
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <GridView
+                android:id="@+id/gridView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="2" >
+            </GridView>
+        </LinearLayout>
+    </ScrollView>
+    <!--
+    <View
 		android:layout_height="1dip"
 		android:background="#CCCCCC" />
    		  
-  <!--  	<LinearLayout
+ 	<LinearLayout
       android:id="@+id/LinearLayout1"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -65,8 +69,7 @@
    		    android:id="@+id/textView2"
    		    android:layout_width="wrap_content"
    		    android:layout_height="wrap_content"
-   		    android:text="By.. ThaiCreate.Com" />
+   		    android:text="By.. ThaiCreate.Com" />
+    -->
 
-	</LinearLayout> -->
-	
 </TableLayout>

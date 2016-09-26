@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#ff888888"
-            android:text="Detail Task History"
+            android:text="@string/task_detail_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
 
@@ -60,7 +60,7 @@
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text="ID	"
+                    android:text="@string/task_id"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -69,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text=":"
+                    android:text="@string/doubleDot"
                     android:textSize="10sp"
                     android:textStyle="bold" />
 
@@ -93,7 +93,7 @@
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text="Filename"
+                    android:text="@string/task_filename_title"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -102,12 +102,45 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text=":"
+                    android:text="@string/doubleDot"
                     android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/history_filename_TaskDetail"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:textSize="12sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dip"
+                android:background="#ffffff" >
+
+                <TextView
+                    android:id="@+id/history_address_title_TaskDetail"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text="@string/task_address_title"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/history_address_title2_TaskDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text="@string/doubleDot"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/history_address_TaskDetail"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
@@ -126,7 +159,7 @@
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text="GPS	"
+                    android:text="@string/task_gps_title"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -135,7 +168,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text=":"
+                    android:text="@string/doubleDot"
                     android:textSize="10sp"
                     android:textStyle="bold" />
 
@@ -159,7 +192,7 @@
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text="Report Date"
+                    android:text="@string/task_reportDate_title"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -168,7 +201,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text=":"
+                    android:text="@string/doubleDot"
                     android:textSize="10sp"
                     android:textStyle="bold" />
 
@@ -192,7 +225,7 @@
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text="Report by"
+                    android:text="@string/task_username_title_TaskDetail"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -201,7 +234,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text=":"
+                    android:text="@string/doubleDot"
                     android:textSize="10sp"
                     android:textStyle="bold" />
 
@@ -226,7 +259,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text="Community Comment"
+                    android:text="@string/task_uploaded_title_TaskDetail"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -235,7 +268,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text=":"
+                    android:text="@string/doubleDot"
                     android:textSize="10sp"
                     android:textStyle="bold" />
 
@@ -273,7 +306,7 @@
                 android:background="#808080"
                 android:gravity="left"
                 android:padding="3dip"
-                android:text="Task ID"
+                android:text="@string/task_id_title"
                 android:textStyle="bold" />
 
             <TextView
@@ -282,9 +315,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="1dip"
                 android:background="#808080"
-                android:padding="3dip"
                 android:lines="2"
-                android:text="Update:\nDate/By"
+                android:padding="3dip"
+                android:text="@string/task_updatedate_title"
                 android:textStyle="bold" />
 
             <TextView
@@ -294,7 +327,7 @@
                 android:layout_margin="1dip"
                 android:background="#808080"
                 android:padding="3dip"
-                android:text="Comment"
+                android:text="@string/task_comment_title"
                 android:textStyle="bold" />
 
             <TextView
@@ -304,7 +337,7 @@
                 android:layout_margin="1dip"
                 android:background="#808080"
                 android:padding="3dip"
-                android:text="Status"
+                android:text="@string/task_status_title"
                 android:textStyle="bold" />
         </TableRow>
     </TableLayout>
@@ -313,8 +346,8 @@
         android:id="@+id/ScrollViewTableLayoutTaskDetail"
         android:layout_width="fill_parent"
         android:layout_height="1000dp"
-        android:layout_below="@+id/tableLayoutTitle"
         android:layout_above="@+id/linearLayoutHistory"
+        android:layout_below="@+id/tableLayoutTitle"
         android:fillViewport="true" >
 
         <TableLayout
@@ -324,7 +357,6 @@
             android:background="#800000"
             android:scrollbars="vertical"
             android:stretchColumns="*" >
-
         </TableLayout>
     </ScrollView>
 
@@ -340,7 +372,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="prev" />
+            android:text="@string/btn_prev" />
 
         <TextView
             android:id="@+id/pageNumber"
@@ -359,7 +391,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="next" />
+            android:text="@string/btn_next" />
     </LinearLayout>
 
 </RelativeLayout>

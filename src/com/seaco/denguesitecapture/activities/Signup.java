@@ -5,7 +5,9 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,14 +26,28 @@ public class Signup extends Activity implements OnClickListener {
 	private static final String TAG = "Signup";
 	private Button  btnCreateAccount, btnBack;
 	private MySQLiteHelper db;
-	String userName,userEmail,userPassword,userRegtype, actionType;
+	String userName,userEmail,userPassword,userRegtype, phoneNo, userPhoneNo, actionType, languageType;
 	View signupLayout;
 	public String JSON_STRING;
+
+	//use SharedPreferences to store and retrieve languageType parameter
+	SharedPreferences sharedpreferences;
+	public static final String mypreference = "mypref";
+	public static final String languageTypePref = "languageTypePrefKey";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.signup_page);
+
+		//use SharedPreferences to store and retrieve languageType parameter
+		sharedpreferences = getSharedPreferences(mypreference,Context.MODE_PRIVATE);
+
+		if (sharedpreferences.contains(languageTypePref)) {
+			languageType = sharedpreferences.getString(languageTypePref, "");
+		}else{
+			languageType = "en";
+		}
 
 		//button create Account, back
 		btnCreateAccount = (Button) findViewById(R.id.btnCreateAccount);
@@ -40,6 +56,8 @@ public class Signup extends Activity implements OnClickListener {
 		btnBack.setOnClickListener(this);
 
 		btnBack.setOnClickListener(this);
+
+		EditText nameEditText = (EditText)findViewById(R.id.signup_name);
 
 		/* temporary using before implement server database
 		 * 
@@ -88,27 +106,29 @@ public class Signup extends Activity implements OnClickListener {
 
 		final ProgressDialog progressDialog = new ProgressDialog(Signup.this,R.style.AppBaseTheme);
 		progressDialog.setIndeterminate(true);
-		progressDialog.setMessage("Creating Account...");
+		progressDialog.setMessage(languageType.equalsIgnoreCase("ms")?Constants.ms.SIGNUP_CREATING:Constants.en.SIGNUP_CREATING);
 		progressDialog.show();
 
 		//textfield signup
 		EditText nameEditText = (EditText)findViewById(R.id.signup_name);
-		EditText emailEditText = (EditText)findViewById(R.id.signup_email);
+		////EditText emailEditText = (EditText)findViewById(R.id.signup_email);
 		EditText passEditText = (EditText)findViewById(R.id.signup_password);
+		EditText phoneNoEditText = (EditText)findViewById(R.id.signup_phoneNo);
 
 		userName = nameEditText.getText().toString();
-		userEmail = emailEditText.getText().toString();
+		////userEmail = emailEditText.getText().toString();
+		userPhoneNo = phoneNoEditText.getText().toString();
 		userPassword = passEditText.getText().toString();
 		userRegtype = "COM";// COM= community, AO= agency officer
 
-		Log.d(TAG, "userName ["+userName+"] and userEmail ["+userEmail+"] and userPassword ["+userPassword+"]");
+		Log.d(TAG, "userName ["+userName+"] and userEmail ["+userEmail+"] and userPassword ["+userPassword+"] and userPhoneNo ["+userPhoneNo+"]");
 
 		// TODO: Implement your own authentication logic here.
 		new android.os.Handler().postDelayed(
 				new Runnable() {
 					public void run() {
 						//check user if their email already have at db
-						checkUser(userName,userEmail, userPassword, userRegtype, progressDialog);
+						checkUser(userName,userEmail, userPassword, userRegtype, userPhoneNo, progressDialog);
 					}
 					//					}
 				}, 3000);
@@ -128,31 +148,40 @@ public class Signup extends Activity implements OnClickListener {
 
 		//textfield signup
 		EditText nameEditText = (EditText)findViewById(R.id.signup_name);
-		EditText emailEditText = (EditText)findViewById(R.id.signup_email);
+		////EditText emailEditText = (EditText)findViewById(R.id.signup_email);
+		EditText phoneNoEditText = (EditText)findViewById(R.id.signup_phoneNo);
 		EditText passEditText = (EditText)findViewById(R.id.signup_password);
 
 		userName = nameEditText.getText().toString();
-		userEmail = emailEditText.getText().toString();
+		////userEmail = emailEditText.getText().toString();
+		userPhoneNo = phoneNoEditText.getText().toString();
 		userPassword = passEditText.getText().toString();
 
 		Log.d(TAG, "userName ["+userName+"] and userEmail ["+userEmail+"] and userPassword ["+userPassword+"]");
 
 		if (userName.isEmpty() || userName.length() < 3) {
-			nameEditText.setError("Please enter at least 3 characters");
+			nameEditText.setError(languageType.equalsIgnoreCase("ms")?Constants.ms.SIGNUP_AUTH_USERNAME:Constants.en.SIGNUP_AUTH_USERNAME);
 			valid = false;
 		}else{
 			nameEditText.setError(null);
 		}
+		
+		if (userPhoneNo.isEmpty()) {
+			phoneNoEditText.setError(languageType.equalsIgnoreCase("ms")?Constants.ms.LOGIN_AUTH_PHONENO:Constants.en.LOGIN_AUTH_PHONENO);
+			valid = false;
+		}else{
+			phoneNoEditText.setError(null);
+		}
 
-		if (userEmail.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
-			emailEditText.setError("Please enter your email");
+		/*if (userEmail.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
+			emailEditText.setError(languageType.equalsIgnoreCase("ms")?Constants.ms.SIGNUP_AUTH_EMAIL:Constants.en.SIGNUP_AUTH_EMAIL);
 			valid = false;
 		}else{
 			emailEditText.setError(null);
-		}
+		}*/
 
 		if (userPassword.isEmpty() || userPassword.length() < 4 || userPassword.length() > 10) {
-			passEditText.setError("Please enter between 4 and 10 alphanumeric characters");
+			passEditText.setError(languageType.equalsIgnoreCase("ms")?Constants.ms.SIGNUP_AUTH_PASSWORD:Constants.en.SIGNUP_AUTH_PASSWORD);
 			valid = false;
 		}else{
 			passEditText.setError(null);
@@ -172,16 +201,18 @@ public class Signup extends Activity implements OnClickListener {
 		}else{
 			//textfield signup
 			EditText nameSignupEditText = (EditText)findViewById(R.id.signup_name);
-			EditText emailSignupEditText = (EditText)findViewById(R.id.signup_email);
+			////EditText emailSignupEditText = (EditText)findViewById(R.id.signup_email);
+			EditText phoneSignupEditText = (EditText)findViewById(R.id.signup_phoneNo);
 			EditText passSignupEditText = (EditText)findViewById(R.id.signup_password);
 
 			nameSignupEditText.setText("");
-			emailSignupEditText.setText("");
+			////emailSignupEditText.setText("");
+			phoneSignupEditText.setText("");
 			passSignupEditText.setText("");
 		}
 	}
 
-	private void checkUser(final String userName, final String userEmail, final String userPassword, final String userRegtype, final ProgressDialog progressDialog){
+	private void checkUser(final String userName, final String userEmail, final String userPassword, final String userRegtype, final String userPhoneNo, final ProgressDialog progressDialog){
 
 		class CheckUser extends AsyncTask<Void,Void,String>{
 
@@ -197,24 +228,25 @@ public class Signup extends Activity implements OnClickListener {
 				Log.d(TAG,"postExecute checkUser");
 
 				JSON_STRING = s;
-			
-					if(s.contains("success")){
-						progressDialog.dismiss();
-						Toast.makeText(getBaseContext(), "Signup failed. You ID is already exist.", Toast.LENGTH_LONG).show();
-						emptyInputVal(actionType);
-					}else{
-						
-						//add if the data not already in db
-						addUser(userName, userEmail, userPassword, userRegtype, progressDialog);
-					}
+
+				if(s.contains("success")){
+					progressDialog.dismiss();
+					Toast.makeText(getBaseContext(), languageType.equalsIgnoreCase("ms")?Constants.ms.SIGNUP_FAIL:Constants.en.SIGNUP_FAIL, Toast.LENGTH_LONG).show();
+					emptyInputVal(actionType);
+				}else{
+
+					//add if the data not already in db
+					addUser(userName, userEmail, userPassword, userRegtype, userPhoneNo, progressDialog);
+				}
 			}
 
 			@Override
 			protected String doInBackground(Void... params) {
 				RequestHandler rh = new RequestHandler();
-				
+
 				HashMap<String,String> paramUser = new HashMap<String, String>();
-				paramUser.put(Config.KEY_USER_EMAIL,userEmail);
+				//paramUser.put(Config.KEY_USER_EMAIL,userEmail);
+				paramUser.put(Config.KEY_USER_PHONENO,userPhoneNo);
 				paramUser.put(Config.KEY_USER_PASSWORD,userPassword);
 				
 				String s = rh.sendPostRequest(Config.URL_CHECK_USER,paramUser);
@@ -227,7 +259,7 @@ public class Signup extends Activity implements OnClickListener {
 	}
 
 	//Adding new user
-	private void addUser(final String userName, final String userEmail, final String userPassword, final String userRegtype, final ProgressDialog progressDialog){
+	private void addUser(final String userName, final String userEmail, final String userPassword, final String userRegtype, final String userPhoneNo, final ProgressDialog progressDialog){
 
 		class AddUser extends AsyncTask<Void,Void,String>{
 
@@ -242,7 +274,7 @@ public class Signup extends Activity implements OnClickListener {
 
 				Log.d(TAG,"onPostExecute addUser");
 
-				Toast.makeText(getBaseContext(), "Signup successfully", Toast.LENGTH_LONG).show();
+				Toast.makeText(getBaseContext(), languageType.equalsIgnoreCase("ms")?Constants.ms.SIGNUP_SUCCESS:Constants.en.SIGNUP_SUCCESS, Toast.LENGTH_LONG).show();
 				progressDialog.dismiss();
 				emptyInputVal(actionType);
 
@@ -257,7 +289,8 @@ public class Signup extends Activity implements OnClickListener {
 
 				HashMap<String,String> params = new HashMap<String, String>();
 				params.put(Config.KEY_USER_NAME,userName);
-				params.put(Config.KEY_USER_EMAIL,userEmail);
+				params.put(Config.KEY_USER_EMAIL,userEmail!=null?userEmail:"");
+				params.put(Config.KEY_USER_PHONENO,userPhoneNo);
 				params.put(Config.KEY_USER_PASSWORD,userPassword);
 				params.put(Config.KEY_USER_Regtype,userRegtype);
 
@@ -270,4 +303,5 @@ public class Signup extends Activity implements OnClickListener {
 		AddUser addUser = new AddUser();
 		addUser.execute();
 	}
+
 }

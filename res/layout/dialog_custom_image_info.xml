@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/linearLayoutMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/black" >
+
+        <!--
+             <ImageButton
+            android:id="@+id/save_ImageAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_save" />
+        -->
+
+        <Button
+            android:id="@+id/save_ImageAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="#ff888888"
+             android:layout_marginLeft="5dp"
+            android:text="@string/save" />
+
+        <TextView
+            android:id="@+id/addImageAddrress_title"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.20"
+            android:background="#ff888888"
+            android:text="@string/addImageAddrress_title"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/ScrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="600dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/linearLayoutMenu"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:id="@+id/linearLayoutMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ff888888"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/linearLayoutQuestion1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/titleAddress_B1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titleAddress_locality"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/answAddress_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" />
+
+                <EditText
+                    android:id="@+id/answAddress_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_answAddress_locality"
+                    android:maxLength="300" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutQuestion2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#FFFFFF"
+                android:gravity="bottom"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/titleAddress_B2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titleAddress_indicator"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/titleAddress_I1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="15sp" />
+
+                <RadioGroup
+                    android:id="@+id/answAddress_2_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <RadioButton
+                        android:id="@+id/radio2_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rad_landmark" />
+
+                    <RadioButton
+                        android:id="@+id/radio2_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rad_pole" />
+
+                    <RadioButton
+                        android:id="@+id/radio2_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rad_notApplicable" />
+                </RadioGroup>
+
+                <EditText
+                    android:id="@+id/answAddress_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_answAddress_landmark"
+                    android:maxLength="300" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutQuestion7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/titleAddress_B7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titleAddress_mukim"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/answAddress_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <RadioButton
+                        android:id="@+id/radio7_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rad_Bekok" />
+
+                    <RadioButton
+                        android:id="@+id/radio7_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rad_Chaah" />
+
+                    <RadioButton
+                        android:id="@+id/radio7_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rad_Gemereh" />
+
+                    <RadioButton
+                        android:id="@+id/radio7_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rad_Sg" />
+
+                    <RadioButton
+                        android:id="@+id/radio7_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rad_Jabi" />
+                    
+                      <RadioButton
+                        android:id="@+id/radio7_6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rad_Jementah" />
+
+                    <RadioButton
+                        android:id="@+id/radio7_7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rad_Sermin" />
+
+                    <RadioButton
+                        android:id="@+id/radio7_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rad_BulohKasap" />
+
+                    <RadioButton
+                        android:id="@+id/radio7_9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rad_Gemas" />
+
+                    <RadioButton
+                        android:id="@+id/radio7_10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rad_Pagoh" />
+                    
+                    <RadioButton
+                        android:id="@+id/radio7_11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rad_Labis" />
+                </RadioGroup>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

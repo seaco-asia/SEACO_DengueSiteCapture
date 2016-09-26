@@ -15,7 +15,7 @@ public class CapturedPhotosFragment extends Fragment {
 
 	private static final String TAG = "CapturedPhotosFragment";
 	Context context;
-	String email, name, id, regType;
+	String email, name, id, regType, languageType;
 
 //	public CapturedPhotosFragment(String userEmail, String userName, String userID, String userRegtype) {
 	/*public CapturedPhotosFragment(String userID, String userRegtype) {
@@ -33,18 +33,18 @@ public class CapturedPhotosFragment extends Fragment {
 		//receive parameter from activity
 		id=getArguments().getString("userID");
 		regType=getArguments().getString("userRegtype");
+		languageType = getArguments().getString("languageType");
+		
 		Log.d(TAG, "com/officer's email ["+email+"] and com/officer's name ["+name+"] AND idComm_Officer["+id+"]");
 
-
-		//		Intent intent = new Intent(getActivity().getApplicationContext(), CapturedPhotosGrid.class);
-		//		Intent intent = new Intent(getActivity().getApplicationContext(), DownloadImageActivity.class);
-		//		Intent intent = new Intent(getActivity().getApplicationContext(), CapturedPhotosGridTest.class);
 		if(regType.equalsIgnoreCase("COM")){
-			Intent intent = new Intent(getActivity().getApplicationContext(), CapturedPhotosGrid.class);
+			Intent intent = new Intent(getActivity().getApplicationContext(), CapturedPhotosGridComm.class);
 			intent.putExtra("userID", id);
+			intent.putExtra("languageType", languageType);
 			startActivity(intent);	
 		}else{
 			Intent intent = new Intent(getActivity().getApplicationContext(), CapturedPhotosGridOff.class);
+			intent.putExtra("languageType", languageType);
 			startActivity(intent);	
 		}
 

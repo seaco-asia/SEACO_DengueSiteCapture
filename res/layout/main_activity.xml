@@ -15,11 +15,17 @@
 
         <Button
             android:id="@+id/take_photo"
-            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10dp"
             android:text="@string/snap_photo" />
+
+        <!--
+        <Button
+            android:id="@+id/take_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/@string/snap_photo"
+            android:textSize="10dp" />
 
         <ImageView
             android:id="@+id/imageView1"
@@ -33,14 +39,13 @@
             android:layout_height="match_parent"
             android:src="@drawable/add_desc_label" />
 
-        <!--
+       
              <Button
             android:id="@+id/add_descImage"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Description" />
-        -->
+            android:text="@string/Add Description" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -52,30 +57,24 @@
             android:id="@+id/imageViewLabel2"
             android:layout_width="70dp"
             android:layout_height="match_parent"
-            android:src="@drawable/add_addr_label" />
+            android:src="@drawable/add_addr_label1" />
 
-        <!--
+       
              <Button
             android:id="@+id/add_addressImage"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Address" />
-        -->
+            android:text="@string/Add Address" />
+     
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="20dp"
             android:layout_height="match_parent"
             android:src="@drawable/next_points_small" />
+        -->
 
-        <Button
-            android:id="@+id/save_Photo"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:text="@string/save" />
 
         <!--
               <ImageView
@@ -90,7 +89,7 @@
     <ScrollView
         android:id="@+id/ScrollView"
         android:layout_width="fill_parent"
-        android:layout_height="600dp"
+        android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/linear_layoutMenu"
         android:fillViewport="true" >
@@ -117,16 +116,50 @@
                 android:id="@+id/linearLayoutInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_below="@+id/linearLayoutImage" >
+                android:orientation="vertical" >
+
+                <!--
+                      <TextView
+                    android:id="@+id/address_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Address of Mosquito&apos;s Breeding Site (Please fill in this address field to get the accurate location)"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold" />
+                -->
+
+                <TextView
+                    android:id="@+id/address_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/address_title"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/editText_Address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:hint="@string/hint_editText_Address" />
 
                 <TextView
                     android:id="@+id/photoDesc_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Photo Description"
+                    android:text="@string/photoDesc_title"
+                    android:textStyle="bold" />
+
+                <!--
+                     <TextView
+                    android:id="@+id/photoDesc_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Photo Description"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textStyle="bold" />
+                -->
 
                 <EditText
                     android:id="@+id/editText_Photo"
@@ -134,32 +167,52 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:ems="10"
-                    android:hint="Click here to fill up this field"
-                    android:textSize="12sp" >
-
-                    <requestFocus />
-                </EditText>
+                    android:hint="@string/hint_editText_Photodress" />
 
                 <TextView
-                    android:id="@+id/address_title"
+                    android:id="@+id/txtPatientName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Address of Mosquito&apos;s Breeding Site (Please fill in this address field to get the accurate location)"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textStyle="bold" />
+                    android:text="@string/case_patientName_title"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
                 <EditText
-                    android:id="@+id/editText_Address"
+                    android:id="@+id/editTxtPatientName"
                     android:layout_width="match_parent"
-                    android:layout_height="28dp"
-                    android:layout_weight="22"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:maxLength="100"
+                     android:visibility="gone" />
+
+                <!--
+                      <EditText
+                    android:id="@+id/editText_Photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:clickable="true"
                     android:ems="10"
-                    android:focusable="false"
                     android:hint="Click here to fill up this field"
                     android:textSize="12sp" />
+                -->
             </LinearLayout>
 
+            <Button
+                android:id="@+id/save_Photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@string/save" />
+
+            <!--
+                  <Button
+                android:id="@+id/save_Photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                android:textSize="10dp" />
+            -->
         </LinearLayout>
     </ScrollView>
 

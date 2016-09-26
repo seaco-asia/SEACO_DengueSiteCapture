@@ -31,8 +31,10 @@ import com.seaco.denguesitecapture.R;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +45,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -59,15 +62,33 @@ public class CapturedPhotosGridOff extends Activity  {
 
 	public Button btnNext;
 	public Button btnPre;
-	
+
 	Context context = this;
 	ImageView img;
+	CheckBox chckBoxStatus;
+
+	String status, languageType;
 
 	ArrayList<HashMap<String, Object>> MyArrList = new ArrayList<HashMap<String, Object>>();
 
+	//use SharedPreferences to store and retrieve languageType parameter
+	SharedPreferences sharedpreferences;
+	public static final String mypreference = "mypref";
+	public static final String languageTypePref = "languageTypePrefKey";
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);        
+		super.onCreate(savedInstanceState);    
+
+		//use SharedPreferences to store and retrieve languageType parameter
+		sharedpreferences = getSharedPreferences(mypreference,Context.MODE_PRIVATE);
+
+		if (sharedpreferences.contains(languageTypePref)) {
+			languageType = sharedpreferences.getString(languageTypePref, "");
+		}else{
+			languageType = "en";
+		}
+
 		// ProgressBar
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
@@ -78,7 +99,6 @@ public class CapturedPhotosGridOff extends Activity  {
 		gridV.setClipToPadding(false);
 		imageAdapter = new ImageAdapter(getApplicationContext()); 
 		gridV.setAdapter(imageAdapter);
-
 
 		// Next
 		btnNext = (Button) findViewById(R.id.btnNext);
@@ -161,10 +181,16 @@ public class CapturedPhotosGridOff extends Activity  {
 					map.put("ID", (String)c.getString("id"));
 					map.put("Filename", (String)c.getString("filename"));
 					map.put("Location", (String)c.getString("latitude")+","+(String)c.getString("longitude"));
+					map.put("Status", (String)c.getString("status"));
+
+					//checkBox check or unchecked
+					//if(!(c.getString("status").equalsIgnoreCase("null"))){
+					//chckBoxStatus.setChecked(true);
+					//}
 
 					// Thumbnail Get ImageBitmap To Object
 					//String urlPath = Config.URL_MAIN+"dengueSites/uploads/"+c.getString("filename"); 
-					String urlPath = "https://storage.googleapis.com/seaco-storage1/dengueapps/"+c.getString("filename");
+					String urlPath = "https://storage.googleapis.com/dengue-storage-00/dengueapps/"+c.getString("filename");
 					Log.d(TAG,""+urlPath);
 
 					Bitmap newBitmap = loadBitmap(urlPath);
@@ -242,6 +268,7 @@ public class CapturedPhotosGridOff extends Activity  {
 		public View getView(final int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
 
+			Log.d(TAG,"Position: "+position);
 			LayoutInflater inflater = (LayoutInflater) mContext
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -267,27 +294,31 @@ public class CapturedPhotosGridOff extends Activity  {
 			// ColImageID
 			TextView txtImageID = (TextView) convertView.findViewById(R.id.ColImageID);
 			txtImageID.setPadding(10, 10, 10, 10);
-			txtImageID.setText("ID : " + MyArrList.get(position).get("ID").toString());	
+			txtImageID.setText("ID :" + MyArrList.get(position).get("ID").toString());	
 
 			// ColItemID
 			TextView txtFilename = (TextView) convertView.findViewById(R.id.ColFilename);
 			txtFilename.setPadding(10, 10, 10, 10);
-			txtFilename.setText("Filename : " + MyArrList.get(position).get("Filename").toString());
-			
+			txtFilename.setText("Filename:\n" + MyArrList.get(position).get("Filename").toString());
+
 			// ColItemID
 			TextView txtItemID = (TextView) convertView.findViewById(R.id.ColLocation);
 			txtItemID.setPadding(10, 10, 10, 10);
-			txtItemID.setText("Location : " + MyArrList.get(position).get("Location").toString());	
-			
-			// test onClick view
+			txtItemID.setText("GPS:\n" + MyArrList.get(position).get("Location").toString());	
+
+			// ColCheckBox
+			chckBoxStatus = (CheckBox) convertView.findViewById(R.id.checkBoxStatus);
+			status = MyArrList.get(position).get("Status").toString();
+
+			// onClick Enlarge Image
 			imageView.setOnClickListener(new OnClickListener() {
 
-			    @Override
-			    public void onClick(View v) {
-			    	String filename = MyArrList.get(position).get("Filename").toString();
-			        Log.d(TAG,"ONCLICK IMAGE: "+filename);
-			        
-			     // custom dialog
+				@Override
+				public void onClick(View v) {
+					//String filename = MyArrList.get(position).get("Filename").toString();
+					//Log.d(TAG,"ONCLICK IMAGE: "+filename);
+
+					// custom dialog
 					final Dialog dialog = new Dialog(context);
 					dialog.setContentView(R.layout.dialog_custom_image);
 					dialog.setTitle("View Image");
@@ -297,13 +328,52 @@ public class CapturedPhotosGridOff extends Activity  {
 					img.setImageBitmap((Bitmap)MyArrList.get(position).get("ImagePathBitmap"));
 
 					dialog.show();
-			    }
+				}
 			});
+
+			// set checkBox color
+			displayStatus(status);
 
 			return convertView;
 
 		}
 
+	}
+
+	public void displayStatus(String status) {
+		if(status.equals("0")){
+			chckBoxStatus.setChecked(true);
+			chckBoxStatus.setText("Not Relevant");
+			chckBoxStatus.setBackgroundColor(Color.RED);
+		}else if(status.equals("1")){
+			chckBoxStatus.setChecked(true);
+			chckBoxStatus.setText("Viewed");
+			chckBoxStatus.setBackgroundColor(Color.parseColor("#07cc00")); //green
+		}else if(status.equals("2")){
+			chckBoxStatus.setChecked(true);
+			chckBoxStatus.setText("In Process");
+			chckBoxStatus.setBackgroundColor(Color.parseColor("#ff7400")); //orange
+		}else if(status.equals("3")){
+			chckBoxStatus.setChecked(true);
+			chckBoxStatus.setText("Resolve");
+			chckBoxStatus.setBackgroundColor(Color.parseColor("#7e11bd")); //dark purple
+		}else if(status.equals("4")){
+			chckBoxStatus.setChecked(true);
+			chckBoxStatus.setText("Duplicate");
+			chckBoxStatus.setBackgroundColor(Color.parseColor("#00FFFF")); //cyan
+		}else if(status.equals("5")){
+			chckBoxStatus.setChecked(true);
+			chckBoxStatus.setText("Alive");
+			chckBoxStatus.setBackgroundColor(Color.parseColor("#07cc00")); //green
+		}else if(status.equals("6")){
+			chckBoxStatus.setChecked(true);
+			chckBoxStatus.setText("Dead");
+			chckBoxStatus.setBackgroundColor(Color.RED);
+		}else{
+			chckBoxStatus.setChecked(false);
+			chckBoxStatus.setText("New");
+			chckBoxStatus.setBackgroundColor(Color.YELLOW);
+		}
 	}
 
 	/*** Get JSON Code from URL 

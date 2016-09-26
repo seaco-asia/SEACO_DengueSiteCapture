@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import com.seaco.denguesitecapture.R;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -45,14 +46,18 @@ public class DengueHistoryTaskDetailFragment extends Fragment {
 	public int NUM_ITEMS_PAGE= 16, number= 0, increment = 0;
 	private String JSON_STRING;
 	public String action = "common";
-	String idOfficer, nameOfficer, historyId, filename, gps, reportDate, photoDesc, statusDesc, reportBy;
+	String idOfficer, nameOfficer, historyId, filename, gps, reportDate, photoDesc, statusDesc, reportBy, houseFullAddress, languageType;
 	RelativeLayout layout_relativeTaskDetail;
 	TextView history_id_TaskDetail, history_filename_TaskDetail, history_gps_TaskDetail, 
-	history_datereport_TaskDetail, history_uploaded_TaskDetail, history_username_TaskDetail;
+	history_datereport_TaskDetail, history_uploaded_TaskDetail, history_username_TaskDetail, history_address_TaskDetail;
 	ImageButton imageButtonBack, imageButtonImage;
 
+	//use SharedPreferences to store and retrieve languageType parameter
+	SharedPreferences sharedpreferences;
+	public static final String mypreference = "mypref";
+	public static final String languageTypePref = "languageTypePrefKey";
 
-	public DengueHistoryTaskDetailFragment(String id2, String name2, String historyID2, String filename2, String gps2, String reportDate2, String reportBy2, String photoDesc2) {
+	public DengueHistoryTaskDetailFragment(String id2, String name2, String historyID2, String filename2, String gps2, String reportDate2, String reportBy2, String photoDesc2, String houseFullAddress2) {
 		nameOfficer = name2;
 		idOfficer = id2;
 		historyId = historyID2;
@@ -61,6 +66,7 @@ public class DengueHistoryTaskDetailFragment extends Fragment {
 		reportDate = reportDate2;
 		reportBy = reportBy2;
 		photoDesc = photoDesc2;
+		houseFullAddress = houseFullAddress2;
 	}
 
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState){
@@ -71,6 +77,15 @@ public class DengueHistoryTaskDetailFragment extends Fragment {
 
 		context = container.getContext();
 
+		//use SharedPreferences to store and retrieve languageType parameter
+		sharedpreferences = this.getActivity().getSharedPreferences(mypreference,Context.MODE_PRIVATE);
+
+		if (sharedpreferences.contains(languageTypePref)) {
+			languageType = sharedpreferences.getString(languageTypePref, "");
+		}else{
+			languageType = "en";
+		}
+
 		//set info 
 		history_id_TaskDetail=(TextView)rootView.findViewById(R.id.history_id_TaskDetail);
 		history_filename_TaskDetail=(TextView)rootView.findViewById(R.id.history_filename_TaskDetail);
@@ -78,6 +93,7 @@ public class DengueHistoryTaskDetailFragment extends Fragment {
 		history_datereport_TaskDetail=(TextView)rootView.findViewById(R.id.history_datereport_TaskDetail);
 		history_uploaded_TaskDetail=(TextView)rootView.findViewById(R.id.history_uploaded_TaskDetail);
 		history_username_TaskDetail = (TextView)rootView.findViewById(R.id.history_username_TaskDetail);
+		history_address_TaskDetail = (TextView)rootView.findViewById(R.id.history_address_TaskDetail);
 
 		history_id_TaskDetail.setText(historyId);
 		history_filename_TaskDetail.setText(filename);
@@ -85,6 +101,7 @@ public class DengueHistoryTaskDetailFragment extends Fragment {
 		history_datereport_TaskDetail.setText(reportDate);
 		history_uploaded_TaskDetail.setText(photoDesc);
 		history_username_TaskDetail.setText(reportBy);
+		history_address_TaskDetail.setText(!houseFullAddress.equals("null")?houseFullAddress:"");
 
 		/* temporary using before implement server database
 		 * 
@@ -102,7 +119,7 @@ public class DengueHistoryTaskDetailFragment extends Fragment {
 		final Button buttonNext = (Button) rootView.findViewById(R.id.buttonNext);
 		imageButtonBack = (ImageButton) rootView.findViewById(R.id.imageButtonBack);
 		imageButtonImage = (ImageButton) rootView.findViewById(R.id.imageButtonImage);
-		
+
 		buttonPrev.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
@@ -138,6 +155,7 @@ public class DengueHistoryTaskDetailFragment extends Fragment {
 				Bundle bundle=new Bundle();
 				bundle.putString("userName", nameOfficer);
 				bundle.putString("userID", idOfficer);
+				bundle.putString("languageType", languageType);
 				dengueHistoryTaskFragment.setArguments(bundle);
 
 				//remove layout
@@ -165,7 +183,7 @@ public class DengueHistoryTaskDetailFragment extends Fragment {
 				// set the custom dialog components - text, image and button
 				img = (ImageView) dialog.findViewById(R.id.image);
 
-				new LoadImage().execute("https://storage.googleapis.com/seaco-storage1/dengueapps/"+filename);
+				new LoadImage().execute("https://storage.googleapis.com/dengue-storage-00/dengueapps/"+filename);
 
 				dialog.show();
 			}
@@ -290,7 +308,7 @@ public class DengueHistoryTaskDetailFragment extends Fragment {
 					task_id.setText(taskID);
 					task_updatedate.setText(claimDate+" - "+officerName);
 
-					//0 = Rejected;  1 = Viewed;  2 = In Process ; 3 = Resolved
+					//0 = Not Relevant;  1 = Viewed;  2 = In Process ; 3 = Resolved
 					task_status.setText(statusDesc(status));
 
 					task_comment.setText(comment);
@@ -353,7 +371,7 @@ public class DengueHistoryTaskDetailFragment extends Fragment {
 				task_id.setText(taskID);
 				task_updatedate.setText(claimDate+" - "+officerName);
 
-				//0 = Rejected;  1 = Viewed;  2 = In Process ; 3 = Resolved
+				//0 = Not Relevant;  1 = Viewed;  2 = In Process ; 3 = Resolved
 				task_status.setText(statusDesc(status));
 
 				task_comment.setText(comment);
@@ -415,7 +433,7 @@ public class DengueHistoryTaskDetailFragment extends Fragment {
 					task_id.setText(taskID);
 					task_updatedate.setText(claimDate+" - "+officerName);
 
-					//0 = Rejected;  1 = Viewed;  2 = In Process ; 3 = Resolved
+					//0 = Not Relevant;  1 = Viewed;  2 = In Process ; 3 = Resolved
 					task_status.setText(statusDesc(status));
 
 					task_comment.setText(comment);
@@ -477,15 +495,17 @@ public class DengueHistoryTaskDetailFragment extends Fragment {
 
 	//status description
 	public String statusDesc(String status){
-		//0 = Rejected;  1 = Viewed;  2 = In Process ; 3 = Resolved
+		//0 = Not Relevant;  1 = Viewed;  2 = In Process ; 3 = Resolved
 		if(status.equals("1")){
 			statusDesc ="Viewed";
 		}else if(status.equals("2")){
 			statusDesc ="In Process";
 		}else if(status.equals("3")){
 			statusDesc ="Resolved";
+		}else if(status.equals("4")){
+			statusDesc ="Duplicate";
 		}else if(status.equals("0")){
-			statusDesc ="Rejected";
+			statusDesc ="Not Relevant";
 		}else{
 			statusDesc ="New";
 		}

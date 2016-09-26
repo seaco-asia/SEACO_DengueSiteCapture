@@ -1,13 +1,18 @@
 package com.seaco.denguesitecapture.activities;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -24,7 +29,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -35,48 +42,62 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.telephony.TelephonyManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.seaco.denguesitecapture.model.MySQLiteHelper;
 import com.seaco.denguesitecapture.model.SitePhotos;
 
 public class CapturePhoto extends Activity implements OnClickListener {
-	private Button mTakePhoto, mSavePhoto, mAddDescImage, mAddAddressImage;
+	private Button mTakePhoto, mSavePhoto;
 	private ImageView mImageView;
 	private static final String TAG = "upload";
 	private static final String TAG_PROGRESS = "progress upload";
 	private MySQLiteHelper db;
-	private String siteChoice;
-	private EditText mEditText, mImageDesc, answAddress_1, answAddress_3, answAddress_5, answAddress_6, mEditTextAddr;
+	private String siteChoice, reportChoice;
+	private EditText mEditText, mImageDesc, answAddress_1, answAddress_2, mEditTextAddr, mEditPatientName;
 	GPSTracker gps;
-	private ImageButton mSaveImageDesc, mSaveImageAddress;
-	private TextView titleAddress_I1, titleAddress_I3, titleAddress_I5;
-	private RadioGroup radTypeStreet, radTypeArea, radTypeMukim;
+	//private ImageButton mSaveImageDesc, mSaveImageAddress;
+	private Button mSaveImageDesc, mSaveImageAddress;
+	TextView titleAddress_B1, titleAddress_B1_1, titleAddress_B1_2, titleAddress_I1, mlblPatientName;
+	RadioGroup radTypeStreet, radTypeArea, radTypeMukim, radTypeLocation;
 	RadioButton radBtnJln, radBtnLrg, radBtnNotAppStreet, radBtnTmn, radBtnKg, radBtnFelda, radBtnNotAppArea,
-	radBtnBekok, radBtnChaah, radBtnGemereh, radBtnSgSgmt, radBtnJabi;
-	LinearLayout linearLayoutQuestion3, linearLayoutQuestion5;
-	
+	radBtnBekok, radBtnChaah, radBtnGemereh, radBtnSgSgmt, radBtnJabi, radBtnJementah,radBtnSermin,radBtnBulohKasap,
+	radBtnGemas,radBtnPagoh,radBtnLabis,radBtnAddress, radBtnLandmark, radBtnPole, radBtnNotAppLocation;
+	LinearLayout linearLayoutQuestion3, linearLayoutQuestion5, linearLayoutQuestion1, linearLayoutQuestion1_1, linearLayoutQuestion1_2;
+	Spinner spinnerLocality;
+
 	ProgressDialog progressDialog;
 	long imageSize = 0; // kb
 	public ProgressListener listener;
 	Boolean captureExist = false;
 	Intent intentObject = getIntent();
-	String userID, typeStreetValue, typeAreaValue, typeMukimValue, houseBatu, typeStreetValueDesc, typeAreaValueDesc, typeMukimValueDesc,
-	fullAddress;
+	String userID, userRegtype, userEmail, userName, userPhoneNo, typeStreetValue, typeAreaValue, typeMukimValue, typeLocationValue, typeLocationValueDesc, houseBatu, typeStreetValueDesc, typeAreaValueDesc, typeMukimValueDesc,
+	fullAddress, patientName, selected, selectedDesc, languageType, radModeType, imageFileName;
 
 	Context context = this;
+	private String JSON_STRING;
+
+	Locale myLocale;
+	//use SharedPreferences to store and retrieve languageType parameter
+	SharedPreferences sharedpreferences;
+	public static final String mypreference = "mypref";
+	public static final String languageTypePref = "languageTypePrefKey";
 
 
 	@Override
@@ -84,11 +105,27 @@ public class CapturePhoto extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
 
+		//get Intent
 		Intent inte = getIntent();
+		reportChoice = inte.getStringExtra("reportChoice"); 
 		siteChoice = inte.getStringExtra("siteChoice"); //We now know the type of site selected by the user
-		userID = inte.getStringExtra("userID"); //We now know the type of site selected by the user
+		userPhoneNo = inte.getStringExtra("userPhoneNo"); 
+		userEmail = inte.getStringExtra("userEmail"); 
+		userRegtype = inte.getStringExtra("userRegtype"); 
+		userName = inte.getStringExtra("userName"); 
+		userID = inte.getStringExtra("userID"); 
+		radModeType = inte.getStringExtra("radModeType");
 
 		Log.d(TAG, "idCommunity["+userID+"]");
+
+		//use SharedPreferences to store and retrieve languageType parameter
+		sharedpreferences = getSharedPreferences(mypreference,Context.MODE_PRIVATE);
+
+		if (sharedpreferences.contains(languageTypePref)) {
+			languageType = sharedpreferences.getString(languageTypePref, "");
+		}else{
+			languageType = "en";
+		}
 
 		mTakePhoto = (Button) findViewById(R.id.take_photo);
 
@@ -106,6 +143,21 @@ public class CapturePhoto extends Activity implements OnClickListener {
 		mSavePhoto = (Button) findViewById(R.id.save_Photo);
 		//mSavePhoto.setVisibility(View.INVISIBLE);
 		mSavePhoto.setEnabled(false); 
+
+		mlblPatientName =  (TextView) findViewById(R.id.txtPatientName);
+		mEditPatientName =  (EditText) findViewById(R.id.editTxtPatientName);
+
+		//only officer can key in the patient name
+		if (userRegtype.equalsIgnoreCase("AO") && reportChoice.equalsIgnoreCase("2") ) {
+
+			mlblPatientName.setVisibility(View.VISIBLE);
+			mEditPatientName.setVisibility(View.VISIBLE);
+
+		}else{
+
+			mlblPatientName.setVisibility(View.GONE);
+			mEditPatientName.setVisibility(View.GONE);
+		}
 
 		//mAddDescImage = (Button) findViewById(R.id.add_descImage);
 		//mAddDescImage.setEnabled(false);
@@ -127,6 +179,7 @@ public class CapturePhoto extends Activity implements OnClickListener {
 		 *	
 		 */
 
+		db = new MySQLiteHelper(this);
 		gps = new GPSTracker(this);
 	}
 
@@ -148,18 +201,21 @@ public class CapturePhoto extends Activity implements OnClickListener {
 		case R.id.save_Photo:
 			Bitmap photo = getPic();
 			try {
-				sendPhoto(photo);
+				//checking if user select online mode on, proceed with insert data into live DB OTHERWISE insert into local DB
+				if (radModeType.equalsIgnoreCase("Y")){
+					//send to online db
+					sendPhoto(photo);
+				}else{
+					//send to offline db
+					sendPhotoLocal();
+				}
+				//end checking 
+				setLocale(languageType);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;
-			//case R.id.add_descImage:
-			//addDescriptionImage();
-			//break;
-			//case R.id.add_addressImage:
-			//addAddressImage();
-			//break;
 		case R.id.editText_Photo:
 			addDescriptionImage();
 			//takePhoto();
@@ -169,6 +225,7 @@ public class CapturePhoto extends Activity implements OnClickListener {
 			//takePhoto();
 			break;
 		}
+
 	}
 
 	private void takePhoto() {
@@ -188,10 +245,35 @@ public class CapturePhoto extends Activity implements OnClickListener {
 		}
 	}
 
+
+	//send photo if offline
+	public void sendPhotoLocal(){
+
+		Log.d(TAG,"Photo path 1:["+mCurrentPhotoPath+"]");
+		Log.d(TAG,"TempPhoto Name 1:["+imageFileName+"]");
+
+		//set progress dialog
+		final ProgressDialog progressDialog = new ProgressDialog(CapturePhoto.this,R.style.AppBaseTheme);
+		progressDialog.setIndeterminate(true);
+		progressDialog.setMessage("Saving...");
+		progressDialog.show();
+
+		new android.os.Handler().postDelayed(
+				new Runnable() {
+					public void run() {
+						//send to local db
+						sendPhotoInLocalDevice(progressDialog);
+					}
+					//}
+				}, 3000);
+	}
+
+	//send photo if online
 	private void sendPhoto(Bitmap bitmap) throws Exception {
 		new UploadTask().execute(bitmap);
 	}
 
+	//save into online db
 	private class UploadTask extends AsyncTask<Bitmap, Integer, Boolean> implements ProgressListener, DialogInterface.OnCancelListener {
 
 		private ProgressDialog mProgressDialog;
@@ -204,10 +286,10 @@ public class CapturePhoto extends Activity implements OnClickListener {
 		protected void onPreExecute(){
 			mProgressDialog = new ProgressDialog(CapturePhoto.this);
 			mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-			mProgressDialog.setTitle("Uploading image to Dengue Server");
+			mProgressDialog.setTitle(languageType.equalsIgnoreCase("ms")?Constants.ms.CAPTURE_UPLOAD:Constants.en.CAPTURE_UPLOAD);
 			mProgressDialog.setIndeterminate(false);
 			mProgressDialog.setCancelable(true);
-			mProgressDialog.setMessage("Uploading...");
+			mProgressDialog.setMessage(languageType.equalsIgnoreCase("ms")?Constants.ms.CAPTURE_UPLOADING:Constants.en.CAPTURE_UPLOADING);
 			mProgressDialog.setMax(100);
 			mProgressDialog.show();
 		}
@@ -228,11 +310,11 @@ public class CapturePhoto extends Activity implements OnClickListener {
 			if(gps.canGetLocation()){
 				latitude = gps.getLatitude();
 				longitude = gps.getLongitude();
-				Log.d(TAG,"latitude ["+latitude+"] and longitude ["+longitude+"]");
+				Log.d("latitude","latitude ["+latitude+"] and longitude ["+longitude+"]");
 			}else{
 				Log.d(TAG,"latitude else ["+latitude+"] and longitude ["+longitude+"]");
 				gps.showSettingsAlert();
-			}			
+			}	
 
 			Bitmap bitmap = bitmaps[0];
 
@@ -253,30 +335,35 @@ public class CapturePhoto extends Activity implements OnClickListener {
 				TelephonyManager mngr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE); 
 
 
-				StringBody lat = null, lon = null, site = null, im = null, insertBy = null;
+				StringBody lat = null, lon = null, report = null, site = null, im = null, insertBy = null;
 				StringBody photoDesc = null;
-				StringBody houseNo = null, typeStreetValues = null, houseStreetName = null, typeAreaValues = null, 
-						houseAreaName = null, houseBatu = null, typeMukimValues = null, houseFullAddress = null;
-
+				StringBody localityName = null, localityOther = null, localityIndType = null, localityIndName = null, 
+						typeMukimValues = null, houseFullAddress = null, patientName = null, casePatientName = null;
+				Log.d("address 1",":"+selected);
+				Log.d("address 2",":"+answAddress_1.getText().toString());
+				Log.d("address 3",":"+typeLocationValue);
+				Log.d("address 4",":"+answAddress_2.getText().toString());
+				Log.d("address 5",":"+typeMukimValue);
+				Log.d("address 6",":"+mEditTextAddr.getText().toString());
+				Log.d("address 7",":"+mEditPatientName.getText().toString());
 				try{
 					lat = new StringBody(String.valueOf(latitude));
 					lon = new StringBody(String.valueOf(longitude));
+					report = new StringBody(reportChoice);
 					site = new StringBody(siteChoice);
 					im = new StringBody(mngr.getDeviceId());
 					photoDesc = new StringBody(mEditText.getText().toString());
 					insertBy = new StringBody(userID);
-					houseNo = new StringBody(answAddress_1.getText().toString());
-					typeStreetValues = new StringBody(typeStreetValue);
-					houseStreetName = new StringBody(answAddress_3.getText().toString());
-					typeAreaValues = new StringBody(typeAreaValue);
-					houseAreaName = new StringBody(answAddress_5.getText().toString());
-					houseBatu = new StringBody(answAddress_6.getText().toString());
+					localityName = new StringBody(selected);
+					localityOther = new StringBody(answAddress_1.getText().toString().toUpperCase());
+					localityIndType = new StringBody(typeLocationValue);
+					localityIndName = new StringBody(answAddress_2.getText().toString().toUpperCase());
 					typeMukimValues = new StringBody(typeMukimValue);
-					houseFullAddress = new StringBody(mEditTextAddr.getText().toString());
-
+					houseFullAddress = new StringBody(mEditTextAddr.getText().toString().toUpperCase());
+					patientName = new StringBody(mEditPatientName.getText().toString().toUpperCase());
 				}catch(Exception el){
 					Log.i("error_stringbody",lat.toString() + lon.toString() + site.toString() + im.toString() + photoDesc.toString() + insertBy +
-							houseNo.toString() + typeStreetValues + houseStreetName.toString() + typeAreaValues + houseAreaName.toString() + houseBatu + typeMukimValues);
+							localityName.toString() + localityOther.toString() + localityIndType + localityIndName.toString() + typeMukimValues);
 				}
 
 				customEntity.setListener(this);
@@ -297,19 +384,18 @@ public class CapturePhoto extends Activity implements OnClickListener {
 				customEntity.addPart("latitude", lat);
 				customEntity.addPart("lat", lat);
 				customEntity.addPart("lon", lon);
+				customEntity.addPart("reportChoice", report);
 				customEntity.addPart("siteChoice", site);
 				customEntity.addPart("imei", im);	
 				customEntity.addPart("photoDesc",photoDesc);
 				customEntity.addPart("insertBy",insertBy);
-				customEntity.addPart("houseNo",houseNo);
-				customEntity.addPart("typeStreetValues",typeStreetValues);
-				customEntity.addPart("houseStreetName",houseStreetName);
-				customEntity.addPart("typeAreaValues",typeAreaValues);
-				customEntity.addPart("houseAreaName",houseAreaName);
-				customEntity.addPart("houseBatu",houseBatu);
+				customEntity.addPart("localityName",localityName);
+				customEntity.addPart("localityOther",localityOther);
+				customEntity.addPart("localityIndType",localityIndType);
+				customEntity.addPart("localityIndName",localityIndName);
 				customEntity.addPart("typeMukimValues",typeMukimValues);
 				customEntity.addPart("houseFullAddress",houseFullAddress);
-
+				customEntity.addPart("casePatientName",patientName);
 				/* temporary using before implement server database
 				 * 
 				String photoDesc = mEditText.getText().toString();
@@ -396,10 +482,21 @@ public class CapturePhoto extends Activity implements OnClickListener {
 
 			if(result){
 				mProgressDialog.dismiss();
-				Toast.makeText(CapturePhoto.this, "Uploaded to server", Toast.LENGTH_LONG).show();
+				Toast.makeText(CapturePhoto.this, languageType.equalsIgnoreCase("ms")?Constants.ms.CAPTURE_UPLOADED:Constants.en.CAPTURE_UPLOADED, Toast.LENGTH_LONG).show();
+				//test
+				//				Intent i = new Intent(CapturePhoto.this, MainActivity.class);
+				//				i.putExtra("userPhoneNo", userPhoneNo);
+				//				i.putExtra("userEmail", userEmail);
+				//				i.putExtra("userRegtype", userRegtype);
+				//				i.putExtra("userName", userName);
+				//				i.putExtra("userID", userID);
+				//				i.putExtra("languageType", languageType);
+				//				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+				//				startActivity(i);
+				finish();
 			}else{
 				// UPLOADING DATA FAILED
-				mProgressDialog.setMessage("Uploading Failed");
+				mProgressDialog.setMessage(languageType.equalsIgnoreCase("ms")?Constants.ms.CAPTURE_UPLOAD_FAIL:Constants.en.CAPTURE_UPLOAD_FAIL);
 				mProgressDialog.setCancelable(true);
 			}
 		}
@@ -435,10 +532,88 @@ public class CapturePhoto extends Activity implements OnClickListener {
 
 		}		
 	}
+	//end save into online db
+
+	//save into offline db
+	public void sendPhotoInLocalDevice(ProgressDialog progressDialog) {
+
+		Log.d(TAG,"Photo path 2:["+mCurrentPhotoPath+"]");
+		Log.d(TAG,"TempPhoto Name 2:["+imageFileName+"]");
+
+		/*photoDesc*/
+		mEditText =  (EditText) findViewById(R.id.editText_Photo);
+
+		/* Needs cleaning up -- reuse code */
+		double latitude = 0.0;
+		double longitude = 0.0;
+
+		/* Read the latest longitude and latitude data */
+		if(gps.canGetLocation()){
+			latitude = gps.getLatitude();
+			longitude = gps.getLongitude();
+			Log.d("latitude","latitude ["+latitude+"] and longitude ["+longitude+"]");
+		}else{
+			Log.d(TAG,"latitude else ["+latitude+"] and longitude ["+longitude+"]");
+			gps.showSettingsAlert();
+		}
+
+		/* Device ID */
+		TelephonyManager mngr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE); 
+
+		/* save data to local DB */
+		String fileMillis = null, tmpFilename =null, lat = null, lon = null, report = null, site = null, currentDate = null, im = null, insertBy = null, photoDesc = null, 
+				localityName = null, localityOther = null, localityIndType = null, localityIndName = null, typeMukimValues = null, 
+				houseFullAddress = null, isDuplicate = "N", flagUpload = "N", tmpPath = null;
+
+		lat = String.valueOf(latitude);
+		lon = String.valueOf(longitude);
+		report = reportChoice;
+		site = siteChoice;
+		im = mngr.getDeviceId();
+		currentDate = getDateTime();
+		photoDesc = mEditText.getText().toString();
+		insertBy = userID;
+		localityName = selected;
+		localityOther = answAddress_1.getText().toString().toUpperCase();
+		localityIndType = typeLocationValue;
+		localityIndName = answAddress_2.getText().toString().toUpperCase();
+		typeMukimValues = typeMukimValue;
+		houseFullAddress = mEditTextAddr.getText().toString().toUpperCase();
+		fileMillis = System.currentTimeMillis() + ".jpg";
+		tmpFilename = imageFileName + ".jpg";
+		tmpPath = mCurrentPhotoPath;
+
+		db.addPicture(new SitePhotos(fileMillis, tmpFilename, lat, lon, site, report, im, currentDate, photoDesc, insertBy, localityName, typeMukimValues, houseFullAddress, localityOther, localityIndType,  localityIndName, isDuplicate, flagUpload, tmpPath, patientName));
+		db.getSitePhotos(insertBy);
+		progressDialog.dismiss();
+
+		//get data from local DB - temporary
+		//List<SitePhotos> singleSitePhotos= db.getSitePhotos(insertBy);
+		/*Log.d(TAG,"Filename:["+photos.indexOf(arg0)+"]");
+		Log.d(TAG,"Latitude:["+singleSitePhotos.getLatitude()+"]");
+		Log.d(TAG,"Longitude:["+singleSitePhotos.getLongitude()+"]");
+		Log.d(TAG,"SiteChoice:["+singleSitePhotos.getSiteChoice()+"]");
+		Log.d(TAG,"ReportChoice:["+singleSitePhotos.getReportChoice()+"]");
+		Log.d(TAG,"Imei:["+singleSitePhotos.getImei()+"]");
+		Log.d(TAG,"InsertBy:["+singleSitePhotos.getInsertBy()+"]");
+		Log.d(TAG,"Locality_name:["+singleSitePhotos.getLocality_name()+"]");
+		Log.d(TAG,"House_mukim:["+singleSitePhotos.getHouse_mukim()+"]");
+		Log.d(TAG,"House_fullAddress:["+singleSitePhotos.getHouse_fullAddress()+"]");
+		Log.d(TAG,"Locality_othe:["+singleSitePhotos.getLocality_other()+"]");
+		Log.d(TAG,"Locality_ind_type:["+singleSitePhotos.getLocality_ind_type()+"]");
+		Log.d(TAG,"Locality_ind_name:["+singleSitePhotos.getLocality_ind_name()+"]");
+		Log.d(TAG,"IsDuplicate:["+singleSitePhotos.getIsDuplicate()+"]");
+		Log.d(TAG,"FlagUpload:["+singleSitePhotos.getFlagUpload()+"]");*/
+		finish();
+
+	}
+	//save into offline db
+
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
+		setLocale(languageType);
 		super.onResume();
 		Log.i(TAG, "onResume: " + this);
 	}
@@ -505,13 +680,21 @@ public class CapturePhoto extends Activity implements OnClickListener {
 
 		// Create an image file name
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-		String imageFileName = "JPEG_" + timeStamp + "_";
-		String storageDir = Environment.getExternalStorageDirectory() + "/picupload/" +userID;
+		imageFileName = "JPEG_" + timeStamp + "_";
+
+		String storageDir = Environment.getExternalStorageDirectory() + "/picupload";
+		String storageDirSub = Environment.getExternalStorageDirectory() + "/picupload/" +userID;
+
 		File dir = new File(storageDir);
 		if (!dir.exists())
 			dir.mkdir();
 
-		File image = new File(storageDir + "/" + imageFileName + ".jpg");
+		File dir2 = new File(storageDirSub);
+		if (!dir2.exists()){
+			dir2.mkdir();
+		}
+
+		File image = new File(storageDirSub + "/" + imageFileName + ".jpg");
 
 		// Save a file: path for use with ACTION_VIEW intents
 		mCurrentPhotoPath = image.getAbsolutePath();
@@ -582,6 +765,8 @@ public class CapturePhoto extends Activity implements OnClickListener {
 		// Get the dimensions of the View
 		int targetW = mImageView.getWidth();
 		int targetH = mImageView.getHeight();
+		
+		Log.d(TAG,"IMAGEVIEW WIDTH ["+targetW+"] AND IMAGEVIEW HEIGHT ["+targetH+"]");
 
 		// Get the dimensions of the bitmap
 		BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -597,7 +782,7 @@ public class CapturePhoto extends Activity implements OnClickListener {
 		bmOptions.inJustDecodeBounds = false;
 		bmOptions.inSampleSize = scaleFactor << 1;
 		bmOptions.inPurgeable = true;
-		
+
 		Log.d("CapturePhoto","widthTab: "+photoW);
 		Log.d("CapturePhoto","heightTab: "+photoW);
 
@@ -609,7 +794,7 @@ public class CapturePhoto extends Activity implements OnClickListener {
 			mtx.postRotate(0);//for asus zenfone 5
 		else
 			mtx.postRotate(90); //for tab
-		
+
 		// Rotating Bitmap
 		Bitmap rotatedBMP = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), mtx, true);
 
@@ -649,7 +834,8 @@ public class CapturePhoto extends Activity implements OnClickListener {
 		Log.d(TAG,"addDescriptionImage()");
 
 		// set the custom dialog components - text, image and button
-		mSaveImageDesc = (ImageButton) dialog.findViewById(R.id.save_ImageDesc);
+		//mSaveImageDesc = (ImageButton) dialog.findViewById(R.id.save_ImageDesc);
+		mSaveImageDesc = (Button) dialog.findViewById(R.id.save_ImageDesc);
 		mImageDesc = (EditText) dialog.findViewById(R.id.editText_Photo);
 
 		//mSaveImageDesc.setOnClickListener(this);
@@ -679,48 +865,43 @@ public class CapturePhoto extends Activity implements OnClickListener {
 	public void addAddressImage(){
 		// custom dialog
 		final Dialog dialog = new Dialog(context);
-		dialog.setContentView(R.layout.dialog_custom_image_address);
+		dialog.setContentView(R.layout.dialog_custom_image_info);
 		dialog.setTitle("Image Address");
 
 		Log.d(TAG,"addAddressImage()");
 
 		// set the custom dialog components - text, image and button
-		mSaveImageAddress = (ImageButton) dialog.findViewById(R.id.save_ImageAddress);
-		
+		mSaveImageAddress = (Button) dialog.findViewById(R.id.save_ImageAddress);
+
 		//set linear
-		linearLayoutQuestion3 = (LinearLayout) dialog.findViewById(R.id.linearLayoutQuestion3);
-		linearLayoutQuestion5 = (LinearLayout) dialog.findViewById(R.id.linearLayoutQuestion5);
-		
+		linearLayoutQuestion1 = (LinearLayout) dialog.findViewById(R.id.linearLayoutQuestion1);
+
 		// set label
+		titleAddress_B1 = (TextView) dialog.findViewById(R.id.titleAddress_B1);
 		titleAddress_I1 = (TextView) dialog.findViewById(R.id.titleAddress_I1);
-		titleAddress_I3 = (TextView) dialog.findViewById(R.id.titleAddress_I3);
-		titleAddress_I5 = (TextView) dialog.findViewById(R.id.titleAddress_I5);
+		titleAddress_I1.setText("");
 
-		titleAddress_I1.setText("Please include \"No\" or \"Lot\" as part of the answer (i.e: If the house" +
-				"\nnumber is 10, then type \"No.10\" or if the house number is lot 23A, then type \"Lot 23A\")");
-
-		titleAddress_I3.setText("Do not include \"Jalan/Lorong\" as part of the answer (i.e: If \"Jalan Asam\" or \"Lorong Limau\", then only type \"Asam\" or \"Limau\")");
+		/*titleAddress_I3.setText("Do not include \"Jalan/Lorong\" as part of the answer (i.e: If \"Jalan Asam\" or \"Lorong Limau\", then only type \"Asam\" or \"Limau\")");
 
 		titleAddress_I5.setText("Do not include \"Taman\", \"Kampung\", or \"Felda\" as part of the answer (i.e: If \"Taman Segar\", then only type \"Segar\", If \"Kampung Lubok Batu\", then only type \"Lubok Batu\", or If \"Felda Medoi\", then only type " +
-				"\n\"Medoi\")");
+				"\n\"Medoi\")");*/
 
 		// set textfield
 		answAddress_1 = (EditText) dialog.findViewById(R.id.answAddress_1);
-		answAddress_3 = (EditText) dialog.findViewById(R.id.answAddress_3);
-		answAddress_5 = (EditText) dialog.findViewById(R.id.answAddress_5);
-		answAddress_6 = (EditText) dialog.findViewById(R.id.answAddress_6);
+		answAddress_2 = (EditText) dialog.findViewById(R.id.answAddress_2);
+
+		//visibility
+		answAddress_1.setVisibility(View.GONE);
+		answAddress_2.setVisibility(View.GONE);
+
+		//set spinner
+		spinnerLocality = (Spinner) dialog.findViewById(R.id.answAddress_spinner);
 
 		//set value of radio Button
-		radTypeStreet = (RadioGroup) dialog.findViewById(R.id.answAddress_2);
-		radBtnJln = (RadioButton) dialog.findViewById(R.id.radio2_1);
-		radBtnLrg = (RadioButton) dialog.findViewById(R.id.radio2_2);
-		radBtnNotAppStreet = (RadioButton) dialog.findViewById(R.id.radio2_3);
-
-		radTypeArea = (RadioGroup) dialog.findViewById(R.id.answAddress_4);
-		radBtnTmn = (RadioButton) dialog.findViewById(R.id.radio4_1);
-		radBtnKg = (RadioButton) dialog.findViewById(R.id.radio4_2);
-		radBtnFelda = (RadioButton) dialog.findViewById(R.id.radio4_3);
-		radBtnNotAppArea = (RadioButton) dialog.findViewById(R.id.radio4_4);
+		radTypeLocation = (RadioGroup) dialog.findViewById(R.id.answAddress_2_radio);
+		radBtnLandmark = (RadioButton) dialog.findViewById(R.id.radio2_1);
+		radBtnPole = (RadioButton) dialog.findViewById(R.id.radio2_2);
+		radBtnNotAppLocation = (RadioButton) dialog.findViewById(R.id.radio2_3);
 
 		radTypeMukim = (RadioGroup) dialog.findViewById(R.id.answAddress_7);
 		radBtnBekok = (RadioButton) dialog.findViewById(R.id.radio7_1);
@@ -729,64 +910,74 @@ public class CapturePhoto extends Activity implements OnClickListener {
 		radBtnSgSgmt = (RadioButton) dialog.findViewById(R.id.radio7_4);
 		radBtnJabi = (RadioButton) dialog.findViewById(R.id.radio7_5);
 
-		radTypeStreet.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() 
+		radBtnJementah = (RadioButton) dialog.findViewById(R.id.radio7_6);
+		radBtnSermin = (RadioButton) dialog.findViewById(R.id.radio7_7);
+		radBtnBulohKasap = (RadioButton) dialog.findViewById(R.id.radio7_8);
+		radBtnGemas = (RadioButton) dialog.findViewById(R.id.radio7_9);
+		radBtnPagoh = (RadioButton) dialog.findViewById(R.id.radio7_10);
+		radBtnLabis = (RadioButton) dialog.findViewById(R.id.radio7_11);
+
+		OnItemSelectedListener os = new OnItemSelectedListener(){
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
+				selected = parent.getItemAtPosition(position).toString();
+
+				Log.d(TAG,"DropdownLocality: "+selected);
+
+				if (selected.equalsIgnoreCase("Other")){
+					answAddress_1.setVisibility(View.VISIBLE);
+					selectedDesc = null;
+				}else{
+					answAddress_1.setVisibility(View.GONE);
+					selectedDesc = selected;
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0){
+
+			}
+
+		};
+
+		//Set listener for an item select
+		spinnerLocality.setOnItemSelectedListener(os);
+
+		//load locality
+		//getJSON();
+		loadLocality();
+
+		radTypeLocation.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() 
 		{
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				switch(checkedId){
 				case R.id.radio2_1:
-					typeStreetValue = "1"; //set decision value
-					typeStreetValueDesc = "Jalan";
-					linearLayoutQuestion3.setVisibility(LinearLayout.VISIBLE);
-					Log.d("CommonRadioValue","1");
-					break;
 
+					typeLocationValue = "1"; //set decision value Address
+					answAddress_2.setVisibility(View.VISIBLE);
+					titleAddress_I1.setText(languageType.equalsIgnoreCase("ms")?Constants.ms.CAPTURE_ADDR_LANDMARK:Constants.en.CAPTURE_ADDR_LANDMARK);
+					typeLocationValueDesc =null;
+					Log.d("radTypeLocation","1");
+
+					break;
 				case R.id.radio2_2:
-					// do operations specific to this selection
-					typeStreetValue = "2"; //set decision value
-					typeStreetValueDesc = "Lorong";
-					linearLayoutQuestion3.setVisibility(LinearLayout.VISIBLE);
-					Log.d("CommonRadioValue","2");
+
+					typeLocationValue = "2"; //set decision value Address
+					answAddress_2.setVisibility(View.VISIBLE);
+					titleAddress_I1.setText(languageType.equalsIgnoreCase("ms")?Constants.ms.CAPTURE_ADDR_POLE:Constants.en.CAPTURE_ADDR_POLE);
+					typeLocationValueDesc =null;
+					Log.d("radTypeLocation","2");
+
 					break;
 				case R.id.radio2_3:
-					typeStreetValue = "3"; //set decision value
-					typeStreetValueDesc = null;
-					linearLayoutQuestion3.setVisibility(LinearLayout.GONE);
-					Log.d("CommonRadioValue","3");
-					break;
-				}
-			}
 
-		});
+					typeLocationValue = "3"; //set decision value Address
+					answAddress_2.setVisibility(View.GONE);
+					titleAddress_I1.setText("");
+					typeLocationValueDesc =null;
+					Log.d("radTypeLocation","3");
 
-		radTypeArea.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() 
-		{
-			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				switch(checkedId){
-				case R.id.radio4_1:
-					typeAreaValue = "1"; //set decision value
-					typeAreaValueDesc = "Taman";
-					linearLayoutQuestion5.setVisibility(LinearLayout.VISIBLE);
-					Log.d("CommonRadioValue","1");
-					break;
-
-				case R.id.radio4_2:
-					// do operations specific to this selection
-					typeAreaValue = "2"; //set decision value
-					typeAreaValueDesc = "Kampung";
-					linearLayoutQuestion5.setVisibility(LinearLayout.VISIBLE);
-					Log.d("CommonRadioValue","2");
-					break;
-				case R.id.radio4_3:
-					typeAreaValue = "3"; //set decision value
-					typeAreaValueDesc = "Felda";
-					linearLayoutQuestion5.setVisibility(LinearLayout.VISIBLE);
-					Log.d("CommonRadioValue","3");
-					break;
-				case R.id.radio4_4:
-					typeAreaValue = "4"; //set decision value
-					typeAreaValueDesc = null;
-					linearLayoutQuestion5.setVisibility(LinearLayout.GONE);
-					Log.d("CommonRadioValue","4");
 					break;
 				}
 			}
@@ -824,31 +1015,54 @@ public class CapturePhoto extends Activity implements OnClickListener {
 					typeMukimValueDesc = "Jabi";
 					Log.d("CommonRadioValue","5");
 					break;
+				case R.id.radio7_6:
+					typeMukimValue = "6"; //set decision value
+					typeMukimValueDesc = "Jementah";
+					Log.d("CommonRadioValue","6");
+					break;
+				case R.id.radio7_7:
+					typeMukimValue = "7"; //set decision value
+					typeMukimValueDesc = "Sermin";
+					Log.d("CommonRadioValue","7");
+					break;
+				case R.id.radio7_8:
+					typeMukimValue = "8"; //set decision value
+					typeMukimValueDesc = "Buloh Kasap";
+					Log.d("CommonRadioValue","8");
+					break;
+				case R.id.radio7_9:
+					typeMukimValue = "9"; //set decision value
+					typeMukimValueDesc = "Gemas";
+					Log.d("CommonRadioValue","9");
+					break;
+				case R.id.radio7_10:
+					typeMukimValue = "10"; //set decision value
+					typeMukimValueDesc = "Pagoh";
+					Log.d("CommonRadioValue","10");
+					break;
+				case R.id.radio7_11:
+					typeMukimValue = "11"; //set decision value
+					typeMukimValueDesc = "Labis";
+					Log.d("CommonRadioValue","11");
+					break;
 				}
+
 			}
 
 		});
+
+
 
 		mSaveImageAddress.setOnClickListener( new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				//new Address(typeStreetValue);
-				///Address address = new Address(typeStreetValue);
-				//address.getTypeStreetValue();
-
-				//test
-				boolean valid = answAddress_1 !=null && typeStreetValue!=null && typeAreaValue !=null && answAddress_6 !=null && typeMukimValue !=null;
-
-				if(valid){
-
-					//					fullAddress = answAddress_1.getText().toString() + "," + typeStreetValueDesc + " "+answAddress_3.getText().toString()+","
-					//							+"\n"+typeAreaValueDesc +" "+answAddress_5.getText().toString() +"," + answAddress_6.getText().toString() +","
-					//							+"\n"+typeMukimValueDesc;
+				if(validateSaveAddress()){
 
 					fullAddress = "";
-					String [] addressSplit = {answAddress_1.getText().toString(), typeStreetValueDesc, answAddress_3.getText().toString(), typeAreaValueDesc, answAddress_5.getText().toString(), answAddress_6.getText().toString(), typeMukimValueDesc}; 
+					//String [] addressSplit = {answAddress_1.getText().toString(), typeStreetValueDesc, answAddress_3.getText().toString(), typeAreaValueDesc, answAddress_5.getText().toString(), answAddress_6.getText().toString(), typeMukimValueDesc}; 
+					String [] addressSplit = {selectedDesc, answAddress_1.getText().toString(), typeLocationValueDesc, answAddress_2.getText().toString(), typeMukimValueDesc}; 
 					for( String address : addressSplit ) {
 						if(address!=null )
 							fullAddress+=address+" ";
@@ -857,10 +1071,6 @@ public class CapturePhoto extends Activity implements OnClickListener {
 					Log.d( TAG, "fullAddresssCombine: "+ fullAddress);
 					mEditTextAddr.setText(fullAddress);
 					mSavePhoto.setEnabled(true); 
-
-					Log.d(TAG,"STEET TYPE VALUE: "+typeStreetValue);
-					Log.d(TAG,"AREA TYPE VALUE: "+typeAreaValue);
-					Log.d(TAG,"MUKIM TYPE VALUE: "+typeMukimValue);
 					Log.d(TAG,"SAVE addAddressImage");
 					dialog.dismiss();
 
@@ -872,11 +1082,103 @@ public class CapturePhoto extends Activity implements OnClickListener {
 		dialog.show();
 	}
 
-	public String AddressCombine(){
-		String fullAddress = null;
+	public boolean validateSaveAddress(){
 
+		boolean valid = true;
 
-		return fullAddress;
+		//answer for Q1
+		if (selected.equalsIgnoreCase("Other") && answAddress_1.getText().toString().isEmpty()){
+			answAddress_1.setError(languageType.equalsIgnoreCase("ms")?Constants.ms.CAPTURE_ADDR_AUTH:Constants.en.CAPTURE_ADDR_AUTH);
+			valid = false;
+		}else{
+			answAddress_1.setError(null);
+		}
+
+		//answer for Q2
+		if(radTypeLocation.getCheckedRadioButtonId()<=0){
+			radBtnLandmark.setError(languageType.equalsIgnoreCase("ms")?Constants.ms.CAPTURE_ADDR_AUTH_LANDMARK:Constants.en.CAPTURE_ADDR_AUTH_LANDMARK);
+			radBtnNotAppLocation.setError(languageType.equalsIgnoreCase("ms")?Constants.ms.CAPTURE_ADDR_AUTH_LANDMARK:Constants.en.CAPTURE_ADDR_AUTH_LANDMARK);
+			radBtnNotAppLocation.setError(languageType.equalsIgnoreCase("ms")?Constants.ms.CAPTURE_ADDR_AUTH_LANDMARK:Constants.en.CAPTURE_ADDR_AUTH_LANDMARK);
+			valid = false;
+		}
+
+		if(radBtnLandmark.isChecked() && answAddress_2.getText().toString().isEmpty() || radBtnPole.isChecked() && answAddress_2.getText().toString().isEmpty()){  
+			answAddress_2.setError(languageType.equalsIgnoreCase("ms")?Constants.ms.CAPTURE_ADDR_AUTH:Constants.en.CAPTURE_ADDR_AUTH);
+			valid = false;
+		}else{
+			answAddress_2.setError(null);
+		}
+
+		//answer for Q7
+		if(radTypeMukim.getCheckedRadioButtonId()<=0){
+			//Toast.makeText(getApplicationContext(), "Please select Mukim", Toast.LENGTH_SHORT).show();
+			radBtnBekok.setError(languageType.equalsIgnoreCase("ms")?Constants.ms.CAPTURE_ADDR_AUTH_MUKIM:Constants.en.CAPTURE_ADDR_AUTH_MUKIM);
+			radBtnChaah.setError(languageType.equalsIgnoreCase("ms")?Constants.ms.CAPTURE_ADDR_AUTH_MUKIM:Constants.en.CAPTURE_ADDR_AUTH_MUKIM);
+			radBtnGemereh.setError(languageType.equalsIgnoreCase("ms")?Constants.ms.CAPTURE_ADDR_AUTH_MUKIM:Constants.en.CAPTURE_ADDR_AUTH_MUKIM);
+			radBtnSgSgmt.setError(languageType.equalsIgnoreCase("ms")?Constants.ms.CAPTURE_ADDR_AUTH_MUKIM:Constants.en.CAPTURE_ADDR_AUTH_MUKIM);
+			radBtnJabi.setError(languageType.equalsIgnoreCase("ms")?Constants.ms.CAPTURE_ADDR_AUTH_MUKIM:Constants.en.CAPTURE_ADDR_AUTH_MUKIM);
+			valid = false;
+		}
+
+		return valid;
 
 	}
+
+	//load Locality
+	public void loadLocality(){
+
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(
+					new InputStreamReader(getAssets().open("locality.txt"), "UTF-8")); 
+
+			List<String> list = new ArrayList<String>();
+
+			// do reading, usually loop until end of file reading 
+			String mLine;
+			while ((mLine = reader.readLine()) != null) {
+				//process line
+				//. ...
+				list.add(mLine);
+				ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context,
+						R.layout.spinner_locality_item, list);
+				dataAdapter.setDropDownViewResource(R.layout.spinner_dropdown_locality_item);
+				spinnerLocality.setAdapter(dataAdapter);
+				Log.d("Capture Photo","Locality: ["+mLine+"]");
+			}
+		} catch (IOException e) {
+			//log the exception
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e) {
+					//log the exception
+				}
+			}
+		}
+
+
+	}	
+
+	//localtization to setup language
+	public void setLocale(String lang) {
+
+		Log.d(TAG,"TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT["+lang+"]");
+		myLocale = new Locale(lang);
+		Resources res = getResources();
+		DisplayMetrics dm = res.getDisplayMetrics();
+		Configuration conf = res.getConfiguration();
+		conf.locale = myLocale;
+		res.updateConfiguration(conf, dm);
+
+	}
+	
+	private String getDateTime() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+		Date date = new Date();
+		return dateFormat.format(date);
+	}
 }
+

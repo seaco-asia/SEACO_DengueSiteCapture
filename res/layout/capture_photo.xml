@@ -3,23 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-    
-    <TextView android:id="@+id/msg"
-        	  android:layout_width="wrap_content"
-    		  android:layout_height="wrap_content"
-    		  android:layout_centerInParent="true"
-        	/>
-    
-    
-    <Button
-        android:id="@+id/btnLaunchCapture"
+
+    <TextView
+        android:id="@+id/msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="117dp"
-        android:text="@string/captureLaunchPhoto" />
+        android:layout_centerInParent="true" />
 
     <Spinner
         android:id="@+id/spinner1"
@@ -28,11 +17,94 @@
         android:layout_alignLeft="@+id/btnLaunchCapture"
         android:layout_alignTop="@+id/msgSite"
         android:layout_marginTop="20dp" />
-    
-    <TextView android:id="@+id/msgSite"
-        	  android:text="Select a type of Dengue Site: "
-        	  android:layout_width="wrap_content"
-        	  android:layout_height="wrap_content"
-        	  android:layout_alignLeft="@+id/spinner1"
-        	  android:layout_alignTop="@+id/msg" />
+
+    <TextView
+        android:id="@+id/msgSite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/spinner1"
+        android:layout_alignTop="@+id/msg"
+        android:text="@string/site_type" />
+
+    <TextView
+        android:id="@+id/msgSiteReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/radioGroupReport"
+        android:layout_alignLeft="@+id/msgSite"
+        android:layout_marginBottom="25dp"
+        android:text="@string/site_report" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/msg"
+        android:layout_alignLeft="@+id/msgSiteReport"
+        android:layout_marginBottom="30dp" >
+
+        <RadioButton
+            android:id="@+id/radBreeding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/rad_breeding" />
+
+        <RadioButton
+            android:id="@+id/radCase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rad_case" />
+
+        <RadioButton
+            android:id="@+id/radTrap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rad_trap" />
+    </RadioGroup>
+
+    <!--
+    <Button
+        android:id="@+id/btn_mys"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/msgSiteReport"
+        android:layout_alignLeft="@+id/msgSiteReport"
+        android:text="@string/btn_mys" />
+
+    <Button
+        android:id="@+id/btn_eng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btn_mys"
+        android:layout_alignRight="@+id/msgSiteReport"
+        android:text="@string/btn_eng" />
+    -->
+
+    <Button
+        android:id="@+id/btn_Logout"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/btn_Logout" />
+
+    <Button
+        android:id="@+id/btnLaunchCapture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:text="@string/captureLaunchPhoto" />
+
+    <Button
+        android:id="@+id/btn_UploadOfflineMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnLaunchCapture"
+        android:layout_centerHorizontal="true"
+        android:text="@string/uploadOffline" />
+
 </RelativeLayout>

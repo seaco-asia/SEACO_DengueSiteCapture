@@ -2,29 +2,33 @@ package com.seaco.denguesitecapture.model;
 
 public class UserDetail {
 
-	private int userId;
+	private String userId;
 	private String userName;
 	private String userEmail;
 	private String userPassword;
 	private String userRegtype;
+	private String userPhoneNo;
+	private String regDate;
 
 	public UserDetail(){}
 	
-	public UserDetail(String userName, String userEmail, String userPassword, String userRegtype){
+	public UserDetail(String userId, String userName, String userEmail, String userPassword, String userRegtype, String userPhoneNo,  String regDate){
 		super();
+		this.userId = userId;
 		this.userName = userName;
 		this.userEmail = userEmail;
 		this.userPassword = userPassword;
 		this.userRegtype = userRegtype;
+		this.userPhoneNo = userPhoneNo;
+		this.regDate = regDate;
 	}
 
 
-
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
@@ -60,5 +64,20 @@ public class UserDetail {
 		this.userRegtype = userRegtype;
 	}
 
+	public String getUserPhoneNo() {
+		return userPhoneNo;
+	}
+
+	public void setUserPhoneNo(String userPhoneNo) {
+		this.userPhoneNo = userPhoneNo;
+	}
+
+	public String getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
 
 }

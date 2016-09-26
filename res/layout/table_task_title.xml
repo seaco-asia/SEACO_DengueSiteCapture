@@ -1,14 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutRelative"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:id="@+id/layoutRelative" >
+    android:gravity="center_horizontal" >
+
+    <TableLayout
+        android:id="@+id/tableLayoutSearching"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#800000"
+        android:orientation="vertical" >
+
+        <TableRow
+            android:id="@+id/tableRowSearch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ffffff" >
+
+            <TextView
+                android:id="@+id/task_title_Search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dip"
+                 android:text="@string/task_title_Search"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/task_title2_Search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dip"
+                android:text="@string/doubleDot"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinnerMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRowSearch2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ffffff" >
+
+            <TextView
+                android:id="@+id/task_title_Search2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dip"
+                 android:text="@string/task_title_Search2"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/task_title2_Search2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dip"
+                android:text="@string/doubleDot"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinnerSub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRowSearchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:gravity="right" >
+
+            <Button
+                android:id="@+id/buttonSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:text="@string/task_btn_Search"/>
+        </TableRow>
+    </TableLayout>
 
     <TableLayout
         android:id="@+id/tableLayoutTitle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_above="@+id/tableLayoutTitle"
+        android:layout_below="@+id/tableLayoutSearching"
         android:background="#800000"
         android:scrollbars="vertical"
         android:stretchColumns="*" >
@@ -27,7 +112,7 @@
                 android:background="#808080"
                 android:gravity="left"
                 android:padding="5dip"
-                android:text="ID"
+                 android:text="@string/task_id"
                 android:textStyle="bold" />
 
             <TextView
@@ -38,7 +123,7 @@
                 android:background="#808080"
                 android:gravity="left"
                 android:padding="5dip"
-                android:text="Filename"
+                android:text="@string/task_filename_title"
                 android:textStyle="bold" />
 
             <TextView
@@ -48,9 +133,9 @@
                 android:layout_margin="1dip"
                 android:background="#808080"
                 android:gravity="left"
-                android:padding="5dip"
                 android:lines="2"
-                android:text="Report\nDate"
+                android:padding="5dip"
+                 android:text="@string/task_reportDate_title"
                 android:textStyle="bold" />
 
             <TextView
@@ -61,7 +146,7 @@
                 android:background="#808080"
                 android:gravity="left"
                 android:padding="5dip"
-                android:text="Claim"
+                android:text="@string/task_claim_title"
                 android:textStyle="bold" />
         </TableRow>
     </TableLayout>
@@ -96,7 +181,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="prev" />
+            android:text="@string/btn_prev" />
 
         <TextView
             android:id="@+id/pageNumber"
@@ -115,7 +200,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="next" />
+            android:text="@string/btn_next" />
     </LinearLayout>
 
 </RelativeLayout>
