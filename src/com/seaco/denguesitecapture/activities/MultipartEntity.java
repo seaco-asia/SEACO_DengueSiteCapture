@@ -16,8 +16,6 @@ import org.apache.http.HttpEntity;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.message.BasicHeader;
 
-import com.seaco.denguesitecapture.activities.CustomMultiPartEntity.ProgressListener;
-
 public class MultipartEntity implements HttpEntity {
 
     private String boundary = null;
@@ -199,7 +197,7 @@ public class MultipartEntity implements HttpEntity {
 		{
 			out.write(b, off, len);
 			this.transferred += len;
-			this.listener.transferred(this.transferred, totalSize);
+			this.listener.transferred(this.transferred);
 			//this.listener.transferred((int) ((this.transferred / (float) getContentLength()) * 100);
 		}
 
@@ -207,7 +205,7 @@ public class MultipartEntity implements HttpEntity {
 		{
 			out.write(b);
 			this.transferred++;
-			this.listener.transferred(this.transferred, totalSize);
+			this.listener.transferred(this.transferred);
 		}
 	}
 

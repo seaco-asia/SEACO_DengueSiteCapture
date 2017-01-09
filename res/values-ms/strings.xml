@@ -1,0 +1,201 @@
+<resources>
+
+    <!-- Login page -->
+
+    <string name="phone_no">No. Telefon:</string>
+    <string name="password">Kata Laluan:</string>
+    <string name="btn_login">Log Masuk</string>
+    <string name="btn_signup">Daftar</string>
+    <string name="radOnlineOn">Buka</string>
+    <string name="radOnlineOff">Tutup</string>
+    <string name="sel_mode">Mod dalam Talian</string>
+    <string name="phone_no_hint">No Telefon</string>
+    <string name="login_password_hint">Kata Laluan</string>
+
+    <!-- Signup page -->
+
+    <string name="name">Nama</string>
+    <string name="email">Email</string>
+    <string name="signup_phone_no">No. Telefon</string>
+    <string name="signup_password">Kata Laluan</string>
+    <string name="signup_name_hint">Masukkan Nama</string>
+    <string name="signup_phoneNo_hint">Masukkan No Telefon</string>
+    <string name="signup_password_hint">Masukkan Kata Laluan</string>
+    <string name="btn_createAccount">Buka Akaun</string>
+    <string name="btn_back">Kembali</string>
+
+    <!-- upload offline -->
+
+    <string name="uploadOffline">Muat naik Secara Manual</string>
+
+    <!-- capture_photo page -->
+
+    <string name="site_report">Jenis Denggi Report:</string>
+    <!-- <string name="site_report">Pilih jenis Denggi Report:</string> -->
+    <string name="rad_breeding">Kawasan Pembiakan</string>
+    <string name="rad_case">Kes</string>
+    <string name="rad_trap">Perangkap Nyamuk</string>
+    <string name="site_type">Pilih jenis kawasan pembiakan Denggi: </string>
+    <string name="captureLaunchPhoto">Ambil Gambar Lokasi Denggi</string>
+    <string name="patientName_title">Nama Pesakit: </string>
+
+    <!-- history page -->
+
+    <string name="history_title_Search">Mencari\nDengan</string>
+    <string name="history_title_Search2">Semua</string>
+    <string name="history_btn_Search">Cari</string>
+    <string name="history_id">ID</string>
+    <string name="history_filename_title">Nama Fail</string>
+    <string name="history_comment_title">Status</string>
+    <string name="history_detail_title">Detail</string>
+
+    <!-- task page -->
+
+    <string name="task_title_Search">Mencari\nDengan</string>
+    <string name="task_title_Search2">Semua</string>
+    <string name="task_btn_Search">Cari</string>
+    <string name="task_id">ID</string>
+    <string name="task_filename_title">Nama Fail</string>
+    <string name="task_reportDate_title">Tarikh\nDilaporkan</string>
+    <string name="task_claim_title">Tuntutan</string>
+    <string name="task_status_title">Status</string>
+    <string name="task_detail_title">Detail Task History</string>
+    <string name="task_address_title">Locality</string>
+    <string name="task_gps_title">GPS	</string>
+    <string name="task_username_title_TaskDetail">Dilaporkan Oleh</string>
+    <string name="task_uploaded_title_TaskDetail">Ulasan Komuniti</string>
+    <string name="task_id_title">ID Tugasan</string>
+    <string name="task_updatedate_title">Kemaskini Oleh/Tarikh</string>
+    <string name="task_comment_title">Ulasan</string>
+
+    <!-- case page -->
+
+    <string name="case_title_Search">Mencari\nDengan</string>
+    <string name="case_title_Search2">Semua</string>
+    <string name="case_btn_Search">Cari</string>
+    <string name="case_id">ID</string>
+    <string name="case_filename_title">Nama Fail</string>
+    <string name="case_reportDate_title">Tarikh\nDilaporkan</string>
+    <string name="case_claim_title">Kemaskini</string>
+    <string name="case_status_title">Status</string>
+    <string name="case_detail_title">Detail</string>
+    <string name="case_address_title">Locality</string>
+    <string name="case_gps_title">GPS	</string>
+    <string name="case_username_title_caseDetail">Dilaporkan Oleh</string>
+    <string name="case_uploaded_title_caseDetail">Ulasan Komuniti</string>
+    <string name="case_id_title">ID Tugasan</string>
+    <string name="case_updatedate_title">Kemaskini Oleh/Tarikh</string>
+    <string name="case_comment_title">Ulasan</string>
+    <string name="case_patientName_title">Nama Pesakit</string>
+
+    <!-- history manual page -->
+
+    <string name="histManual_title_Search">Mencari\nDengan</string>
+    <string name="histManual_title_Search2">Semua</string>
+    <string name="histManual_btn_Search">Cari</string>
+    <string name="histManual_id">ID</string>
+    <string name="histManual_reportDate_title">Tarikh\nDilaporkan</string>
+    <string name="histManual_upload_title">Muat\nNaik</string>
+    <string name="histManual_reportType_title">Jenis Repot</string>
+    <!--
+    <string name="case_claim_title">Update</string>
+    <string name="case_status_title">Status</string>
+    -->
+    <string name="histManual_detail_title">Detail</string>
+    <string name="histManual_btnUpload">Muat\nNaik</string>
+    <!--
+    <string name="case_address_title">Locality</string>
+    <string name="case_gps_title">GPS	</string>
+    <string name="case_username_title_TaskDetail">Report by</string>
+    <string name="case_uploaded_title_TaskDetail">Community Comment</string>
+    <string name="case_id_title">Task ID</string>
+    <string name="case_updatedate_title">Update:\nDate/By</string>
+    <string name="case_comment_title">Comment</string>
+    <string name="case_patientName_title">Patient\'s Name:</string>
+    -->
+
+
+    <!-- Snap photo page -->
+
+    <string name="snap_photo">Ambil Foto</string>
+    <string name="take_photo">Ambil Foto</string>
+    <string name="address_title">Alamat kawasan pembiakan nyamuk (Sila isikan medan alamat ini untuk mendapatkan lokasi yang tepat)</string>
+    <string name="hint_editText_Address">Klik di sini untuk mengisi medan ini</string>
+    <string name="photoDesc_title">Penerangan Gambar</string>
+    <string name="hint_editText_Photodress">Klik di sini untuk mengisi medan ini</string>
+    <string name="save">Simpan</string>
+
+    <!-- Dialog Image Description -->
+
+    <string name="addImageDesc_title">Tambahkan Keterangan Imej</string>
+
+    <!-- Dialog Image Address -->
+
+    <string name="addImageAddrress_title">Maklumat kawasan pembiakan</string>
+    <string name="titleAddress_locality">Sila pilih kawasan pembiakan:</string>
+    <string name="hint_answAddress_locality">Jika anda menjawab \'Lain-lain\', sila nyatakan kawasan itu.</string>
+    <string name="titleAddress_indicator">Sila pilih penunjuk kawasan pembiakan:</string>
+    <string name="rad_landmark">Landmark/Mercu</string>
+    <string name="rad_pole">Pole/Tiang</string>
+    <string name="rad_notApplicable">Not applicable/Tidak Berkaitan</string>
+    <string name="hint_answAddress_landmark">Berdasarkan pilihan, sila nyatakan Landmark/Mercu atau nombor tiang.</string>
+    <string name="titleAddress_mukim">Mukim kawasan pembiakan?</string>
+    <string name="rad_Bekok">Bekok</string>
+    <string name="rad_Chaah">Chaah</string>
+    <string name="rad_Gemereh">Gemereh</string>
+    <string name="rad_Sg">Sg Segamat</string>
+    <string name="rad_Jabi">Jabi</string>
+    <string name="rad_Jementah">Jementah</string>
+    <string name="rad_Sermin">Sermin</string>
+    <string name="rad_BulohKasap">Buloh Kasap</string>
+    <string name="rad_Gemas">Gemas</string>
+    <string name="rad_Pagoh">Pagoh</string>
+    <string name="rad_Labis">Labis</string>
+
+    <!-- Dialog History/Task/Claim Detail -->
+
+    <string name="id_title_dialog">ID	</string>
+    <string name="filename_title_dialog">Nama Fail</string>
+    <string name="address_title_dialog">Locality</string>
+    <string name="gps_title_dialog">GPS	</string>
+    <string name="datereport_title_dialog">Tarikh Dilaporkan</string>
+    <string name="status_title_dialog">Status	</string>
+    <string name="uploaded_title_dialog">Ulasan Komuniti</string>
+    <string name="commentofficer_title_dialog">Ulasan Pegawai</string>
+    <string name="nameofficer_title_dialog">Nama Pegawai</string>
+    <string name="patientName_title_dialog">Nama Pesakit</string>
+
+    <!-- Dialog Claim Task -->
+
+    <string name="claim_officer_title">"Tuntutan Tugas</string>
+    <string name="claim_reportby_title_dialog">Dilaporkan Oleh</string>
+    <string name="claim_status_title_dialog">Keputusan</string>
+    <string name="rad_viewed">Viewed/Telah Dilihat</string>
+    <string name="rad_inProcess">In Process/Dalam proses</string>
+    <string name="rad_resolved">Resolved/Telah Diselesaikan</string>
+    <string name="rad_duplicate">Duplicate/Salinan</string>
+    <string name="rad_rejected">Not Relevant/Tidak relevan</string>
+    <string name="rad_none">None</string>
+
+    <!-- Dialog Duplicate -->
+    <string name="btnCancel">Cancel</string>
+    <string name="btnOk">Ok</string>
+    <string name="txtDupQuestion">Anda telah memilih "Duplicate/Salinan". Adakah anda mahu memadam rekod ini?</string>
+    <string name="txtNotRelQuestion">Anda telah memilih "Not Relevant/Tidak relevan". Rekod ini akan dipadamkan dari sistem.</string>
+
+    <!-- common -->
+
+    <string name="btn_next">Seterusnya</string>
+    <string name="btn_prev">Terdahulu</string>
+    <string name="doubleDot">:</string>
+    <string name="app_name">Dengue Site Capture</string>
+    <string name="upload_photo">Upload Photo</string>
+    <string name="upload_server">Upload</string>
+    <string name="uploaded">Successfully uploaded</string>
+    <string name="action_settings">Settings</string>
+    <string name="btn_label1"> Fragment One </string>
+    <string name="btn_label2"> Fragment Two </string>
+    <string name="sel_language">Bahasa</string>
+    <string name="btn_Logout">Log Keluar</string>
+
+</resources>

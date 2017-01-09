@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+     <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:stretchColumns="*" 
+   	 	android:background="#800000">
+      
+       <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="1dip" >
+
+        <TextView
+                android:id="@+id/case_id"
+                android:layout_width="10dp"
+            	android:layout_height="match_parent"
+            	android:gravity ="left"
+                android:background="#ffffff" 
+				android:layout_margin="1dip"  
+				android:padding="8dip"/>
+
+         <TextView
+                android:id="@+id/case_patientName"
+                android:layout_width="60dp"
+            	android:layout_height="match_parent"
+                android:background="#ffffff" 
+				android:layout_margin="1dip"  
+				android:padding="8dip" />
+            
+        <TextView
+                android:id="@+id/case_reportDate"
+                android:layout_width="40dp"
+            	android:layout_height="match_parent"
+                android:background="#ffffff" 
+				android:layout_margin="1dip"  
+				android:padding="8dip" />
+        
+        <!-- <TextView
+                android:id="@+id/history_detail"
+                android:layout_width="10dp"
+            	android:layout_height="match_parent"
+            	android:gravity ="right"
+                android:background="#ffffff" 
+				android:layout_margin="1dip"  
+				android:padding="15dip" /> -->
+        
+        <ImageView
+            android:id="@+id/imageView_detail"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:gravity ="right"
+            android:background="#ffffff" 
+			android:layout_margin="1dip"  
+			android:padding="8dip"
+            android:src="@drawable/arrow_down_small" />
+  
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

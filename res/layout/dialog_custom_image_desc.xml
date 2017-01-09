@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="300dp" >
+
+    <LinearLayout
+        android:id="@+id/linearLayoutDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/black" >
+
+         <!-- <ImageButton
+            android:id="@+id/imageButtonBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_back" />
+
+        <ImageButton
+            android:id="@+id/imageButtonImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_view_image" /> -->
+        
+        <!-- <ImageButton
+            android:id="@+id/save_ImageDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_save" /> -->
+
+        <Button
+            android:id="@+id/save_ImageDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:background="#ff888888"
+            android:text="@string/save" />
+
+        <TextView
+            android:id="@+id/addImageDesc_title"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_marginLeft="5dp"
+            android:background="#ff888888"
+            android:text="@string/addImageDesc_title"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/editText_Photo"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayoutDialog"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:maxLength="300" >
+
+        <requestFocus />
+    </EditText> 
+
+</RelativeLayout>

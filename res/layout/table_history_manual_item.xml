@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#800000"
+        android:scrollbars="vertical"
+        android:stretchColumns="*" >
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="1dip" >
+
+            <TextView
+                android:id="@+id/histManual_id"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dip"
+                android:background="#ffffff"
+                android:gravity="left"
+                android:padding="5dip" />
+
+            <TextView
+                android:id="@+id/histManual_reportDate"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dip"
+                android:background="#ffffff"
+                android:padding="5dip" />
+
+            <TextView
+                android:id="@+id/histManual_reportType"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dip"
+                android:background="#ffffff"
+                android:padding="5dip" />
+
+            <ImageView
+                android:id="@+id/histManual_imageView_detail"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dip"
+                android:background="#ffffff"
+                android:gravity="right"
+                android:padding="5dip"
+                android:src="@drawable/arrow_down_small" />
+
+            <Button
+                android:id="@+id/histManual_btnUpload"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dip"
+                android:background="#ACA899"
+                android:gravity="center"
+                android:padding="5dip"
+                android:text="@string/histManual_btnUpload"/>
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

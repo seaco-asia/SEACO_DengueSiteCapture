@@ -1,19 +1,227 @@
 <resources>
 
-    <string name="app_name">Dengue Site Capture</string>
+    <!-- Login page -->
+
+    <string name="phone_no">Phone No:</string>
+    <string name="password">Password:</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_signup">Signup</string>
+    <string name="radOnlineOn">On</string>
+    <string name="radOnlineOff">Off</string>
+    <string name="sel_mode">Online Mode</string>
+    <string name="phone_no_hint">Phone No</string>
+    <string name="login_password_hint">Password</string>
+
+    <!-- Signup page -->
+
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="signup_phone_no">Phone No</string>
+    <string name="signup_password">Password</string>
+    <string name="btn_createAccount">Create Account</string>
+    <string name="btn_back">Back</string>
+  <string name="signup_name_hint">Enter Name</string>
+    <string name="signup_phoneNo_hint">Enter Phone No</string>
+    <string name="signup_password_hint">Enter Password</string>
+    
+    <!-- upload offline -->
+    <string name="uploadOffline">Upload Manually</string>
+
+    <!-- capture_photo page -->
+    <!-- <string name="site_report">Select a type of Dengue Report: </string> -->
+    <string name="site_report">Type of Dengue Report: </string>
+    <string name="rad_breeding">Breeding Site</string>
+    <string name="rad_case">Case</string>
+    <string name="rad_trap">Mosquito Trap</string>
+    <string name="site_type">Select a type of Dengue Site: </string>
+    <string name="captureLaunchPhoto">Capture a Dengue Location</string>
+    <string name="patientName_title">Patient\'s Name</string>
+
+    <!-- history page -->
+
+    <string name="history_title_Search">Searching\nBy	</string>
+    <string name="history_title_Search2">All</string>
+    <string name="history_btn_Search">Search</string>
+    <string name="history_id">ID</string>
+    <string name="history_filename_title">Filename</string>
+    <string name="history_comment_title">Status</string>
+    <string name="history_detail_title">Detail</string>
+
+    <!-- task page -->
+
+    <string name="task_title_Search">Searching\nBy	</string>
+    <string name="task_title_Search2">All</string>
+    <string name="task_btn_Search">Search</string>
+    <string name="task_id">ID</string>
+    <string name="task_filename_title">Filename</string>
+    <string name="task_reportDate_title">Report\nDate</string>
+    <string name="task_claim_title">Claim</string>
+    <string name="task_status_title">Status</string>
+    <string name="task_detail_title">Detail Task History</string>
+    <string name="task_address_title">Locality</string>
+    <string name="task_gps_title">GPS	</string>
+    <string name="task_username_title_TaskDetail">Report by</string>
+    <string name="task_uploaded_title_TaskDetail">Community Comment</string>
+    <string name="task_id_title">Task ID</string>
+    <string name="task_updatedate_title">Update:\nDate/By</string>
+    <string name="task_comment_title">Comment</string>
+
+    <!-- case page -->
+
+    <string name="case_title_Search">Searching\nBy	</string>
+    <string name="case_title_Search2">All</string>
+    <string name="case_btn_Search">Search</string>
+    <string name="case_id">ID</string>
+    <string name="case_filename_title">Filename</string>
+    <string name="case_reportDate_title">Report\nDate</string>
+    <string name="case_claim_title">Update</string>
+    <string name="case_status_title">Status</string>
+    <string name="case_detail_title">Detail</string>
+    <string name="case_address_title">Locality</string>
+    <string name="case_gps_title">GPS	</string>
+    <string name="case_username_title_TaskDetail">Report by</string>
+    <string name="case_uploaded_title_TaskDetail">Community Comment</string>
+    <string name="case_id_title">Task ID</string>
+    <string name="case_updatedate_title">Update:\nDate/By</string>
+    <string name="case_comment_title">Comment</string>
+    <string name="case_patientName_title">Patient\'s Name:</string>
+
+    <!-- mosquito trap page -->
+
+    <string name="mosquito_title_Search">Searching\nBy	</string>
+    <string name="mosquito_title_Search2">All</string>
+    <string name="mosquito_btn_Search">Search</string>
+    <string name="mosquito_id">ID</string>
+    <string name="mosquito_filename_title">Filename</string>
+    <string name="mosquito_reportDate_title">Report\nDate</string>
+    <!--
+    <string name="case_claim_title">Update</string>
+    <string name="case_status_title">Status</string>
+    -->
+    <string name="mosquito_detail_title">Detail</string>
+    <!--
+    <string name="case_address_title">Locality</string>
+    <string name="case_gps_title">GPS	</string>
+    <string name="case_username_title_TaskDetail">Report by</string>
+    <string name="case_uploaded_title_TaskDetail">Community Comment</string>
+    <string name="case_id_title">Task ID</string>
+    <string name="case_updatedate_title">Update:\nDate/By</string>
+    <string name="case_comment_title">Comment</string>
+    <string name="case_patientName_title">Patient\'s Name:</string>
+    -->
+
+
+    <!-- history manual page -->
+
+    <string name="histManual_title_Search">Searching\nBy	</string>
+    <string name="histManual_title_Search2">All</string>
+    <string name="histManual_btn_Search">Search</string>
+    <string name="histManual_id">ID</string>
+    <string name="histManual_reportDate_title">Report\nDate</string>
+    <string name="histManual_upload_title">Upload</string>
+    <string name="histManual_reportType_title">Report\nType</string>
+    <!--
+    <string name="case_claim_title">Update</string>
+    <string name="case_status_title">Status</string>
+    -->
+    <string name="histManual_detail_title">Detail</string>
+    <string name="histManual_btnUpload">Upload</string>
+    <!--
+    <string name="case_address_title">Locality</string>
+    <string name="case_gps_title">GPS	</string>
+    <string name="case_username_title_TaskDetail">Report by</string>
+    <string name="case_uploaded_title_TaskDetail">Community Comment</string>
+    <string name="case_id_title">Task ID</string>
+    <string name="case_updatedate_title">Update:\nDate/By</string>
+    <string name="case_comment_title">Comment</string>
+    <string name="case_patientName_title">Patient\'s Name:</string>
+    -->
+
+
+    <!-- Snap photo page -->
 
     <string name="snap_photo">Snap Photo</string>
-
-    <string name="upload_photo">Upload Photo</string>
-
-    <string name="captureLaunchPhoto">Capture a Dengue Location</string>
-
-    <string name="upload_server">Upload</string>
-    
-    <string name="uploaded">Successfully uploaded</string>
-    
-    <string name="action_settings">Settings</string>
-    
     <string name="take_photo">Take a Photo</string>
-    
+    <string name="address_title">Address of Mosquito\'s Breeding Site (Please fill in this address field to get the accurate location)</string>
+    <string name="hint_editText_Address">Click here to fill up this field</string>
+    <string name="photoDesc_title">Photo Description</string>
+    <string name="hint_editText_Photodress">Click here to fill up this field</string>
+    <string name="save">Save</string>
+
+    <!-- Dialog Image Description -->
+
+    <string name="addImageDesc_title">Add Description of the Image</string>
+
+    <!-- Dialog Image Address -->
+
+    <string name="addImageAddrress_title">Breeding Site Information</string>
+    <string name="titleAddress_locality">Please select the locality of the breeding site:</string>
+    <string name="hint_answAddress_locality">If you answered \'Other\', please specify the locality.</string>
+    <string name="titleAddress_indicator">Please select the indicator of the breeding site:</string>
+    <string name="rad_landmark">Landmark</string>
+    <string name="rad_pole">Pole</string>
+    <string name="rad_notApplicable">Not applicable</string>
+    <string name="hint_answAddress_landmark">Based on the selection, please specify the landmark or pole number.</string>
+    <string name="titleAddress_mukim">Which mukim is the breeding site in?</string>
+    <string name="rad_Bekok">Bekok</string>
+    <string name="rad_Chaah">Chaah</string>
+    <string name="rad_Gemereh">Gemereh</string>
+    <string name="rad_Sg">Sg Segamat</string>
+    <string name="rad_Jabi">Jabi</string>
+    <string name="rad_Jementah">Jementah</string>
+    <string name="rad_Sermin">Sermin</string>
+    <string name="rad_BulohKasap">Buloh Kasap</string>
+    <string name="rad_Gemas">Gemas</string>
+    <string name="rad_Pagoh">Pagoh</string>
+    <string name="rad_Labis">Labis</string>
+
+    <!-- Dialog History/Task/Claim Detail -->
+
+    <string name="id_title_dialog">ID	</string>
+    <string name="filename_title_dialog">Filename</string>
+    <string name="address_title_dialog">Locality</string>
+    <string name="gps_title_dialog">GPS	</string>
+    <string name="datereport_title_dialog">Report Date</string>
+    <string name="status_title_dialog">Status	</string>
+    <string name="uploaded_title_dialog">Community Comment</string>
+    <string name="commentofficer_title_dialog">Officer Comment</string>
+    <string name="nameofficer_title_dialog">Officer Name</string>
+    <string name="patientName_title_dialog">Patient\'s Name</string>
+
+    <!-- Dialog Claim Task -->
+
+    <string name="claim_officer_title">"Claim Task</string>
+    <string name="claim_reportby_title_dialog">Report By</string>
+    <string name="claim_status_title_dialog">Decision</string>
+    <string name="rad_viewed">Viewed</string>
+    <string name="rad_inProcess">In Process</string>
+    <string name="rad_resolved">Resolved</string>
+    <string name="rad_duplicate">Duplicate</string>
+    <string name="rad_rejected">Not Relevant</string>
+    <string name="rad_none">None</string>
+
+    <!-- Dialog Duplicate -->
+    <string name="btnCancel">Cancel</string>
+    <string name="btnOk">Ok</string>
+    <string name="txtDupQuestion">You have selected "Duplicate". Do you want to delete this record?</string>
+    <string name="txtNotRelQuestion">You have selected "Not Relevant". This record will be deleted from system.</string>
+
+    <!-- common -->
+
+    <string name="btn_next">next</string>
+    <string name="btn_prev">prev</string>
+    <string name="doubleDot">:</string>
+    <string name="btn_mys">Bahasa</string>
+    <string name="btn_eng">English</string>
+    <string name="btn_Logout">Logout</string>
+    <string name="app_name">Dengue Site Capture</string>
+    <string name="upload_photo">Upload Photo</string>
+    <string name="upload_server">Upload</string>
+    <string name="uploaded">Successfully uploaded</string>
+    <string name="action_settings">Settings</string>
+    <string name="btn_label1"> Fragment One </string>
+    <string name="btn_label2"> Fragment Two </string>
+    <string name="sel_language">Language</string>
+    <string name="txtViewDengueCapure">Capture Dengue</string>
+
 </resources>

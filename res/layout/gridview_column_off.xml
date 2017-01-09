@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <CheckBox
+        android:id="@+id/checkBoxStatus"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:clickable="false"/>
+
+    <ImageView
+        android:id="@+id/ColPhoto"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:id="@+id/ColImageID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/task_id"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/ColFilename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/task_filename_title"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/ColLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/task_gps_title"
+        android:textColor="#000000" />
+
+</LinearLayout>

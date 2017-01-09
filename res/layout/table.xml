@@ -1,8 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tableLayout"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
-    android:orientation="vertical">
-</TableLayout>
+    android:gravity="center_horizontal" >
+
+    <!-- <LinearLayout
+        android:id="@+id/linearLayoutHistorys"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/darker_gray" >
+
+        <TextView
+            android:id="@+id/txtFilter"
+            android:layout_width="109dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="Filter: " />
+
+        <RadioGroup
+            android:id="@+id/radFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/buttonAll"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="All" />
+
+            <RadioButton
+                android:id="@+id/buttonAppr"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Approved" />
+
+            <RadioButton
+                android:id="@+id/buttonReject"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Rejected" />
+        </RadioGroup>
+    </LinearLayout> -->
+
+    <ScrollView
+        android:id="@+id/ScrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="1000dp"
+        android:layout_above="@+id/linearLayoutHistory"
+        android:layout_below="@+id/linearLayoutHistorys"
+        android:fillViewport="true" >
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="1000dp"
+            android:orientation="vertical"
+            android:padding="5dp" >
+        </TableLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/black" >
+
+        <Button
+            android:id="@+id/buttonPrevious"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="prev" />
+
+        <TextView
+            android:id="@+id/pageNumber"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="next" />
+    </LinearLayout>
+
+</RelativeLayout>

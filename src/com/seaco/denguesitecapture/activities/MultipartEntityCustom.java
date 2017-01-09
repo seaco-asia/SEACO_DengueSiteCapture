@@ -11,14 +11,14 @@ import java.io.OutputStream;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
-import org.apache.http.entity.mime.FormBodyPart;
 import org.apache.http.message.BasicHeader;
 
 /* ToDO: Listener for ProgressUpdate */
 
 public class MultipartEntityCustom implements HttpEntity {
 
-    private String boundary = null;
+   
+	private String boundary = null;
 
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     boolean isSetLast = false;

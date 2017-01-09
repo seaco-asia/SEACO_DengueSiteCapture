@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/linearLayoutMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/black" >
+
+        <ImageButton
+            android:id="@+id/save_ImageAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_save" />
+
+        <TextView
+            android:id="@+id/addImageAddrress_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ff888888"
+            android:text="Add Address of the Image"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/ScrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="600dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/linearLayoutMenu"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:id="@+id/linearLayoutMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ff888888"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/linearLayoutQuestion1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#FFFFFF"
+                android:gravity="bottom"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/titleAddress_B1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="What is the number of the dwelling?"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/titleAddress_I1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/answAddress_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:maxLength="100" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutQuestion2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/titleAddress_B2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="What type of the street of that dwelling?"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold"
+                    android:textSize="15sp"  />
+
+                <RadioGroup
+                    android:id="@+id/answAddress_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <RadioButton
+                        android:id="@+id/radio2_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jalan" />
+
+                    <RadioButton
+                        android:id="@+id/radio2_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lorong" />
+
+                    <RadioButton
+                        android:id="@+id/radio2_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Not applicable" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutQuestion3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/titleAddress_B3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="What is the street name of the dwelling?"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold"
+                    android:textSize="15sp"  />
+
+                <TextView
+                    android:id="@+id/titleAddress_I3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/answAddress_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:maxLength="300" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutQuestion4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/titleAddress_B4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="What type of the area that dwelling in?"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold"
+                    android:textSize="15sp"  />
+
+                <RadioGroup
+                    android:id="@+id/answAddress_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <RadioButton
+                        android:id="@+id/radio4_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Taman" />
+
+                    <RadioButton
+                        android:id="@+id/radio4_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kampung" />
+
+                    <RadioButton
+                        android:id="@+id/radio4_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Felda" />
+
+                    <RadioButton
+                        android:id="@+id/radio4_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Not applicable" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutQuestion5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/titleAddress_B5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Which taman/kampung/felda is that dwelling in?"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold"
+                    android:textSize="15sp"  />
+
+                <TextView
+                    android:id="@+id/titleAddress_I5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/answAddress_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:maxLength="300" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutQuestion6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/titleAddress_B6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="What batu is the dwelling along?"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold"
+                    android:textSize="15sp"  />
+
+                <EditText
+                    android:id="@+id/answAddress_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:maxLength="100" >
+
+                    <requestFocus />
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutQuestion7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/titleAddress_B7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Which mukim is the dwelling in?"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold"
+                    android:textSize="15sp"  />
+
+                <RadioGroup
+                    android:id="@+id/answAddress_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <RadioButton
+                        android:id="@+id/radio7_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bekok" />
+
+                    <RadioButton
+                        android:id="@+id/radio7_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chaah" />
+
+                    <RadioButton
+                        android:id="@+id/radio7_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gemereh" />
+
+                    <RadioButton
+                        android:id="@+id/radio7_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sg Segamat" />
+
+                    <RadioButton
+                        android:id="@+id/radio7_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jabi" />
+                </RadioGroup>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

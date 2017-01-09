@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutRelative"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal" >
+
+    <TableLayout
+        android:id="@+id/tableLayoutSearching"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#800000"
+        android:orientation="vertical" >
+
+        <TableRow
+            android:id="@+id/tableRowSearch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ffffff" >
+
+            <TextView
+                android:id="@+id/histManual_title_Search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dip"
+                android:text="@string/histManual_title_Search"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/histManual_title2_Search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dip"
+                android:text="@string/doubleDot"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinnerMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRowSearch2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ffffff" >
+
+            <TextView
+                android:id="@+id/histManual_title_Search2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dip"
+                android:text="@string/histManual_title_Search2"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/histManual_title2_Search2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dip"
+                android:text="@string/doubleDot"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinnerSub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRowSearchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:gravity="right" >
+
+            <EditText
+                android:id="@+id/histManual_txtIdhidden"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:ems="10" />
+
+            <Button
+                android:id="@+id/buttonSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/histManual_btn_Search" />
+
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/tableLayoutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_above="@+id/tableLayoutTitle"
+        android:layout_below="@+id/tableLayoutSearching"
+        android:background="#800000"
+        android:scrollbars="vertical"
+        android:stretchColumns="*" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="1dip" >
+
+            <TextView
+                android:id="@+id/histManual_id"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dip"
+                android:background="#808080"
+                android:gravity="left"
+                android:padding="5dip"
+                android:text="@string/histManual_id"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/histManual_reportDate_title"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dip"
+                android:background="#808080"
+                android:gravity="left"
+                android:lines="2"
+                android:padding="5dip"
+                android:text="@string/histManual_reportDate_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/histManual_reportType_title"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dip"
+                android:background="#808080"
+                android:gravity="left"
+                android:lines="2"
+                android:padding="5dip"
+                android:text="@string/histManual_reportType_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/histManual_detail_title"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dip"
+                android:background="#808080"
+                android:gravity="left"
+                android:padding="5dip"
+                android:text="@string/histManual_detail_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/histManual_upload_title"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dip"
+                android:background="#808080"
+                android:gravity="left"
+                android:padding="5dip"
+                android:text="@string/histManual_upload_title"
+                android:textStyle="bold" />
+        </TableRow>
+    </TableLayout>
+
+    <ScrollView
+        android:id="@+id/ScrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="1000dp"
+        android:layout_above="@+id/linearLayoutHistory"
+        android:layout_below="@+id/tableLayoutTitle"
+        android:fillViewport="true" >
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#800000"
+            android:scrollbars="vertical"
+            android:stretchColumns="*" >
+        </TableLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/black" >
+
+        <Button
+            android:id="@+id/buttonPrevious"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="@string/btn_prev" />
+
+        <TextView
+            android:id="@+id/pageNumber"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="@string/btn_next" />
+    </LinearLayout>
+
+</RelativeLayout>
